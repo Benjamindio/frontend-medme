@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       
     },
     titleContainer:{
-      width:"80%",
+      width:"70%",
     marginTop:15
     },
     largeInputContainer:{

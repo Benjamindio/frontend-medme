@@ -4,16 +4,22 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import user from './reducers/user'
 import HomeScreen from './screens/HomeScreen';
 import OrderScreen from './screens/OrderScreen';
 import LoginScreen from './screens/LoginScreen';
 import CheckoutScreen from './screens/CheckoutScreen';
 import MyordersScreen from './screens/MyordersScreen';
 import InscriptionProfil from './screens/InscriptionProfil';
+import {Provider} from 'react-redux'
+import {configureStore} from '@reduxjs/toolkit'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const store = configureStore({
+  reducer: {user},
+})
 
 const TabNavigator = () => {
   return (
@@ -48,6 +54,7 @@ const TabNavigator = () => {
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
@@ -55,6 +62,7 @@ export default function App() {
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 };
 
