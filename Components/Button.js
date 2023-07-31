@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         elevation: 6,
         shadowRadius: 15,
         shadowOffset: {width:0.8, height:15},
+        marginBottom: 30,
     },
 
     textButton: {
