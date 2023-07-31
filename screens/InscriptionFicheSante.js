@@ -19,12 +19,12 @@ export default function InscriptionFicheSante(navigation) {
     const handlePress = () => {
         navigation.navigate('Inscription Profil')
       }
-const title = "Ma fiche santé"
+
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.header}><HeaderSansLogo name="Je crée mon profil" onPress={() => handlePress()} /></View>
-            <View style={styles.titleContainer}><Title title={title} style={styles.title}/></View>
+            <View style={styles.titleContainer}><Title title="Ma fiche santé" style={styles.title}/></View>
             <ScrollView > 
             <View style={styles.field}>
                 <View style={styles.largeInputContainer}>< InputDate placeholder="" 
