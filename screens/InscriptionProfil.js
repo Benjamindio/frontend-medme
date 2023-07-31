@@ -21,6 +21,11 @@ const [name, setName] = useState('');
 const [firstName, setFirstName] = useState('');
 const [email, setEmail] = useState('');
 
+handleClickYes = () => {
+     console.log('click bouton yes')
+     navigation.navigate('InscriptionFicheSante');
+}
+
 
     return (
         <KeyboardAvoidingView>
@@ -50,10 +55,10 @@ const [email, setEmail] = useState('');
                 />
                 <Text style={styles.centerText}>Êtes-vous sous traitement?</Text>
                 <View style={styles.smallButtonSection}>
-                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> console.log('click oui')}>
+                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickYes()}>
                         <Text style={styles.textSmallButton}>OUI</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> console.log('click non')}>
+                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickNo()}>
                         <Text style={styles.textSmallButton}>NON</Text>
                     </TouchableOpacity>
                 </View>

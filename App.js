@@ -11,6 +11,7 @@ import LoginScreen from './screens/LoginScreen';
 import CheckoutScreen from './screens/CheckoutScreen';
 import MyordersScreen from './screens/MyordersScreen';
 import InscriptionProfil from './screens/InscriptionProfil';
+import InscriptionFicheSante from './screens/InscriptionFicheSante';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,6 +53,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name = 'InscriptionProfil' component ={InscriptionProfil} />
+        <Stack.Screen name = 'InscriptionFicheSante' component ={InscriptionFicheSante} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
