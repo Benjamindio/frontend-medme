@@ -2,7 +2,7 @@ import HeaderSansLogo from '../Components/HeaderSansLogo'
 import Title from '../Components/Title'
 import InputDate from '../Components/InputDate'
 import Input from '../Components/Input'
-import ButtonNoColor from '../Components/ButtonNoColor'
+import ButtonNoIcon from '../Components/ButtonNoIcon'
 import {
     View, 
     Text,
@@ -17,7 +17,7 @@ import {
 export default function InscriptionFicheSante({navigation}) {
 
     const handlePress = () => {
-        navigation.navigate('Inscription Profil')
+        navigation.navigate('InscriptionProfil')
       }
 
 
@@ -28,18 +28,18 @@ export default function InscriptionFicheSante({navigation}) {
             <ScrollView > 
             <View style={styles.field}>
                 <View style={styles.largeInputContainer}>< InputDate placeholder="" 
-                cursorColor = '#154C79'
-                keyboardType = 'numeric'
-                title="Date de naissance" 
-                underlineWidth={'40%'}/></View>
-                <View style={styles.inputTailleEtPoids}> 
-                <View style={styles.inputSize}><Input placeholder="" text="cm" title='Taille' underlineWidth={40}/></View>
-                <View style={styles.inputSize}><Input placeholder=""  text="kg" title='Poids' underlineWidth={40}/></View>
-                </View>
-                <View style={styles.largeInputContainer}><Input placeholder="0 allergie déclarée" title="Allergies" underlineWidth={"20%"}/></View>
-                <View style={styles.largeInputContainer}><Input placeholder="0 traitement déclaré" title="Traitement en cours" underlineWidth={"40%"}/></View>
-                <ButtonNoColor textButton="Enregistrer" /> 
-                </View>
+                  cursorColor = '#154C79'
+                  keyboardType = 'numeric'
+                  title="Date de naissance" 
+                  underlineWidth={'40%'}/></View>
+                  <View style={styles.inputTailleEtPoids}> 
+                    <View style={styles.inputSize}><Input placeholder="" text="cm" title='Taille' underlineWidth={40}/></View>
+                    <View style={styles.inputSize}><Input placeholder=""  text="kg" title='Poids' underlineWidth={40}/></View>
+                  </View>
+                  <View style={styles.largeInputContainer}><Input placeholder="0 allergie déclarée" title="Allergies" underlineWidth={"20%"}/></View>
+                  <View style={styles.largeInputContainer}><Input placeholder="0 traitement déclaré" title="Traitement en cours" underlineWidth={"40%"}/></View>
+                  <ButtonNoIcon textButton="Enregistrer" onPress={() => navigation.navigate('TabNavigator', {sreen: 'Home'})} /> 
+              </View>
             </ScrollView> 
         </KeyboardAvoidingView>
     )

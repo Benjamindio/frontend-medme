@@ -27,11 +27,12 @@ const TabNavigator = () => {
         } else if (route.name === 'Order') {
           iconName = 'pills';
         } else if ( route.name === 'Profile') {
-          iconName = 'user-alt';
+          iconName = 'user';
         } else if ( route.name === 'Checkout') {
           iconName = 'shopping-cart';
+        } else if (route.name === 'MyordersScreen'){
+          iconName = 'notes-medical';
         }
-
         return <FontAwesome name={iconName} size={size} color={color} />;
       },
       tabBarActiveTintColor: '#154C79',

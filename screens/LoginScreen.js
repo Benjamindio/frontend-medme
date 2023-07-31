@@ -38,13 +38,14 @@ export default function LoginScreen({navigation}) {
 
         contentSection = (
             <View style={styles.contentContainer}>
-            <Input  placeholder='+33'
-                    cursorColor = '#154C79'
-                    maxLength = {10}
-                    keyboardType = 'numeric'
-                    onChangeText={(value) => setPhone(value)}
-                    value = {phone}
-                />
+            <View style={styles.largeInputContainer}><Input title="Téléphone"
+                                                            placeholder='+33'
+                                                            underlineWidth={"20%"}
+                                                            cursorColor = '#154C79'
+                                                            maxLength = {10}
+                                                            keyboardType = 'numeric'
+                                                            onChangeText={(value) => setPhone(value)}
+                                                            value = {phone}/></View>
             <Bouton textButton= 'Continuer'
                     iconName = 'arrow-right'
                     iconSize = {16}
@@ -88,7 +89,7 @@ export default function LoginScreen({navigation}) {
                 console.log('click', phone);
 
               // verifier conformite du numero telephone - fetch route générant code
-                fetch('http://192.168.1.155:3000/users/login', {
+                fetch('http://192.168.1.97:3000/users/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ phoneNumber: phone }),
@@ -109,7 +110,7 @@ export default function LoginScreen({navigation}) {
         // Bouton pour valider code et se diriger sur le screen profil - création new user dans la bd
         const handleClick = () => {
             console.log('Click bouton continuer')
-            fetch('http://192.168.1.155:3000/users/verify', {
+            fetch('http://192.168.1.97:3000/users/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phoneNumber: phone, generatedCode:code}),
@@ -190,5 +191,12 @@ export default function LoginScreen({navigation}) {
             fontSize: 20,
             fontWeight: 'bold',    
         },
+        input: {
+            width: '100%',
+        },
+        largeInputContainer:{
+            width:'80%',
+            alignContent:'center'
+          },
 
       });

@@ -34,24 +34,24 @@ handleClickYes = () => {
                     source = {require('../assets/LogoV1.png')}
                 />
                 <Title title = 'Je crée mon profil'/>
-                <Input  placeholder='Nom'
-                    cursorColor = '#154C79'
-                    keyboardType = 'default'
-                    onChangeText={(value) => setName(value)}
-                    value = {name}
-                />
-                <Input  placeholder='Prénom'
-                    cursorColor = '#154C79'
-                    keyboardType = 'default'
-                    onChangeText={(value) => setFirstName(value)}
-                    value = {firstName}
-                />
-                <Input  placeholder='Email'
-                    cursorColor = '#154C79'
-                    keyboardType = 'email-address'
-                    onChangeText={(value) => setEmail(value)}
-                    value = {email}
-                />
+                <View style={styles.largeInputContainer}><Input title="Nom" 
+                                                                underlineWidth={"20%"}
+                                                                cursorColor = '#154C79'
+                                                                keyboardType = 'default'
+                                                                onChangeText={(value) => setName(value)}
+                                                                value = {name}/></View>
+                <View style={styles.largeInputContainer}><Input title="Prénom" 
+                                                                underlineWidth={"20%"}
+                                                                cursorColor = '#154C79'
+                                                                keyboardType = 'default'
+                                                                onChangeText={(value) => setFirstName(value)}
+                                                                value = {firstName}/></View>
+                <View style={styles.largeInputContainer}><Input title="Email" 
+                                                                underlineWidth={"20%"}
+                                                                cursorColor = '#154C79'
+                                                                keyboardType = 'email-address'
+                                                                onChangeText={(value) => setEmail(value)}
+                                                                value = {email}/></View>
                 <Text style={styles.centerText}>Êtes-vous sous traitement?</Text>
                 <View style={styles.smallButtonSection}>
                     <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickYes()}>
@@ -109,13 +109,14 @@ handleClickYes = () => {
             shadowOffset: {width:0.8, height:15},
             marginBottom: 30,
         },
-    
         textSmallButton: {
             color: '#afb1b6',
             fontSize: 20,
             fontWeight: 'light',
     
         },
-        
-        
-    });
+        largeInputContainer:{
+            width:'80%',
+            alignContent:'center'
+          },
+         });
