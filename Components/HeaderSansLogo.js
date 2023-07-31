@@ -7,7 +7,7 @@ export default function headerWithoutLogo(props) {
 
     return (
         <View style={styles.container}>
-            <FontAwesome name='arrow-left' style={styles.icon} size={40}/>
+            <FontAwesome name='arrow-left' style={styles.icon} size={40} onPress={props.onPress}/>
             <Text style={styles.text}>{props.name}</Text> 
         </View>
     )
