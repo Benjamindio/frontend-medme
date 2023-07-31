@@ -100,8 +100,6 @@ export default function LoginScreen({navigation}) {
                             setTextContent(`Veuillez renseigner le code envoyé au numéro terminant par ********${num}.`)
                             setCode(data.generatedCode);
                             setIsContent(!isContent);
-                            console.log('ok')
-
                         } else {
                             console.log('error')
                         }

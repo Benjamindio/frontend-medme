@@ -26,7 +26,6 @@ handleClickYes = () => {
      navigation.navigate('InscriptionFicheSante');
 }
 
-
     return (
         <KeyboardAvoidingView>
             <View style={styles.container}>
