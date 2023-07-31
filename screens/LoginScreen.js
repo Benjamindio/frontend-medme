@@ -107,10 +107,22 @@ export default function LoginScreen({navigation}) {
                     })
         };
     
-        // Bouton pour generer Code
+        // Bouton pour valider code et se diriger sur le screen profil - création new user dans la bd
         const handleClick = () => {
             console.log('Click bouton continuer')
-            navigation.navigate('InscriptionProfil')
+            fetch('http://192.168.1.97:3000/users/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phoneNumber: phone, generatedCode:code}),
+            }).then(response => response.json())
+                .then(data => {
+                    if(data.result){
+                        //ouvrir écran profil
+                        navigation.navigate('InscriptionProfil')
+                    } else {
+                        console.log('error')
+                    }
+                })
         };
 
      return (
