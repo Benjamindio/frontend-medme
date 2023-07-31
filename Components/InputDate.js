@@ -6,7 +6,6 @@ import {
     Text,
     TextInput,
     View,
-    TouchableOpacity,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
@@ -21,7 +20,7 @@ export default function InputDate(props) {
                     keyboardType={props.keyboardType}
                     onChangeText={props.onChangeText}
                     >
-                    <TouchableOpacity style={styles.calendar}><FontAwesome name='arrow-left' style={styles.icon} size={25}/></TouchableOpacity>
+                    <FontAwesome name='calendar' size={25} style={styles.calendar}/>
         </TextInput>
         <View style={styles.underline} width={props.underlineWidth}></View>
           <View style={styles.titleContainer}>
@@ -33,7 +32,7 @@ export default function InputDate(props) {
 
 const styles = StyleSheet.create({
 input: {
-    
+    textAlign:'right',
     height: 60,
     backgroundColor: '#F5F5F5',
     marginBottom: 50,
@@ -44,13 +43,10 @@ input: {
     opacity: 0.8,
 },
 calendar:{
-  height:25,
-  widht:25,
-  backgroundColor:'red',
-},
-icon:{
   color: '#5FA59D'
+  
 },
+
 titleContainer: {
     flexDirection:'column',
     position: 'absolute',
