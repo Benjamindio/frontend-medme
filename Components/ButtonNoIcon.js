@@ -11,12 +11,11 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
-export default function Bouton(props) {
+export default function ButtonNoIcon(props) {
 
     return (
     <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={props.onPress}>
         <Text style={styles.textButton}>{props.textButton}</Text>
-        <FontAwesome name={props.iconName} size={props.iconSize} color={props.iconColor}/>
     </TouchableOpacity>
 
     )};
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         height: 56,
         borderRadius: 8,
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
         fontSize: 30,
         shadowColor: '#000000',
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
         elevation: 6,
         shadowRadius: 15,
         shadowOffset: {width:0.8, height:15},
-        marginBottom: 50,
+        marginBottom: 30,
     },
 
     textButton: {

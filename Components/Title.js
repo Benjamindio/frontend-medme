@@ -25,14 +25,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         justifyContent: 'center',
         paddingBottom: 10,
-        marginBottom: 20,
+        marginBottom: 30,
         
     },
 
     title: {
         color: '#154C79',
         fontSize: 30,
-        fontWeight: 'bold',
+        fontWeight: 'light',
     },
 });
 

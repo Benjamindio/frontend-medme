@@ -16,7 +16,7 @@ import Bouton from '../Components/Button';
 import { text } from '@fortawesome/fontawesome-svg-core';
 
 
-export default function LoginScreen(navigation) {
+export default function LoginScreen({navigation}) {
 
     const [ title, setTitle ] = useState ('');
     const [ textContent, setTextContent] = useState ('');
@@ -33,6 +33,10 @@ export default function LoginScreen(navigation) {
         setTitle('Identifiez-vous');
         setTextContent('Veuillez saisir votre numéro de téléphone, nous vous enverrons un code de confirmation.')
     },[])
+
+    // const codeNumber = code.map((data,i) => {
+
+    // })
 
     if (!isContent) {
 
@@ -61,16 +65,16 @@ export default function LoginScreen(navigation) {
                         <Text style = {styles.textCode}>1</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>1</Text>
+                        <Text style = {styles.textCode}>2</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>1</Text>
+                        <Text style = {styles.textCode}>3</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>1</Text>
+                        <Text style = {styles.textCode}>4</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>1</Text>
+                        <Text style = {styles.textCode}>5</Text>
                     </View>
                 </View>
                 <Bouton textButton= 'Continuer'
@@ -94,26 +98,28 @@ export default function LoginScreen(navigation) {
             setTitle('Code de vérification')
             setTextContent(`Veuillez renseigner le code envoyé au numéro terminant par ********${num}.`)
             console.log(num)
+            console.log({phoneNumber:phone})
 
             // verifier conformite du numero telephone - fetch route générant code
 
-            fetch('http://localhost:3000/users/signup', {                
+            fetch('http://localhost:3000/users/login', {                
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phoneNumber:phone})
+                body: JSON.stringify({phoneNumber:phone})
             }).then (response => response.json())
                 .then (data => {
-                    if ( data.result) {
+                    if(data){
                         console.log(data)
-                        setCode(data.generatedCode)
-                        console.log('code', code)   
-                 };
+                    }else{
+                        console.log('error')
+                    }
                 })
         };
     
         // Bouton pour generer Code
         const handleClick = () => {
-                navigation.navigate('InscriptionProfil')
+            console.log('Click bouton continuer')
+            navigation.navigate('InscriptionProfil')
                 // Rediriger vers screen inscription
 
         };
@@ -135,7 +141,6 @@ export default function LoginScreen(navigation) {
 
     const styles = StyleSheet.create({
         container: {
-            flex:1,
             backgroundColor: '#F5F5F5',
             justifyContent: 'center',
             padding: 20,

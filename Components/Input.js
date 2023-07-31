@@ -27,7 +27,7 @@ input: {
     width: '85%',
     height: 60,
     backgroundColor: '#F5F5F5',
-    marginBottom: 50,
+    marginBottom: 20,
     borderRadius: 8,
     padding: 20,
     borderColor:'#afb1b6',
