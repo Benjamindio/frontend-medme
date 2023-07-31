@@ -1,7 +1,7 @@
 import HeaderSansLogo from './components/HeaderSansLogo'
-import Title from './components/Title'
-import Input from './components/Input'
-import ButtonNoColor from './components/ButtonNoColor'
+import Title from './Components/Title'
+import Input from './Components/Input'
+import ButtonNoColor from './Components/ButtonNoColor'
 import {
     View, 
     StyleSheet,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
       
     },
     titleContainer:{
-      width:"80%",
+      width:"70%",
     marginTop:15
     },
     largeInputContainer:{
