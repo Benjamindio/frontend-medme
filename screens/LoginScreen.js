@@ -13,7 +13,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Input from '../Components/Input';
 import Title from '../Components/Title';
 import Bouton from '../Components/Button';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 
 export default function LoginScreen({navigation}) {
@@ -21,9 +20,8 @@ export default function LoginScreen({navigation}) {
     const [ title, setTitle ] = useState ('');
     const [ textContent, setTextContent] = useState ('');
     const [ phone, setPhone ] = useState('');
-    const [ code, setCode ] = useState ([]);
+    const [ code, setCode ] = useState ('');
     const [ isContent, setIsContent ] = useState (false);
-
 
     let contentSection;
     let num = phone[8]+phone[9]
@@ -32,11 +30,9 @@ export default function LoginScreen({navigation}) {
     useEffect (() => {
         setTitle('Identifiez-vous');
         setTextContent('Veuillez saisir votre numéro de téléphone, nous vous enverrons un code de confirmation.')
-    },[])
+    },[]);
 
-    // const codeNumber = code.map((data,i) => {
 
-    // })
 
     if (!isContent) {
 
@@ -47,7 +43,7 @@ export default function LoginScreen({navigation}) {
                     maxLength = {10}
                     keyboardType = 'numeric'
                     onChangeText={(value) => setPhone(value)}
-                    valuealue = {phone}
+                    value = {phone}
                 />
             <Bouton textButton= 'Continuer'
                     iconName = 'arrow-right'
@@ -62,19 +58,19 @@ export default function LoginScreen({navigation}) {
             <View style={styles.contentContainer}>
                 <View style={styles.codeSection}>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>1</Text>
+                        <Text style = {styles.textCode}>{code[0]}</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>2</Text>
+                        <Text style = {styles.textCode}>{code[1]}</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>3</Text>
+                        <Text style = {styles.textCode}>{code[2]}</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>4</Text>
+                        <Text style = {styles.textCode}>{code[3]}</Text>
                     </View>
                     <View style = {styles.codeBox}>
-                        <Text style = {styles.textCode}>5</Text>
+                        <Text style = {styles.textCode}>{code[4]}</Text>
                     </View>
                 </View>
                 <Bouton textButton= 'Continuer'
@@ -89,39 +85,32 @@ export default function LoginScreen({navigation}) {
  
         // Bouton pour generer Code
         const handleConnection = () => {
-            console.log('click', phone);
+                console.log('click', phone);
 
-            //Changer contenu contentSection
-            setIsContent(!isContent);
+              // verifier conformite du numero telephone - fetch route générant code
+                fetch('http://192.168.1.97:3000/users/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phoneNumber: phone }),
+                }).then(response => response.json())
+                    .then(data => {
+                        if(data.result){
+                            // Affichage screen code 
+                            setTitle('Code de vérification')
+                            setTextContent(`Veuillez renseigner le code envoyé au numéro terminant par ********${num}.`)
+                            setCode(data.generatedCode);
+                            setIsContent(!isContent);
 
-            // Affichage screen code 
-            setTitle('Code de vérification')
-            setTextContent(`Veuillez renseigner le code envoyé au numéro terminant par ********${num}.`)
-            console.log(num)
-            console.log({phoneNumber:phone})
-
-            // verifier conformite du numero telephone - fetch route générant code
-
-            fetch('http://localhost:3000/users/login', {                
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({phoneNumber:phone})
-            }).then (response => response.json())
-                .then (data => {
-                    if(data){
-                        console.log(data)
-                    }else{
-                        console.log('error')
-                    }
-                })
+                        } else {
+                            console.log('error')
+                        }
+                    })
         };
     
         // Bouton pour generer Code
         const handleClick = () => {
             console.log('Click bouton continuer')
             navigation.navigate('InscriptionProfil')
-                // Rediriger vers screen inscription
-
         };
 
      return (

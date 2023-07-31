@@ -13,14 +13,13 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Input from '../Components/Input';
 import Title from '../Components/Title';
 import ButtonNoIcon from '../Components/ButtonNoIcon';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 
 export default function InscriptionProfilScreen({navigation}) {
 
 const [name, setName] = useState('');
 const [firstName, setFirstName] = useState('');
-const [email, SetEmail] = useState('');
+const [email, setEmail] = useState('');
 
 
     return (
@@ -35,19 +34,19 @@ const [email, SetEmail] = useState('');
                     cursorColor = '#154C79'
                     keyboardType = 'default'
                     onChangeText={(value) => setName(value)}
-                    valuealue = {name}
+                    value = {name}
                 />
                 <Input  placeholder='Prénom'
                     cursorColor = '#154C79'
                     keyboardType = 'default'
                     onChangeText={(value) => setFirstName(value)}
-                    valuealue = {firstName}
+                    value = {firstName}
                 />
                 <Input  placeholder='Email'
                     cursorColor = '#154C79'
                     keyboardType = 'email-address'
                     onChangeText={(value) => setEmail(value)}
-                    valuealue = {email}
+                    value = {email}
                 />
                 <Text style={styles.centerText}>Êtes-vous sous traitement?</Text>
                 <View style={styles.smallButtonSection}>
@@ -59,7 +58,7 @@ const [email, SetEmail] = useState('');
                     </TouchableOpacity>
                 </View>
                 <ButtonNoIcon textButton= 'Enregistrer'
-                    onPress={() => navigation.navigate('InscriptionFicheSante')}/>
+                    onPress={() => navigation.navigate('TabNavigator', {sreen: 'Home'})}/>
             </View>
         </KeyboardAvoidingView>
         )
@@ -80,7 +79,7 @@ const [email, SetEmail] = useState('');
         centerText: {
             justifyContent: 'center',
             color: '#263238',
-            fontSize: 15,
+            fontSize: 18,
             marginBottom: 15,
         },
 
