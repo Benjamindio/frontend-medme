@@ -1,8 +1,8 @@
-import HeaderSansLogo from './components/HeaderSansLogo'
-import Title from './components/Title'
-import InputDate from './components/InputDate'
-import Input from './components/Input'
-import ButtonNoColor from './components/ButtonNoColor'
+import HeaderSansLogo from './Components/HeaderSansLogo'
+import Title from './Components/Title'
+import InputDate from './Components/InputDate'
+import Input from './Components/Input'
+import ButtonNoColor from './Components/ButtonNoColor'
 import {
     View, 
     Text,
