@@ -6,7 +6,7 @@ export default function headerWithLogo(props) {
     return (
         <View style={styles.container}>
             <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
-            <Image source={require('../assets/LogoV1.png')} style={styles.logo} /> 
+            <Image source={require('../assets/Medme-whiteV1.png')} style={styles.logo} /> 
             <FontAwesome name='bars' style={styles.icon} size={30}/>
         </View>
     )
