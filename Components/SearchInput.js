@@ -38,5 +38,8 @@ import {
     input: {
         paddingLeft:20,
     },
+    iconSearch: {
+      color:'#5FA59D',
+    },
   });
   

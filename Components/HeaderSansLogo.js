@@ -1,14 +1,15 @@
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import {Text, View, StyleSheet} from 'react-native'
 
-export default function headerWithoutLogo(props) {
+export default function headerSansLogo(props) {
 
 
 
     return (
         <View style={styles.container}>
-            <FontAwesome name='arrow-left' style={styles.icon} size={40} onPress={props.onPress}/>
-            <Text style={styles.text}>{props.name}</Text> 
+            <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
+            <Text style={styles.title}>{props.title}</Text>
+            <FontAwesome name='bars' style={styles.icon} size={30}/>
         </View>
     )
 }
@@ -18,23 +19,19 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#154C79',
       flexDirection: 'row',
-      alignItems: 'flex-end',
-      justifyContent: 'flex-start',
+      alignItems: 'center',
+      justifyContent: 'space-around',
       width:'100%',
       paddingTop:20,
-      paddingBottom:20,
-    borderRadius:30,
-
+      borderRadius:30,
+      marginBottom: 30,
+    },
+    title:{
+        color:'white',
+        fontSize: 20,
+        fontWeight:'light',
     },
     icon:{
         color:'white',
-        paddingLeft: 30,
-    },
-    text :{
-        paddingLeft:'30%',
-        paddingBottom:5,
-        color:'white',
-        fontSize: 25,
-
-    },
+    }
   })

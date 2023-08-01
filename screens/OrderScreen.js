@@ -38,15 +38,16 @@ export default function OrderScreen({navigation}) {
                                 styleIconRight = {styles.iconRight} 
                                 nameIconLeft = 'pills' 
                                 nameIconRight = 'chevron-right' 
-                                text = 'Médicaments'/>
+                                text = 'Médicaments'
+                                onPress={() => navigation.navigate('MedicamentsSelectionScreen')}/>
                 <DisplayButton  styleTextDisplayButton = {styles.text} 
                                 styleIconLeft = {styles.iconLeft} 
                                 styleIconRight = {styles.iconRight} 
                                 nameIconLeft = 'pills'
                                 nameIconRight = 'chevron-right' 
-                                text = 'Parapharmacie'/>
+                                text = 'Parapharmacie'
+                                onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}/>
             </View>
-
         </KeyboardAvoidingView>
     )};
 
@@ -66,13 +67,13 @@ export default function OrderScreen({navigation}) {
             width: '90%',
         },
         text:{
-            color: '#5FA59D',
+            color: '#154C79',
             fontSize: 20,
-            fontWeight: 'bold',
+            fontWeight: 'light',
         },
    
         iconLeft: {
-            color:'#afb1b6',
+            color:'#5FA59D',
         },
         iconRight:{
             color:'#afb1b6',

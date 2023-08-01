@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         justifyContent: 'center',
         paddingBottom: 10,
+        marginTop: 30,
         marginBottom: 30,     
     },
     smallTitle: {
@@ -29,5 +30,3 @@ const styles = StyleSheet.create({
     },
 
 });
-
-//test

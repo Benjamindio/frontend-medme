@@ -1,13 +1,13 @@
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import {Image, View, StyleSheet} from 'react-native'
 
 export default function headerWithLogo(props) {
 
     return (
         <View style={styles.container}>
-            <FontAwesome name='arrow-left' style={styles.icon} size={20} onPress={props.onPress}/>
+            <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
             <Image source={require('../assets/LogoV1.png')} style={styles.logo} /> 
-            <FontAwesome name='bars' style={styles.icon} size={20}/>
+            <FontAwesome name='bars' style={styles.icon} size={30}/>
         </View>
     )
 }

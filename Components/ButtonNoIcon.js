@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 30,
-        shadowColor: '#000000',
-        shadowOpacity: 1,
+        shadowColor: '#afb1b6',
+        shadowOpacity: 0.8,
         elevation: 6,
-        shadowRadius: 15,
-        shadowOffset: {width:0.8, height:15},
-        marginBottom: 30,
+        shadowRadius: 8,
+        shadowOffset: {width:0.8, height:10},
+        marginBottom: 50,
     },
 
     textButton: {

@@ -182,11 +182,7 @@ export default function LoginScreen({navigation}) {
             backgroundColor: '#ffffff',
             justifyContent: 'center',
             alignItems: 'center',
-            shadowColor: '#000000',
-            shadowOpacity: 1,
-            elevation: 6,
-            shadowRadius: 15,
-            shadowOffset: {width:0.8, height:15},
+
         },
         textCode: {
             color: '#5FA59D',
