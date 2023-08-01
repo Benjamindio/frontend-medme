@@ -24,22 +24,21 @@ const dispatch = useDispatch()
 
 handleClickRegister = () => {
 
-    fetch('http://192.168.1.1555:3000/users/updateUserInfo', {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ lastname: user.lastname, firstname: user.firstName, email: user.email, 
-      healthCard: user.healthCard.hasHealthCard }),
-}).then(response => response.json())
-    .then(data => {
-        if(data.result){
-            navigation.navigate('TabNavigator', {sreen: 'Home'})
-        } else {
-            console.log('error')
-        }
-    })
-
-}
-
+    fetch('http://192.168.1.103:3000/users/updateUserInfo', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({phoneNumber:user.phoneNumber, lastname: name, firstname: firstName, email: email, 
+          healthCard: false }),
+    }).then(response => response.json())
+        .then(data => {
+            console.log(data)
+            if(data.result){
+                navigation.navigate('TabNavigator', {sreen: 'Home'})
+            } else {
+                console.log('error')
+            }
+        })
+    }
 
 
 
@@ -47,6 +46,11 @@ handleClickYes = () => {
      console.log('click bouton yes')
     dispatch(signUp({lastname:name, firstName, email, hasHealthCard:true}))
      navigation.navigate('InscriptionFicheSante');
+}
+
+handleClickNo = () => {
+    console.log('click bouton no')
+    dispatch(signUp({lastname:name, firstName, email, hasHealthCard:false}))
 }
 
 

@@ -3,7 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPills,faBookMedical, faHome, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import user from './reducers/user'
 import HomeScreen from './screens/HomeScreen';
 import OrderScreen from './screens/OrderScreen';
@@ -32,16 +34,20 @@ const TabNavigator = () => {
 
         if (route.name === 'Home') {
           iconName = 'home';
-        } else if (route.name === 'Order') {
+        } 
+        else if ( route.name === 'Order') {
           iconName = 'pills';
-        } else if ( route.name === 'Profile') {
+        }
+         else if ( route.name === 'Profile') {
           iconName = 'user';
         } else if ( route.name === 'Checkout') {
           iconName = 'shopping-cart';
-        } else if (route.name === 'MyordersScreen'){
-          iconName = 'notes-medical';
         }
-        return <FontAwesome name={iconName} size={size} color={color} />;
+        else if ( route.name === 'Myorders') {
+          iconName = 'book-medical';
+        }
+          return <FontAwesome name={iconName} size={size} color={color} />
+        ;
       },
       tabBarActiveTintColor: '#154C79',
       tabBarInactiveTintColor: '#afb1b6',

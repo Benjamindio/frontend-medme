@@ -1,15 +1,13 @@
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {Image, View, StyleSheet} from 'react-native'
 
-export default function headerWithLogo() {
-
-
+export default function headerWithLogo(props) {
 
     return (
         <View style={styles.container}>
-            <FontAwesome name='bars' style={styles.icon} size={40}/>
-            <Image source={require('../assets/Medme-white.png')} style={styles.logo} /> 
-            <FontAwesome name='user' style={styles.icon} size={40} />
+            <FontAwesome name='arrow-left' style={styles.icon} size={20} onPress={props.onPress}/>
+            <Image source={require('../assets/LogoV1.png')} style={styles.logo} /> 
+            <FontAwesome name='bars' style={styles.icon} size={20}/>
         </View>
     )
 }
@@ -23,17 +21,14 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       width:'100%',
       paddingTop:20,
-        borderRadius:30,
-
+      borderRadius:30,
+      marginBottom: 30,
     },
     logo:{
-        height:200,
-        width:200,
-        marginTop: 18,
-
+        width: '50%',
+        resizeMode: 'contain',
     },
     icon:{
         color:'white',
-
     }
   })
