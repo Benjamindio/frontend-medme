@@ -15,9 +15,6 @@ import SmallTitle from '../Components/SmallTitle';
 import DisplayButton from '../Components/DisplayButton';
 import { useState } from 'react';
 
-
-
-
 export default function OrderScreen({navigation}) {
 
     const [ searchtext, setSearchText ] = useState ('');
@@ -25,7 +22,7 @@ export default function OrderScreen({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderLogo name = 'Commande'
-                        onPress={() => navigation.navigate('HomeScreen')}/>
+                        onPress={() => navigation.navigate('TabNavigator', {sreen: 'Home'})}/>
             <View style={styles.content}>
                 <SearchInput placeholder='Que cherchez-vous?'
                             cursorColor = '#154C79'
@@ -43,7 +40,7 @@ export default function OrderScreen({navigation}) {
                 <DisplayButton  styleTextDisplayButton = {styles.text} 
                                 styleIconLeft = {styles.iconLeft} 
                                 styleIconRight = {styles.iconRight} 
-                                nameIconLeft = 'pills'
+                                nameIconLeft = 'band-aid'
                                 nameIconRight = 'chevron-right' 
                                 text = 'Parapharmacie'
                                 onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}/>
