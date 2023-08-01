@@ -24,7 +24,7 @@ const dispatch = useDispatch()
 
 handleClickRegister = () => {
 
-    fetch('http://192.168.1.155:3000/users/updateUserInfo', {
+    fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({phoneNumber:user.phoneNumber, lastname: name, firstname: firstName, email: email, 

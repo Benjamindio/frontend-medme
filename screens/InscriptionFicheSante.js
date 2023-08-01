@@ -49,7 +49,7 @@ export default function InscriptionFicheSante({navigation}) {
 
   const handleRegister = () => {
        
-  fetch('http://192.168.1.155:3000/users/updateUserInfo', {
+  fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ phoneNumber: user.phoneNumber,firstname:user.firstName,lastname:user.lastname, email:user.email, hasHealthCard:user.healthCard.hasHealthCard,dateOfBirth: user.healthCard.dateOfBirth, size: user.healthCard.size,

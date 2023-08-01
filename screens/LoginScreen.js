@@ -90,7 +90,7 @@ export default function LoginScreen({navigation}) {
                 console.log('click', phone);
 
               // verifier conformite du numero telephone - fetch route générant code
-                fetch('http://192.168.1.103:3000/users/login', {
+                fetch('https://backend-medme.vercel.app/users/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ phoneNumber: phone }),
@@ -117,7 +117,7 @@ export default function LoginScreen({navigation}) {
         // Bouton pour valider code et se diriger sur le screen profil - création new user dans la bd
         const handleClick = () => {
             console.log('Click bouton continuer')
-            fetch('http://192.168.1.103:3000/users/verify', {
+            fetch('https://backend-medme.vercel.app/users/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phoneNumber: phone, generatedCode:code}),
