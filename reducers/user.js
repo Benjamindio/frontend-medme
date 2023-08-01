@@ -56,7 +56,8 @@ export const userSlice = createSlice({
         logout:(state) => {
             state.value.isConnected = false;
             state.value.lastname=null;
-        }
+        },
+        
     }
 })
 

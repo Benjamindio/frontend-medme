@@ -26,7 +26,7 @@ export default function LoginScreen({navigation}) {
     const dispatch = useDispatch()
     let contentSection;
     let num = phone[8]+phone[9]
-
+    const [userExist, setUserExist] = useState(false)
 
     useEffect (() => {
         setTitle('Identifiez-vous');
@@ -96,13 +96,19 @@ export default function LoginScreen({navigation}) {
                     body: JSON.stringify({ phoneNumber: phone }),
                 }).then(response => response.json())
                     .then(data => {
-                        if(data.result){
+                        if(data.result && data.userStatus ==='dontExist'){
                             // Affichage screen code 
                             setTitle('Code de vérification')
                             setTextContent(`Veuillez renseigner le code envoyé au numéro terminant par ********${num}.`)
                             setCode(data.generatedCode);
                             setIsContent(!isContent);
-                        } else {
+                        } else if(data.result && data.userStatus === 'existing') {
+                            setUserExist(!userExist)
+                            setIsContent(!isContent)
+                            setCode(data.generatedCode)
+                            console.log('userExist')
+                        } 
+                        else {
                             console.log('error')
                         }
                     })
@@ -120,7 +126,13 @@ export default function LoginScreen({navigation}) {
                     if(data.result){
                         //ouvrir écran profil
                         dispatch(login({phoneNumber:phone,token:data.token}))
-                        navigation.navigate('InscriptionProfil')
+                        if(userExist) {
+                            console.log('userExist')
+                            navigation.navigate('TabNavigator', {sreen: 'Home'})
+                        } else {
+                            navigation.navigate('InscriptionProfil')
+                        }
+                        
                     } else {
                         console.log('error')
                     }
