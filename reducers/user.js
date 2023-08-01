@@ -5,19 +5,15 @@ const initialState={
         isConnected: '', 
         phoneNumber:null,
         lastname:null,
-        firstname:null,
+        firstName:null,
         email:null,
         hasHealthCard:null,
         healthCard: {
             dateOfBirth:null,
             size:null,
-            weigth:null,
-            allergies:[null],
-            treatment: [{
-                pathologie:null,
-                actualTreatment:null,
-                dosage:null,
-            }],
+            weight:null,
+            allergies:[],
+            treatment: [],
 
         }
     }
@@ -34,27 +30,28 @@ export const userSlice = createSlice({
             console.log(state.value)
         },
         signUp:(state,action) => {
-            const { firstname, lastname, email,
+            const { firstName, lastname, email,
                 hasHealthCard} = action.payload
             state.value.lastname = lastname
-            state.value.firstname= firstname
+            state.value.firstName= firstName
             state.value.email = email
             state.value.hasHealthCard = hasHealthCard
             console.log(state.value)
         },
-        healtCardCreation:(state,action) => {
+        healthCardCreation:(state,action) => {
             const { adress, dateOfBirth,
                 bloodGroup, size, weight} = action.payload
-            state.value.dateOfBirth = dateOfBirth
-            state.value.size = size
-            state.value.weight = weight
+            state.value.healthCard.dateOfBirth = dateOfBirth
+            state.value.healthCard.size = size
+            state.value.healthCard.weight = weight
             console.log(state.value)// ajouter adresse et bloodgroup 
         },
         addTreatment:(state,action) => {
-            state.value.treatment.push(action.payload.treatment)
+            state.value.healthCard.treatment.push(action.payload)
+            console.log(state.value.healthCard.treatment)
         },
         addAllergies:(state,action) => {
-            state.value.push(action.payload.allergies)
+            state.value.healthCard.allergies.push(action.payload)
         },
         logout:(state) => {
             state.value.isConnected = false;
@@ -64,6 +61,6 @@ export const userSlice = createSlice({
 })
 
 
-export const {login, signUp, healtCardCreation, addTreatment,addAllergies} = userSlice.actions;
+export const {login, signUp, healthCardCreation, addTreatment,addAllergies} = userSlice.actions;
 export default userSlice.reducer;
 

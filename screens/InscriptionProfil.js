@@ -1,30 +1,54 @@
 import {
     StyleSheet,
     KeyboardAvoidingView,
-    Platform,
     Image,
     Text,
-    TextInput,
     View,
     TouchableOpacity,
 } from 'react-native';
-import { useState, useEffect } from 'react';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useState } from 'react';
 import Input from '../Components/Input';
 import Title from '../Components/Title';
 import ButtonNoIcon from '../Components/ButtonNoIcon';
+import { useDispatch,useSelector } from 'react-redux';
+import {signUp} from '../reducers/user'
 
 
 export default function InscriptionProfilScreen({navigation}) {
-
+const user = useSelector(state => state.user.value)
 const [name, setName] = useState('');
 const [firstName, setFirstName] = useState('');
 const [email, setEmail] = useState('');
+const dispatch = useDispatch()
+
+
+handleClickRegister = () => {
+
+    fetch('http://192.168.1.1555:3000/users/updateUserInfo', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ lastname: user.lastname, firstname: user.firstName, email: user.email, 
+      healthCard: user.healthCard.hasHealthCard }),
+}).then(response => response.json())
+    .then(data => {
+        if(data.result){
+            navigation.navigate('TabNavigator', {sreen: 'Home'})
+        } else {
+            console.log('error')
+        }
+    })
+
+}
+
+
+
 
 handleClickYes = () => {
      console.log('click bouton yes')
+    dispatch(signUp({lastname:name, firstName, email, hasHealthCard:true}))
      navigation.navigate('InscriptionFicheSante');
 }
+
 
     return (
         <KeyboardAvoidingView>
@@ -62,7 +86,7 @@ handleClickYes = () => {
                     </TouchableOpacity>
                 </View>
                 <ButtonNoIcon textButton= 'Enregistrer'
-                    onPress={() => navigation.navigate('TabNavigator', {sreen: 'Home'})}/>
+                    onPress={() => handleClickRegister()}/>
             </View>
         </KeyboardAvoidingView>
         )

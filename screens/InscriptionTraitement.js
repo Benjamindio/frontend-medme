@@ -1,7 +1,7 @@
-import HeaderSansLogo from './components/HeaderSansLogo'
-import Title from './Components/Title'
-import Input from './Components/Input'
-import ButtonNoColor from './Components/ButtonNoColor'
+import HeaderSansLogo from '../Components/HeaderSansLogo'
+import Title from '../Components/Title'
+import Input from '../Components/Input'
+import ButtonNoIcon from '../Components/ButtonNoIcon'
 import {
     View, 
     StyleSheet,
@@ -9,26 +9,37 @@ import {
      Platform,
      ScrollView,
 } from 'react-native'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { addTreatment } from '../reducers/user'
 
-
-export default function InscriptionTraitement(navigation) {
-
+export default function InscriptionTraitement({navigation}) {
+const [pathologie,setPathologie] =useState('')
+const [medicament, setMedicament]= useState('')
+const [dosage, setDosage] = useState('')
+const dispatch = useDispatch()
 const handlePress = () => {
-  navigation.navigate('Inscription Fiche Santé')
+  navigation.navigate('InscriptionFicheSante')
 }
 
+const handleNewPathologie = () => {
+    dispatch(addTreatment({pathologie:pathologie, medicament:medicament, dosage:dosage}))
+    navigation.push('InscriptionFicheSante') 
+}
 
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={styles.header}><HeaderSansLogo name="Ma fiche santé" onPress={() => handlePress()} /></View>
+            <View style={styles.header}>
+                <HeaderSansLogo name="Ma fiche santé" onPress={() => handlePress()} />
+                </View>
             <View style={styles.titleContainer}><Title title="Ajout d'un traitement" style={styles.title}/></View>
             <ScrollView style={styles.scrollView}> 
             <View style={styles.field}>
-                <View style={styles.largeInputContainer}><Input placeholder="0 allergie déclarée" title="Pathologie" underlineWidth={"35%"}/></View>
-                <View style={styles.largeInputContainer}><Input placeholder="nom médicament" title="Traitement en cours" underlineWidth={"60%"}/></View>
-                <View style={styles.largeInputContainer}><Input placeholder="unité" title="Dosage" underlineWidth={"30%"} /></View>
-                <ButtonNoColor textButton="Enregistrer" /> 
+                <View style={styles.largeInputContainer}><Input placeholder="Pathologie" title="Pathologie" underlineWidth={"35%"} value={pathologie} onChangeText={(value) => setPathologie(value)}/></View>
+                <View style={styles.largeInputContainer}><Input placeholder="Nom médicament" title="Traitement en cours" underlineWidth={"60%"} value={medicament} onChangeText={(value) => setMedicament(value)}/></View>
+                <View style={styles.largeInputContainer}><Input placeholder="unité" title="Dosage" underlineWidth={"30%"} value={dosage} onChangeText={(value) => setDosage(value)} /></View>
+                <ButtonNoIcon textButton="Enregistrer" onPress={() => {handleNewPathologie()}} /> 
                 </View>
             </ScrollView> 
         </KeyboardAvoidingView>

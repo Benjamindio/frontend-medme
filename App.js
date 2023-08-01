@@ -14,6 +14,8 @@ import InscriptionProfil from './screens/InscriptionProfil';
 import InscriptionFicheSante from './screens/InscriptionFicheSante';
 import {Provider} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
+import InscriptionAllergie from './screens/InscriptionAllergie'
+import InscriptionTraitement from './screens/InscriptionTraitement';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -62,6 +64,8 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name = 'InscriptionProfil' component ={InscriptionProfil} />
         <Stack.Screen name = 'InscriptionFicheSante' component ={InscriptionFicheSante} />
+        <Stack.Screen name = 'InscriptionAllergie' component ={InscriptionAllergie} />
+        <Stack.Screen name = 'InscriptionTraitement' component ={InscriptionTraitement} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -13,7 +13,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Input from '../Components/Input';
 import Title from '../Components/Title';
 import Bouton from '../Components/Button';
-
+import { useDispatch } from 'react-redux';
+import {login} from '../reducers/user'
 
 export default function LoginScreen({navigation}) {
 
@@ -22,7 +23,7 @@ export default function LoginScreen({navigation}) {
     const [ phone, setPhone ] = useState('');
     const [ code, setCode ] = useState ('');
     const [ isContent, setIsContent ] = useState (false);
-
+    const dispatch = useDispatch()
     let contentSection;
     let num = phone[8]+phone[9]
 
@@ -32,7 +33,7 @@ export default function LoginScreen({navigation}) {
         setTextContent('Veuillez saisir votre numéro de téléphone, nous vous enverrons un code de confirmation.')
     },[]);
 
-
+    
 
     if (!isContent) {
 
@@ -89,7 +90,7 @@ export default function LoginScreen({navigation}) {
                 console.log('click', phone);
 
               // verifier conformite du numero telephone - fetch route générant code
-                fetch('http://192.168.1.97:3000/users/login', {
+                fetch('http://192.168.1.155:3000/users/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ phoneNumber: phone }),
@@ -110,7 +111,7 @@ export default function LoginScreen({navigation}) {
         // Bouton pour valider code et se diriger sur le screen profil - création new user dans la bd
         const handleClick = () => {
             console.log('Click bouton continuer')
-            fetch('http://192.168.1.97:3000/users/verify', {
+            fetch('http://192.168.1.155:3000/users/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ phoneNumber: phone, generatedCode:code}),
@@ -118,6 +119,7 @@ export default function LoginScreen({navigation}) {
                 .then(data => {
                     if(data.result){
                         //ouvrir écran profil
+                        dispatch(login({phoneNumber:phone,token:data.token}))
                         navigation.navigate('InscriptionProfil')
                     } else {
                         console.log('error')
