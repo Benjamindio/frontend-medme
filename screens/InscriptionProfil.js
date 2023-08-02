@@ -60,7 +60,7 @@ handleClickNo = () => {
                     style = {styles.logo}
                     source = {require('../assets/LogoV1.png')}
                 />
-                <Title title = 'Je crée mon profil'/>
+                <Title name = 'Je crée mon profil'/>
                 <View style={styles.largeInputContainer}><Input title="Nom" 
                                                                 underlineWidth={"20%"}
                                                                 cursorColor = '#154C79'
