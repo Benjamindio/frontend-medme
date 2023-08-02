@@ -1,4 +1,4 @@
-import HeaderSansLogo from '../Components/HeaderSansLogo'
+import HeaderSansHamburger from '../Components/HeaderSansHamburger'
 import Title from '../Components/Title'
 import InputDate from '../Components/InputDate'
 import Input from '../Components/Input'
@@ -89,7 +89,7 @@ const handleAddTreatment = () => {
 
 return (
   <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.header}><HeaderSansLogo name="Je crée mon profil" onPress={() => handleReturn()} /></View>
+      <View style={styles.header}><HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} /></View>
       <View style={styles.titleContainer}>
         <Title title="Ma fiche santé" style={styles.title}/>
         </View>
@@ -148,7 +148,8 @@ marginTop:15
 },
 header:{
 width:'100%',
-height:"15%"
+height:"15%",
+
 
 },
 iconColor:{

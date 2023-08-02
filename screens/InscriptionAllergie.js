@@ -1,4 +1,4 @@
-import HeaderSansLogo from '../Components/HeaderSansLogo'
+import HeaderSansHamburger from '../Components/HeaderSansHamburger'
 import Title from '../Components/Title'
 import Input from '../Components/Input'
 import ButtonNoIcon from '../Components/ButtonNoIcon'
@@ -30,7 +30,7 @@ export default function InscriptionAllergie({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.header}>
-              <HeaderSansLogo name="Ma fiche santé" onPress={() => handlePress()} />
+              <HeaderSansHamburger name="Ma fiche santé" onPress={() => handlePress()} />
               </View>
             <View style={styles.titleContainer}><Title title="Ajout d'une allergie" style={styles.title}/></View>
             <ScrollView style={styles.scrollView} > 

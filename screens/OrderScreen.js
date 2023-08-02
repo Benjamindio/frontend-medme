@@ -25,7 +25,7 @@ export default function OrderScreen({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderLogo name = 'Commande'
-                        onPress={() => navigation.navigate('HomeScreen')}/>
+                        onPress={() => navigation.navigate('Home')}/>
             <View style={styles.content}>
                 <SearchInput placeholder='Que cherchez-vous?'
                             cursorColor = '#154C79'

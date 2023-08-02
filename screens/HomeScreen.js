@@ -1,4 +1,4 @@
-import HeaderLogo from '../Components/HeaderLogo';
+import HeaderSansReturn from '../Components/HeaderSansReturn'
 import Title from '../Components/Title'
 import ButtonHome from '../Components/ButtonHome'
 import {
@@ -18,7 +18,7 @@ const title = `Bonjour`
     return (
         <View style={styles.container}>
           <View style={styles.header}>
-            <HeaderLogo onPress={()=> navigation.navigate('Profile')} />
+            <HeaderSansReturn onPress={()=> navigation.navigate('Profile')} />
           </View>
           <View style={styles.content}>
             <View><Title title={title} /></View>
@@ -70,4 +70,3 @@ const title = `Bonjour`
           
           
     });
-
