@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import HeaderSansLogo from '../Components/HeaderSansLogo';
-import SearchInput from '../Components/SearchInput';
+import SearchBar from '../Components/SearchBar';
 import SmallTitle from '../Components/SmallTitle';
 import { useState } from 'react';
 
@@ -23,10 +23,10 @@ export default function MedicamentsSelectionScreen({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderSansLogo name = 'Médicaments'
-                            onPress={() => navigation.navigate('OrderScreen')}
-                            title = 'Médicaments'/>
+                        onPress={() => navigation.navigate('TabNavigator', {sreen: 'Orders'})}
+                        title = 'Médicaments'/>
             <View style={styles.content}>
-                <SearchInput placeholder='Que cherchez-vous?'
+                <SearchBar placeholder='Que cherchez-vous?'
                             cursorColor = '#154C79'
                             keyboardType= 'default'
                             onChangeText={(value) => setSearchText(value)}

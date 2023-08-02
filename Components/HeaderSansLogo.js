@@ -22,7 +22,7 @@ export default function headerWithoutLogo(props) {
     return (
         <View style={styles.container}>
             <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
-            <Text style={styles.title}>{props.title}</Text>
+            <Text style={styles.title}>{props.name}</Text>
             <TouchableOpacity
                 style={styles.hamburgerButton}
                 onPress={toggleMenu} >
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     },
 
     title :{
-        paddingLeft:'30%',
         paddingBottom:5,
         color:'white',
         fontSize: 25,

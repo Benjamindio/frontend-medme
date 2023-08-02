@@ -10,24 +10,19 @@ import {
 } from 'react-native';
 
 import HeaderLogo from '../Components/HeaderLogo';
-import SearchInput from '../Components/SearchInput';
+import SearchBarList from '../Components/SearchBarList';
 import SmallTitle from '../Components/SmallTitle';
 import DisplayButton from '../Components/DisplayButton';
 import { useState } from 'react';
 
 export default function OrderScreen({navigation}) {
 
-    const [ searchtext, setSearchText ] = useState ('');
-
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderLogo name = 'Commande'
                         onPress={() => navigation.navigate('TabNavigator', {sreen: 'Home'})}/>
             <View style={styles.content}>
-                <SearchInput placeholder='Que cherchez-vous?'
-                            cursorColor = '#154C79'
-                            keyboardType= 'default'
-                            onChangeText={(value) => setSearchText(value)}
+                <SearchBarList 
                             />
                 <SmallTitle smallTitle = 'Catégories'/>
                 <DisplayButton  styleTextDisplayButton = {styles.text} 
