@@ -8,35 +8,46 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 
     const [ isClicked, setIsClicked ] = useState(false);
     const [searchText, setSearchText] = useState('');
-    const [filteredItems, setFilteredItems] = useState([]);
+    const [reset,setReset] = useState(0);
     const [ allItems, setAllItems ] = useState ([]);
 
     useEffect (() => {
-      setTimeout(() => {
+      if(searchText.length > 2){
+        console.log(searchText.length)
+      //setTimeout(() => {
       fetch('https://backend-medme.vercel.app/medicaments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({name: searchText}),
       }).then(response => response.json())
       .then(data => {
+        console.log(data)
           if(data.result){
+            console.log(data.result)
           setAllItems(data.medicaments)
-          let filtered = allItems.filter(item => (item.medName).toLowerCase().includes(searchText.toLowerCase()));
-          setFilteredItems(filtered);
+          console.log('allItems',allItems)
           } else {
           console.log('error medicament non trouvé')
           }})
-      .then(() => {setAllItems([])});
+      .then(() => {setReset(searchText.length)});
 
-        },2000)
-
-
+        //},2000)
+        
+} else {
+  setAllItems([])
+}
     }, [searchText]);
-      
-  
 
-    console.log('allitems', allItems)
-    console.log('filter',filteredItems)
+    const handleSearchText = (value) => {
+      if( searchText.length ===0) {
+        setAllItems([])
+        console.log('allitems', allItems)
+      }
+      setSearchText(value)
+    }
+
+    
+    
 
     const renderItem = ({ item }) => (
       <View style={styles.resultContainer}>
@@ -75,7 +86,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
                       placeholder='Que cherchez-vous?'
                       cursorColor='#154C79'
                       keyboardType='default'
-                      onChangeText= {(value)=> setSearchText(value)}
+                      onChangeText= {(value)=> handleSearchText(value)}
                       value={searchText}
                       onFocus={() => handleFocusInput()}
               />
@@ -86,8 +97,8 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
             {isClicked && (
             <View style = {styles.listContainer}>
               <FlatList
-                        data={filteredItems}
-                        keyExtractor={(item) => item}
+                        data={allItems}
+                        keyExtractor={(item) => item.product_id}
                         renderItem={renderItem} />
             </View>
             )}
