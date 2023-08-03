@@ -1,15 +1,18 @@
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, Text, TextInput, FlatList } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ScrollView } from 'react-native';
 import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 
-  export default function SearchBarList() {
+  export default function SearchBarList({navigation}) {
 
     const [ isClicked, setIsClicked ] = useState(false);
+    const [showList, setShowList] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [reset,setReset] = useState(0);
+    const [errorMessage,setErrorMessage] = useState(false)
     const [ allItems, setAllItems ] = useState ([]);
+
 
     useEffect (() => {
       if(searchText.length > 2){
@@ -26,7 +29,11 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
             console.log(data.result)
           setAllItems(data.medicaments)
           console.log('allItems',allItems)
+          setShowList(true)
+          setErrorMessage(false)
           } else {
+          setShowList(false)
+          setErrorMessage(true)
           console.log('error medicament non trouvé')
           }})
       .then(() => {setReset(searchText.length)});
@@ -35,23 +42,26 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
         
 } else {
   setAllItems([])
+  setShowList(false)
 }
     }, [searchText]);
 
     const handleSearchText = (value) => {
-      if( searchText.length ===0) {
+      if( searchText.length === 0) {
         setAllItems([])
         console.log('allitems', allItems)
       }
       setSearchText(value)
+    };
+
+    handleClick = ()=> {
+      console.log('click')
+      navigation.navigate('FicheProduit')
     }
 
-    
-    
-
     const renderItem = ({ item }) => (
-      <View style={styles.resultContainer}>
-        <Text style = {styles.resultName}>{item.medName}</Text>
+      <View style={styles.resultContainer} >
+        <Text style = {styles.resultName}onPress={()=> handleClick()}>{item.medName}</Text>
         <View style={styles.label}>
           <Text style = {styles.resultCategorie}>Catégorie: {item.medCategorie}</Text>
         </View>
@@ -59,11 +69,13 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
     );
 
     const handleCloseSearch = () => {
-      console.log('click closing window')
+      if (textInputRef.current) {
+        textInputRef.current.blur();
+      }
+      setSearchText('')
+      setErrorMessage(false)
       setIsClicked(false);
-      setSearchText('');
-      setAllItems('');
-      setFilteredItems([]);
+      setReset(0);
     }
 
     const handleFocusInput = () => {
@@ -71,17 +83,21 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
       setIsClicked(true)
     }
 
+
+
     const searchBarStyle = {
       backgroundColor: isClicked ? 'white' : '#F5F5F5',
       borderColor: isClicked ? '#5FA59D': '#afb1b6',
     };
 
+    const textInputRef = useRef(null);
 
     return (
         <View style ={styles.container}>
             <View style = {[styles.searchBarUnclicked, searchBarStyle]}> 
               <FontAwesome name='search' size={20} color='#5FA59D' />
               <TextInput
+                      ref={textInputRef}
                       style={styles.input}
                       placeholder='Que cherchez-vous?'
                       cursorColor='#154C79'
@@ -93,8 +109,9 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
               {isClicked && (
               <FontAwesome name='times' size={20} color='#afb1b6' style ={styles.iconClose} onPress={() => handleCloseSearch()}/>
               )}
-            </View> 
-            {isClicked && (
+            </View>
+            {errorMessage && <Text style= {styles.errorMessage}>Aucun résultat</Text>}
+            {showList && (
             <View style = {styles.listContainer}>
               <FlatList
                         data={allItems}
@@ -120,16 +137,6 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
       borderRadius: 15,
       justifyContent:'center',
       alignItems: "center",
-      borderWidth: 1,
-      opacity: 0.8,
-    },
-    searchBarClicked:{
-      padding: 10,
-      flexDirection: "row",
-      width: "80%",
-      borderRadius: 15,
-      alignItems: "center",
-      justifyContent: "space-evenly",
       borderWidth: 1,
       opacity: 0.8,
     },
@@ -174,5 +181,10 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
     label: {
       height: 30,
       justifyContent: 'center',
+    },
+    errorMessage: {
+      fontSize:15,
+      color:'#154C79',
+      marginTop:20,
     }
   });

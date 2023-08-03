@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     smallTitle: {
         color: '#154C79',
-        fontSize: 30,
+        fontSize: 20,
         fontWeight: 'light',
     },
 

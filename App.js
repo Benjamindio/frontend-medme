@@ -16,6 +16,7 @@ import InscriptionProfil from './screens/InscriptionProfil';
 import InscriptionFicheSante from './screens/InscriptionFicheSante';
 import MedicamentsSelectionScreen from './screens/MedicamentsSelectionScreen';
 import ParapharmacieSelectionScreen from './screens/ParapharmacieSelectionScreen';
+import FicheProduit from './screens/FicheProduit';
 
 import {Provider} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
@@ -42,7 +43,7 @@ const TabNavigator = () => {
           iconName = 'pills';
         }
          else if ( route.name === 'Profile') {
-          iconName = 'user';
+          iconName = 'user-alt';
         } else if ( route.name === 'Checkout') {
           iconName = 'shopping-cart';
         }
@@ -78,6 +79,7 @@ export default function App() {
         <Stack.Screen name = 'MedicamentsSelectionScreen' component ={MedicamentsSelectionScreen} />
         <Stack.Screen name = 'OrderScreen' component={OrderScreen}/>
         <Stack.Screen name = 'ParapharmacieSelectionScreen'component ={ParapharmacieSelectionScreen} />
+        <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

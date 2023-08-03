@@ -8,23 +8,43 @@ import {
     View,
     TouchableOpacity,
   } from 'react-native';
+  import { useState} from 'react';
+
   
   export default function Input(props) {
+
+    const [ isClicked, setIsClicked ] = useState(false);
+
+
+    const handleFocusInput = () => {
+      console.log('input focused')
+      setIsClicked(true)
+    }
+
+    const selectedStyle= {
+      borderColor: isClicked ? '#5FA59D': '#afb1b6',
+    };
+
+    const selectedTextStyle = {
+      color: isClicked ? '#5FA59D': 'black',
+    }
+
     return (
       <View> 
       
       <TextInput
-        style={styles.input}
+        style={[styles.input,selectedStyle]}
         placeholder={props.placeholder}
         cursorColor={props.cursorColor}
         maxLength={props.maxLength}
         keyboardType={props.keyboardType}
-        onChangeText={props.onChangeText}>
+        onChangeText={props.onChangeText}
+        onFocus={() => handleFocusInput()}>
         {props.text}
       </TextInput>
       <View style={styles.underline} width={props.underlineWidth}></View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={[styles.title,selectedTextStyle]}>{props.title}</Text>
       </View>
       </View>
     );
