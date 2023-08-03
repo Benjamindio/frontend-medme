@@ -70,20 +70,23 @@ export const userSlice = createSlice({
         
             console.log(state.value.order)
         },
-        removeFromCart:(state, action) => {
-            state.value.order.filter(e => e.product_id !== action.payload.product_id)
-            console.log(state.value.order)
-        },
-        addOneArticle:(state,action) => {
-            const i = state.value.order.findIndex(action.payload.product_id)
-            state.value.order[i].quantity = state.value.order[i].quantity + action.payload.quantity
+        removeFromCart: (state, action) => {
+            state.value.order = state.value.order.filter((item) => item.product_id !== action.payload.product_id);
+          },
+        addOneArticle: (state, action) => {
+            const index = state.value.order.findIndex((item) => item.product_id === action.payload.product_id);
+            if (index !== -1) {
+              state.value.order[index].quantity += 1;
+            }
+         
         }, 
-        removeOneArticle:(state,action) => {
-            const i = state.value.order.findIndex(action.payload.product_id)
-            state.value.order[i].quantity = state.value.order[i].quantity - action.payload.quantity
-        }
+        removeOneArticle: (state, action) => {
+            const index = state.value.order.findIndex((item) => item.product_id === action.payload.product_id);
+            if (index !== -1) {
+              state.value.order[index].quantity -= 1;
+            }
+          },
 
-        
     }
 })
 

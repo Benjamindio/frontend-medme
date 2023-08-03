@@ -59,7 +59,7 @@ import { useNavigation } from '@react-navigation/native'
       navigation.navigate('HomeScreen')
     }
 
-    const handlePress = (product_id,medName,medCategorie,price,image) => {
+    const handlePress = (product_id,medName,medCategorie,medPrice,medImage) => {
       navigation.navigate('FicheProduit', {
         product_id:product_id,
           medName,
