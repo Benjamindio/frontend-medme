@@ -1,11 +1,14 @@
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { StyleSheet, View, Text, TextInput, FlatList } from 'react-native';
+import { StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity} from 'react-native';
 import { useState, useEffect, useRef } from 'react';
 import { ScrollView } from 'react-native';
 import { faBullseye } from '@fortawesome/free-solid-svg-icons';
+import { useNavigation } from '@react-navigation/native'
 
-  export default function SearchBarList({navigation}) {
 
+
+  export default function SearchBarList(props) {
+    const navigation = useNavigation()
     const [ isClicked, setIsClicked ] = useState(false);
     const [showList, setShowList] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -16,7 +19,6 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 
     useEffect (() => {
       if(searchText.length > 2){
-        console.log(searchText.length)
       //setTimeout(() => {try 
       fetch('https://backend-medme.vercel.app/medicaments', {
         method: 'POST',
@@ -24,9 +26,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
         body: JSON.stringify({name: searchText}),
       }).then(response => response.json())
       .then(data => {
-        console.log(data)
           if(data.result){
-            console.log(data.result)
           setAllItems(data.medicaments)
           console.log('allItems',allItems)
           setShowList(true)
@@ -52,7 +52,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
     const handleSearchText = (value) => {
       if( searchText.length === 0) {
         setAllItems([])
-        console.log('allitems', allItems)
+        
       }
       setSearchText(value)
     };
@@ -61,13 +61,26 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
       console.log('click')
     }
 
+    const handlePress = (product_id,medName,medCategorie,price,image) => {
+      navigation.navigate('FicheProduit', {
+        product_id:product_id,
+          medName,
+          medCategorie,
+          price,
+          image
+      })
+  }
+    
+
     const renderItem = ({ item }) => (
-      <View style={styles.resultContainer} >
-        <Text style = {styles.resultName}onPress={()=> handleClick()}>{item.medName}</Text>
+      <TouchableOpacity onPress={() => handlePress(item.product_id,item.medName,item.medCategorie,item.price,item.image)}>
+        <View style={styles.resultContainer}>
+        <Text style = {styles.resultName}>{item.medName}</Text>
         <View style={styles.label}>
           <Text style = {styles.resultCategorie}>Catégorie: {item.medCategorie}</Text>
         </View>
-      </View>
+        </View>
+      </TouchableOpacity>
     );
 
     const handleCloseSearch = () => {
@@ -118,7 +131,8 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
               <FlatList
                         data={allItems}
                         keyExtractor={(item) => item.product_id}
-                        renderItem={renderItem} />
+                        renderItem={renderItem} 
+                        />
             </View>
             )}
         </View>

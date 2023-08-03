@@ -58,7 +58,6 @@ export const userSlice = createSlice({
             state.value.isConnected = false;
             state.value.lastname=null;
         },
-
         addToCart:(state, action) => {
             if(!state.value.order.find(e => e.product_id === action.payload.product_id)){
             state.value.order.push(action.payload)}
@@ -68,14 +67,27 @@ export const userSlice = createSlice({
                 //if(state.value.order.includes(action.payload.))
                 
             }
+        
             console.log(state.value.order)
         },
+        removeFromCart:(state, action) => {
+            state.value.order.filter(e => e.product_id !== action.payload.product_id)
+            console.log(state.value.order)
+        },
+        addOneArticle:(state,action) => {
+            const i = state.value.order.findIndex(action.payload.product_id)
+            state.value.order[i].quantity = state.value.order[i].quantity + action.payload.quantity
+        }, 
+        removeOneArticle:(state,action) => {
+            const i = state.value.order.findIndex(action.payload.product_id)
+            state.value.order[i].quantity = state.value.order[i].quantity - action.payload.quantity
+        }
 
         
     }
 })
 
 
-export const {login, signUp, healthCardCreation, addTreatment,addAllergies} = userSlice.actions;
+export const {login, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle} = userSlice.actions;
 export default userSlice.reducer;
 
