@@ -42,8 +42,9 @@ export default function FicheProduit({route,navigation}) {
 
   const handleAddToCart = () => {
     navigation.navigate('CheckoutScreen')
-    dispatch(addToCart({product_id,quantity,needOrdonnance,medName,medInfo}))
-    };
+    dispatch(addToCart({product_id,quantity,needOrdonnance,medPrice,medName,medInfo, medImage}))
+
+  }
   
   const handlePlus = () => {
     setQuantity(quantity +1)
