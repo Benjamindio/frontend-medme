@@ -53,6 +53,10 @@ export default function FicheProduit({route,navigation}) {
       setQuantity(quantity -1)
     }
   }
+  //Clem a ajoute handle return
+  handleReturn = () => {
+    navigation.navigate('MedicamentsSelectionScreen')
+  }
   let ordonnance = <Text style={styles.textOrdonnance}>Sans {"\n"} ordonnance</Text>
   
   if(needOrdonnance) {
@@ -65,9 +69,9 @@ export default function FicheProduit({route,navigation}) {
   }
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-          <HeaderSansLogo name={medUsualName} onPress={() => handleReturn()} />
-        </View>
+        {/* <View style={styles.header}> */}
+          <HeaderSansLogo name={medName} onPress={() => handleReturn()} />
+        {/* </View> */}
         <View style={styles.titleContainer}>
           <View style={styles.iconContainer} >
             {icon}
@@ -128,10 +132,10 @@ export default function FicheProduit({route,navigation}) {
       alignItems: 'center',
       backgroundColor:'#D9D9D9',
     },
-    header:{
-      flex:0.3,
-      width:'100%'
-    },
+    // header:{
+    //   flex:0.3,
+    //   width:'100%'
+    // },
      titleContainer:{
       flex: 0.3,
       width:"90%",
