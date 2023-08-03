@@ -55,6 +55,10 @@ const CartItem = ({ name, quantity, price }) => {
       dispatch(removeFromCart({product_id}))
     };
 
+    handlePress = () => {
+      navigation.goBack()
+    };
+
     
   
     const totalSelectedProducts = cartItems.reduce((total, item) => total + item.quantity, 0);
@@ -63,9 +67,9 @@ const CartItem = ({ name, quantity, price }) => {
   
     return (
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <View style={styles.header}>
-          <HeaderSansLogo name="Ma fiche santé" onPress={() => handlePress()} />
-        </View>
+        {/* <View style={styles.header}> */}
+          <HeaderSansLogo name="Votre Panier" onPress={() => handlePress()} />
+        {/* </View> */}
         <View style={styles.titleContainer}><Title title="Votre choix" style={styles.title} /></View>
         <ScrollView style={styles.scrollView} >
         <CartItem>
@@ -105,7 +109,7 @@ const CartItem = ({ name, quantity, price }) => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#D9D9D9',
+      backgroundColor: '#F5F5F5',
       width: "100%"
     },
     header: {

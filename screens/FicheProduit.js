@@ -130,7 +130,7 @@ export default function FicheProduit({route,navigation}) {
     container: {
       flex:2,
       alignItems: 'center',
-      backgroundColor:'#D9D9D9',
+      backgroundColor:'#F5F5F5',
     },
     // header:{
     //   flex:0.3,

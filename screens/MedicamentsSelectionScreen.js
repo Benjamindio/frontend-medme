@@ -85,20 +85,25 @@ export default function MedicamentsSelectionScreen({navigation}) {
         borderColor: isClicked ? '#5FA59D': '#afb1b6',
       }; 
     
-    const handlePress = () => {
-        navigation.navigate('FicheProduit')
+    const handlePress = (product_id,medName,medCategorie,medPrice,medImage) => {
+        navigation.navigate('FicheProduit', {
+          product_id:product_id,
+          medName,
+          medCategorie,
+          medPrice,
+          medImage
+        })
     }
-
-    // searchResult = (<ProductDisplay/>)
+      
 
     const searchResult = data.map((data,i) => {
         if (showList) {
         return(
             <View style ={styles.resultContainer}>
-                <ProductDisplay onPress={()=> handlePress ()}
+                <ProductDisplay onPress={()=> handlePress(data.product_id,data.medName,data.medCategorie,data.medPrice,data.medImage)}
                                 src = {{uri:(data.medImage)}} 
                                 text = {data.medName}
-                                price = {data.price}
+                                price = {data.medPrice}
                                 nameIconRight = 'shopping-cart'
                                 styleIconRight = {styles.iconRight}
                                 stylePrice = {styles.price}
@@ -126,7 +131,6 @@ export default function MedicamentsSelectionScreen({navigation}) {
                             condition = {isClicked}
                             />
                 <SmallTitle smallTitle = 'Vos résultats'/>
-                {/* <Image style={styles.image} source = {{uri:"https://www.pharma-gdd.com/media/cache/resolve/product_show/smectalia-pret-a-lemploi-anti-diarrheique-orange-vanille-18-sachets.jpg"}}/> */}
                 {errorMessage && <Text style= {styles.errorMessage}>Aucun résultat</Text>}
                 {searchResult}
             </View>
@@ -189,7 +193,5 @@ export default function MedicamentsSelectionScreen({navigation}) {
             resizeMode:'contain',
             width: 100,
             height: 50,
-          }
-
-        
+          }        
     });
