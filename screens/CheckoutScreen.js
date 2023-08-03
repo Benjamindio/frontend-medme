@@ -55,12 +55,15 @@ const CartItem = ({ name, quantity, price }) => {
       dispatch(removeFromCart({product_id}))
     };
 
-    handlePress = () => {
+    const handlePress = () => {
       navigation.goBack()
     };
 
-    
-  
+    const handleCheckout = () => {
+      navigation.navigate('UploadPrescription')
+
+    }
+
     const totalSelectedProducts = cartItems.reduce((total, item) => total + item.quantity, 0);
   
     const totalPrice = cartItems.reduce((total, item) => total + item.quantity * item.price, 0);
@@ -99,7 +102,7 @@ const CartItem = ({ name, quantity, price }) => {
         <Text style={styles.totalPrice}>Total: {totalPrice} €</Text>
       </View>
     </View>
-        <ButtonNoIcon textButton="Commander" /*onPress={() => { }*/ />
+        <ButtonNoIcon textButton="Commander" onPress={()=> handleCheckout()} />
       </KeyboardAvoidingView>
     )
   }
