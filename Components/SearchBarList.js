@@ -56,7 +56,6 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 
     handleClick = ()=> {
       console.log('click')
-      navigation.navigate('FicheProduit')
     }
 
     const renderItem = ({ item }) => (
