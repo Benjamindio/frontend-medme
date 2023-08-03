@@ -21,6 +21,7 @@ export default function headerWithoutLogo(props) {
 
     return (
         <View style={styles.container}>
+          <View style = {styles.content}>
             <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
             <Text style={styles.title}>{props.name}</Text>
             <TouchableOpacity
@@ -32,25 +33,30 @@ export default function headerWithoutLogo(props) {
                 isVisible={isMenuVisible}
                 onMenuItemPress={handleMenuItemPress}
                 onClose={() => setMenuVisible(false)} />
+          </View>
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      height: '20%',
       backgroundColor: '#154C79',
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-      justifyContent: 'flex-start',
       width:'100%',
-      paddingTop:20,
-      paddingBottom:20,
-      borderRadius:30,
+      padding:20,
+      borderBottomRightRadius:30,
+      borderBottomLeftRadius:30,
+      justifyContent: 'flex-end',
+      alignItems:'center',
+    },
+    content:{
+      width:'90%',
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
 
     },
     icon:{
         color:'white',
-        paddingLeft: 30,
     },
 
     title :{
