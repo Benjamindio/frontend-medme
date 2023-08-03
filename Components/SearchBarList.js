@@ -36,10 +36,7 @@ import { useNavigation } from '@react-navigation/native'
           setErrorMessage(true)
           console.log('error medicament non trouvé')
           }})
-      .then(() => {setReset(searchText.length)})
-      .catch(error => {
-        console.error('Fetch error:', error.message)
-      });
+      .then(() => {setReset(searchText.length)});
 
         //},2000)
         
@@ -59,7 +56,7 @@ import { useNavigation } from '@react-navigation/native'
 
     handleClick = ()=> {
       console.log('click')
-      navigation.navigate('FicheProduit')
+      navigation.navigate('HomeScreen')
     }
 
     const handlePress = (product_id,medName,medCategorie,price,image) => {

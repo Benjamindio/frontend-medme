@@ -12,26 +12,123 @@ import {
 import HeaderSansLogo from '../Components/HeaderSansLogo';
 import SearchBar from '../Components/SearchBar';
 import SmallTitle from '../Components/SmallTitle';
-import { useState } from 'react';
-
+import ProductDisplay from '../Components/ProductDisplay';
+import { useState, useEffect, useRef } from 'react';
+import { ScrollView } from 'react-native';
 
 
 export default function MedicamentsSelectionScreen({navigation}) {
 
-    const [ searchtext, setSearchText ] = useState ('');
+    const [searchText, setSearchText] = useState('');
+    const [showList, setShowList] = useState(true);
+    const [errorMessage,setErrorMessage] = useState(false);
+    const [isClicked, setIsClicked ] = useState(false);
+    const [reset, setReset] = useState(0);
+    const [ data, setData] = useState ([]);
+
+    useEffect (() => {
+
+        if(searchText.length > 2){
+          console.log(searchText.length)
+        
+            // La recherche s'initie à partir de 2 lettres dans le champs recherche
+            fetch('https://backend-medme.vercel.app/medicaments/categorie', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({name: searchText, categorie: 'Médicaments'}),
+            }).then(response => response.json())
+            .then(item => {
+                if(item.result){
+                    setData(item.medicaments)
+                    console.log('data',data)
+                    setShowList(true)
+                    setErrorMessage(false)
+                } else {
+                    setShowList(false)
+                    setErrorMessage(true)
+                    console.log('error medicament non trouvé')
+                    }})
+            .then(() => {setReset(searchText.length)});
+        } else {
+            setData([])
+        }
+    }, [searchText]);
+
+    
+    const handleFocusInput = () => {
+        setIsClicked(true)
+      };
+    
+    const handleSearchText = (value) => {
+        if( searchText.length === 0) {
+          setData([])
+          console.log('data', data)
+        }
+        setSearchText(value)
+      };
+    
+    const handleCloseSearch = () => {
+        // if (textInputRef.current) {
+        //   textInputRef.current.blur();
+        // }
+        setSearchText('')
+        setData([])
+        setErrorMessage(false)
+        setIsClicked(false);
+        setReset(0);
+      };
+    
+    // const textInputRef = useRef(null);
+
+    const searchBarStyle = {
+        backgroundColor: isClicked ? 'white' : '#F5F5F5',
+        borderColor: isClicked ? '#5FA59D': '#afb1b6',
+      }; 
+    
+    const handlePress = () => {
+        navigation.navigate('FicheProduit')
+    }
+
+    // searchResult = (<ProductDisplay/>)
+
+    const searchResult = data.map((data,i) => {
+        if (showList) {
+        return(
+            <View style ={styles.resultContainer}>
+                <ProductDisplay onPress={()=> handlePress ()}
+                                src = {{uri:(data.medImage)}} 
+                                text = {data.medName}
+                                price = {data.price}
+                                nameIconRight = 'shopping-cart'
+                                styleIconRight = {styles.iconRight}
+                                stylePrice = {styles.price}
+                                styleTextDisplayButton = {styles.styleTextDisplayButton}
+                                image = {styles.image}
+                                id = {data.product_id}
+                                key={i}
+                ></ProductDisplay>
+            </View>)}
+                
+        })
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderSansLogo name = 'Médicaments'
-                        onPress={() => navigation.navigate('TabNavigator', {sreen: 'Orders'})}
-                        title = 'Médicaments'/>
+                            onPress={() => navigation.navigate('TabNavigator', {sreen: 'Orders'})}
+                            title = 'Médicaments'/>
             <View style={styles.content}>
-                <SearchBar placeholder='Que cherchez-vous?'
-                            cursorColor = '#154C79'
-                            keyboardType= 'default'
-                            onChangeText={(value) => setSearchText(value)}
+                <SearchBar  styleSearchBar = {[styles.searchBarUnclicked, searchBarStyle]}        
+                            // ref={textInputRef}
+                            onChangeText={(value) => handleSearchText(value)}
+                            value={searchText}
+                            onPress={() => handleCloseSearch()}
+                            onFocus={() => handleFocusInput()}
+                            condition = {isClicked}
                             />
                 <SmallTitle smallTitle = 'Vos résultats'/>
+                {/* <Image style={styles.image} source = {{uri:"https://www.pharma-gdd.com/media/cache/resolve/product_show/smectalia-pret-a-lemploi-anti-diarrheique-orange-vanille-18-sachets.jpg"}}/> */}
+                {errorMessage && <Text style= {styles.errorMessage}>Aucun résultat</Text>}
+                {searchResult}
             </View>
         </KeyboardAvoidingView>
     )};
@@ -45,14 +142,54 @@ export default function MedicamentsSelectionScreen({navigation}) {
         },
         content:{
             flex:4,
-            padding: 20,
+            padding: 10,
             alignItems:'center',
             width: '90%',
+        },
+
+        resultContainer: {
+            justifyContent: 'space-evenly'
         },
         text:{
             color: '#154C79',
             fontSize: 20,
             fontWeight: 'light',
         },
+        searchBarUnclicked:{
+            padding: 10,
+            flexDirection: "row",
+            width: "100%",
+            borderRadius: 15,
+            justifyContent:'center',
+            alignItems: "center",
+            borderWidth: 1,
+            opacity: 0.8,
+          },
+          label: {
+            height: 30,
+            justifyContent: 'center',
+          },
+          errorMessage: {
+            fontSize:15,
+            color:'#154C79',
+            marginTop:20,
+          },
+          iconRight: {
+            color:'#5FA59D',
+          },
+          styleTextDisplayButton:{
+            color:'#154C79',
+            width: '35%',
+          },
+          price: {
+            color: '#154C79',
+            fontSize: 13
+          },
+          image: {
+            resizeMode:'contain',
+            width: 100,
+            height: 50,
+          }
+
         
     });
