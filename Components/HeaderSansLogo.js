@@ -38,7 +38,6 @@ export default function headerWithoutLogo(props) {
     )
 }
 const styles = StyleSheet.create({
-<<<<<<< HEAD
     container: {
       height: '20%',
       backgroundColor: '#154C79',
@@ -60,29 +59,9 @@ const styles = StyleSheet.create({
     icon:{
         color:'white',
     },
-=======
-  container: {
-    flex: 1,
-    backgroundColor: '#154C79',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    width:'100%',
-    paddingTop:20,
-    paddingBottom:20,
-  borderRadius:30,
+    title: {
+      color: 'white',
+      fontSize: 20,
+    }
 
-  },
-  icon:{
-      color:'white',
-      paddingLeft: 30,
-  },
-  title :{
-      paddingRight:'10%',
-      paddingBottom:5,
-      color:'white',
-      fontSize: 25,
->>>>>>> d31f9f89388a19c467c0471b20fd95db59607ae7
-
-  },
-  })
+  });
