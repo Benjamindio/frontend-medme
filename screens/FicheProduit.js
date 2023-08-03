@@ -13,7 +13,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 
 
-export default function FicheProduit() {  
+export default function FicheProduit({navigation}) {  
 
   const searchMed ='5QyAwQv1JS'
   const [medName, setMedName] = useState('')
@@ -56,6 +56,10 @@ export default function FicheProduit() {
       setQuantity(quantity -1)
     }
   }
+  //Clem a ajoute handle return
+  handleReturn = () => {
+    navigation.navigate('MedicamentsSelectionScreen')
+  }
   let ordonnance = <Text style={styles.textOrdonnance}>Sans {"\n"} ordonnance</Text>
   
   if(needOrdonnance) {
@@ -68,9 +72,9 @@ export default function FicheProduit() {
   }
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
+        {/* <View style={styles.header}> */}
           <HeaderSansLogo name={medName} onPress={() => handleReturn()} />
-        </View>
+        {/* </View> */}
         <View style={styles.titleContainer}>
           <View style={styles.iconContainer} >
             {icon}
@@ -131,10 +135,10 @@ export default function FicheProduit() {
       alignItems: 'center',
       backgroundColor:'#D9D9D9',
     },
-    header:{
-      flex:0.3,
-      width:'100%'
-    },
+    // header:{
+    //   flex:0.3,
+    //   width:'100%'
+    // },
      titleContainer:{
       flex: 0.3,
       width:"90%",

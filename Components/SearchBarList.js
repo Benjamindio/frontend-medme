@@ -17,7 +17,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
     useEffect (() => {
       if(searchText.length > 2){
         console.log(searchText.length)
-      //setTimeout(() => {try 
+      //setTimeout(() => {
       fetch('https://backend-medme.vercel.app/medicaments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -36,10 +36,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
           setErrorMessage(true)
           console.log('error medicament non trouvé')
           }})
-      .then(() => {setReset(searchText.length)})
-      .catch(error => {
-        console.error('Fetch error:', error.message)
-      });
+      .then(() => {setReset(searchText.length)});
 
         //},2000)
         
@@ -59,6 +56,7 @@ import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 
     handleClick = ()=> {
       console.log('click')
+      navigation.navigate('HomeScreen')
     }
 
     const renderItem = ({ item }) => (
