@@ -39,10 +39,11 @@ export default function FicheProduit({route,navigation}) {
     })
   
   },[])
+
   const handleAddToCart = () => {
     navigation.navigate('CheckoutScreen')
     dispatch(addToCart({product_id,quantity,needOrdonnance,medName,medInfo}))
-  }
+    };
   
   const handlePlus = () => {
     setQuantity(quantity +1)
@@ -53,7 +54,7 @@ export default function FicheProduit({route,navigation}) {
       setQuantity(quantity -1)
     }
   }
-  //Clem a ajoute handle return
+
   handleReturn = () => {
     navigation.navigate('MedicamentsSelectionScreen')
   }
