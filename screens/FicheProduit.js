@@ -16,7 +16,7 @@ import { addToCart } from '../reducers/user';
 
 
 export default function FicheProduit({route,navigation}) {  
-  const {product_id,medName,medCategorie, price, image} = route.params
+  const {product_id,medName,medCategorie, medPrice, medImage} = route.params
 
   const dispatch =useDispatch()
   const [needOrdonnance, setNeedOrdonnance] = useState(false)
@@ -81,7 +81,7 @@ export default function FicheProduit({route,navigation}) {
         </View>
         <View style={styles.contentContainer}>
               <View style={styles.leftContainer}>
-                  <Image source={{uri:image}} style={styles.image} />
+                  <Image source={{uri:medImage}} style={styles.image} />
                </View>   
               <View style={styles.rigthContainer}> 
                   <View style={styles.ordonnance}>
@@ -89,7 +89,7 @@ export default function FicheProduit({route,navigation}) {
                   </View>
                   <View style={styles.priceAndQuantity}>
                      <View style={styles.price}>
-                        <Text style={styles.textPrice}>{price}€</Text>
+                        <Text style={styles.textPrice}>{medPrice}€</Text>
                         </View>
                       <View style={styles.quantity}>
                            <FontAwesome name='minus' color='#5FA59D' size={15}  onPress={() => handleMinus()}  />

@@ -77,7 +77,6 @@ export default function App() {
         <Stack.Screen name = 'InscriptionTraitement' component ={InscriptionTraitement} />
         <Stack.Screen name = 'MedicamentsSelectionScreen' component ={MedicamentsSelectionScreen} />
         <Stack.Screen name = 'OrderScreen' component={OrderScreen}/>
-        <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
         <Stack.Screen name = 'ParapharmacieSelectionScreen'component ={ParapharmacieSelectionScreen} />
         <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
         <Stack.Screen name = 'CheckoutScreen'component ={CheckoutScreen} />

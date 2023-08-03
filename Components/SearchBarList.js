@@ -67,14 +67,14 @@ import { useNavigation } from '@react-navigation/native'
         product_id:product_id,
           medName,
           medCategorie,
-          price,
-          image
+          medPrice,
+          medImage
       })
   }
     
 
     const renderItem = ({ item }) => (
-      <TouchableOpacity onPress={() => handlePress(item.product_id,item.medName,item.medCategorie,item.price,item.image)}>
+      <TouchableOpacity onPress={() => handlePress(item.product_id,item.medName,item.medCategorie,item.medPrice,item.medImage)}>
         <View style={styles.resultContainer}>
         <Text style = {styles.resultName}>{item.medName}</Text>
         <View style={styles.label}>
