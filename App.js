@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPills,faBookMedical, faHome, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import user from './reducers/user'
+import user from './reducers/user';
 import HomeScreen from './screens/HomeScreen';
 import OrderScreen from './screens/OrderScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -17,7 +17,6 @@ import InscriptionFicheSante from './screens/InscriptionFicheSante';
 import MedicamentsSelectionScreen from './screens/MedicamentsSelectionScreen';
 import ParapharmacieSelectionScreen from './screens/ParapharmacieSelectionScreen';
 import FicheProduit from './screens/FicheProduit';
-
 import {Provider} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
 import InscriptionAllergie from './screens/InscriptionAllergie'
@@ -78,8 +77,10 @@ export default function App() {
         <Stack.Screen name = 'InscriptionTraitement' component ={InscriptionTraitement} />
         <Stack.Screen name = 'MedicamentsSelectionScreen' component ={MedicamentsSelectionScreen} />
         <Stack.Screen name = 'OrderScreen' component={OrderScreen}/>
+        <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
         <Stack.Screen name = 'ParapharmacieSelectionScreen'component ={ParapharmacieSelectionScreen} />
         <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
+        <Stack.Screen name = 'CheckoutScreen'component ={CheckoutScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

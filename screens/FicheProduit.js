@@ -10,42 +10,39 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../reducers/user';
 
 
 
-export default function FicheProduit() {  
+export default function FicheProduit({route,navigation}) {  
+  const {product_id,medName,medCategorie, price, image} = route.params
 
-  const searchMed ='5QyAwQv1JS'
-  const [medName, setMedName] = useState('')
-  const [medInfo, setMedInfo] = useState('')
+  const dispatch =useDispatch()
   const [needOrdonnance, setNeedOrdonnance] = useState(false)
-  const [categorie, setCategorie] = useState('')
-  const [price, setPrice] = useState(0)
-  const [medImage, setMedImage] = useState('')
   const [description,setDescription] = useState('')
   const [quantity, setQuantity] = useState(1)
-  
+  const medicamentName = medName.split(' ')
+  const medUsualName = medicamentName[0]
+  const medInfo =medicamentName.slice(1).join(' ')
   useEffect(() => {
-    fetch(`https://backend-medme.vercel.app/medicaments/${searchMed}`)
+    fetch(`https://backend-medme.vercel.app/medicaments/${product_id}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
+
       if(data.result){
         const medicaments = data.medicaments
-        const medicamentName = medicaments.name.split(' ')
-      setMedName(medicamentName[0])
-      setMedInfo(medicamentName.slice(1).join(' '))
-      setPrice(medicaments.price)
-      setMedImage(medicaments.image)
       setDescription(medicaments.description)
-      setCategorie(medicaments.categorie)
       setNeedOrdonnance(medicaments.need_prescription)
       }
       
     })
   
   },[])
-  
+  const handleAddToCart = () => {
+    navigation.navigate('CheckoutScreen')
+    dispatch(addToCart({product_id,quantity,needOrdonnance,medName,medInfo}))
+  }
   
   const handlePlus = () => {
     setQuantity(quantity +1)
@@ -63,13 +60,13 @@ export default function FicheProduit() {
   }
   
   let icon = <FontAwesome name='pills' color="#5FA59D" size={35} style={styles.icon} />
-  if(categorie === 'Parapharmacie') {
+  if(medCategorie === 'Parapharmacie') {
     icon = <FontAwesome name='band-aid' color="#5FA59D" size={35} style={styles.icon} />
   }
   return (
     <View style={styles.container}>
         <View style={styles.header}>
-          <HeaderSansLogo name={medName} onPress={() => handleReturn()} />
+          <HeaderSansLogo name={medUsualName} onPress={() => handleReturn()} />
         </View>
         <View style={styles.titleContainer}>
           <View style={styles.iconContainer} >
@@ -77,14 +74,14 @@ export default function FicheProduit() {
           </View>
           <View style={styles.titleContent}>
             <View style={styles.title}> 
-              <Title title={medName} />
+              <Title title={medUsualName} />
               <Text style={styles.subtitle} >{medInfo}</Text>
             </View>
           </View>
         </View>
         <View style={styles.contentContainer}>
               <View style={styles.leftContainer}>
-                  <Image source={{uri:medImage}} style={styles.image} />
+                  <Image source={{uri:image}} style={styles.image} />
                </View>   
               <View style={styles.rigthContainer}> 
                   <View style={styles.ordonnance}>
@@ -103,7 +100,7 @@ export default function FicheProduit() {
   
                   </View>
                   <View style={styles.addToCart}>
-                    <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={()=> {}}>
+                    <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={()=> handleAddToCart()}>
                       <Text style={styles.textButton}>Ajouter{"\n"} au panier</Text>
                       <FontAwesome name='shopping-cart' size={25} color='#5FA59D'/>
                     </TouchableOpacity>
