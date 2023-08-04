@@ -59,7 +59,9 @@ export default function CheckoutScreen({navigation}) {
   const handlePress = () => {
     navigation.goBack()
   }
-  
+  const handleGoToNextScreen = () => {
+    navigation.navigate('ChoosePharmacie')
+  }
 
   
 
@@ -90,7 +92,7 @@ export default function CheckoutScreen({navigation}) {
           <Text style={styles.totalPrice}>Total: {totalPrice} €</Text>
         </View>
       </View>
-      <ButtonNoIcon textButton="Commander" /*onPress={() => { }*/ />
+      <ButtonNoIcon textButton="Commander" onPress={() => { handleGoToNextScreen()}} />
     </KeyboardAvoidingView>
   );
 }
