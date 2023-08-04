@@ -65,9 +65,7 @@ export default function CheckoutScreen({navigation}) {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.header}>
         <HeaderSansLogo name="Votre panier" onPress={() => handlePress()} />
-      </View>
       <View style={styles.titleContainer}><Title title="Votre choix" style={styles.title} /></View>
       <ScrollView style={styles.scrollView}>
         {order.map((item) => (
@@ -90,7 +88,7 @@ export default function CheckoutScreen({navigation}) {
           <Text style={styles.totalPrice}>Total: {totalPrice} €</Text>
         </View>
       </View>
-      <ButtonNoIcon textButton="Commander" /*onPress={() => { }*/ />
+      <ButtonNoIcon textButton="Commander" onPress={() => navigation.navigate('UploadPrescription')} />
     </KeyboardAvoidingView>
   );
 }
@@ -102,11 +100,6 @@ export default function CheckoutScreen({navigation}) {
       alignItems: 'center',
       backgroundColor: '#F5F5F5',
       width: "100%"
-    },
-    header: {
-      width: '100%',
-      height: "15%",
-
     },
     titleContainer: {
       width: "80%",

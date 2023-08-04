@@ -39,13 +39,13 @@ export default function headerWithoutLogo(props) {
 }
 const styles = StyleSheet.create({
     container: {
-      height: '20%',
+      height: 155,
       backgroundColor: '#154C79',
       width:'100%',
-      padding:20,
       marginBottom: 30,
       borderBottomRightRadius:30,
       borderBottomLeftRadius:30,
+      paddingBottom:20,
       justifyContent: 'flex-end',
       alignItems:'center',
     },
@@ -54,14 +54,13 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-between',
-
     },
     icon:{
         color:'white',
     },
     title: {
       color: 'white',
-      fontSize: 20,
+      fontSize: 25,
     }
 
   });

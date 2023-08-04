@@ -22,6 +22,7 @@ import InscriptionAllergie from './screens/InscriptionAllergie'
 import InscriptionTraitement from './screens/InscriptionTraitement';
 import UploadPrescription from './screens/UploadPrescription';
 import SnapScreen from './screens/SnapScreen';
+import paymentScreen from './screens/PaymentScreen';
 
 import {Provider} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
@@ -87,6 +88,7 @@ export default function App() {
         <Stack.Screen name = 'CheckoutScreen'component ={CheckoutScreen} />
         <Stack.Screen name = 'UploadPrescription'component ={UploadPrescription} />
         <Stack.Screen name = 'SnapScreen'component = {SnapScreen} />
+        <Stack.Screen name = 'PaymentScreen'component = {paymentScreen} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
