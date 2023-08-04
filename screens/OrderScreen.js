@@ -21,7 +21,7 @@ export default function OrderScreen({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderLogo name = 'Commande'
-                        onPress={() => navigation.navigate('TabNavigator', {screen: 'Home'})}/>
+                        onPress={() => navigation.goBack()}/>
             <View style={styles.content}>
                 <SearchBarList 
                              />
