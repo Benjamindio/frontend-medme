@@ -15,22 +15,22 @@ import ButtonNoIcon from '../Components/ButtonNoIcon'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import {removePhotoOrdonnance} from '../reducers/user';
+import { useNavigation } from '@react-navigation/native'
+
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 
-export default function UploadPrescription({navigation}) {
+export default function UploadPrescription() {
 
+    const navigation = useNavigation()
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.value);
 
-    const handleOpenCamera = () => {
-        navigation.navigate('SnapScreen')
-    };
-
     const [selectedPhoto, setSelectedPhoto] = useState(user.photoOrdonnance);
+    const [errorMessage,setErrorMessage] = useState(false);
 
-    console.log(selectedPhoto)
+    console.log(selectedPhoto.length)
     const length = user.photoOrdonnance.length;
     console.log(length)
 
@@ -40,16 +40,31 @@ export default function UploadPrescription({navigation}) {
           setSelectedPhoto(selectedPhoto.filter(uri => uri !== photoUri)); // Désélectionne l'image
         } else {
           setSelectedPhoto([...selectedPhoto, photoUri]); // Sélectionne l'image
+          setErrorMessage(false);
         }
       };
     
-    let ordonnanceCounter;
-    
-        if (length <= 1) {
-            ordonnanceCounter = <Text style={styles.textUn}>{length} ordonnance importée</Text>
+    const handleOpenCamera = () => {
+        navigation.navigate('SnapScreen')
+    };
+
+    handleRegister = () => {
+        console.log('click register')
+        if (selectedPhoto.length>0){
+            setErrorMessage(false)
+            // navigation.navigate('ChoosePharmacie');
+            navigation.navigate('ConfirmationCommande');// changer quand screen payment et screen pharmacie prets
         } else {
-            ordonnanceCounter = <Text style={styles.textUn}>{length} ordonnances importées</Text>
-        };
+            setErrorMessage(true)
+        }
+    };
+    
+    let ordonnanceCounter;
+    if (length <= 1) {
+        ordonnanceCounter = <Text style={styles.textUn}>{length} ordonnance importée</Text>
+    } else {
+        ordonnanceCounter = <Text style={styles.textUn}>{length} ordonnances importées</Text>
+    };
   
 
     const photos = user.photoOrdonnance.map((data,i)=> {
@@ -74,9 +89,6 @@ export default function UploadPrescription({navigation}) {
         }
     });
 
-    handleRegister = () => {
-
-    }
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -113,9 +125,9 @@ export default function UploadPrescription({navigation}) {
                 {photos}
                 </View>
             </ScrollView>
-            <View style={styles.button}>
-                <ButtonNoIcon textButton = 'Enregistrer'onPress={() => handleRegister()}/>
-            </View>
+            {errorMessage && <Text style= {styles.errorMessage}>Aucune ordonnance importée</Text>}
+            <ButtonNoIcon   textButton = 'Enregistrer'
+                            onPress={() => handleRegister ()}/>
             </View>
 
         </KeyboardAvoidingView>
@@ -202,5 +214,11 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop:30,
-    }
+    },
+    errorMessage: {
+        fontSize:15,
+        color:'#154C79',
+        marginTop:20,
+      },
+
 });

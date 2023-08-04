@@ -4,7 +4,9 @@ import Title from '../Components/Title';
 import ButtonNoIcon from '../Components/ButtonNoIcon';
 import { View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Text, TouchableOpacity } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { useState } from 'react';
 import { removeFromCart, addOneArticle, removeOneArticle } from '../reducers/user';
+import OrderScreen from './MyordersScreen';
 
 const CartItem = ({ product_id, medName, quantity, medPrice, medImage }) => {
   const dispatch = useDispatch();
@@ -53,17 +55,24 @@ export default function CheckoutScreen({navigation}) {
   console.log(order)
   const totalSelectedProducts = order.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = order.reduce((total, item) => total + item.quantity * item.medPrice, 0).toFixed(2);
+  // const [isPrescriptionNeeded, setIsPrescriptionNeeded] = useState(false);
 
+console.log(order)
 
+// navigation:
 
   const handlePress = () => {
     navigation.goBack()
-  }
-  const handleGoToNextScreen = () => {
-    navigation.navigate('ChoosePharmacie')
-  }
+  };
 
-  
+const handleOrder = () => {
+  const isPrescriptionNeeded = order.some((e) => e.needOrdonnance === true);
+  if (isPrescriptionNeeded){
+    navigation.navigate('UploadPrescription')
+  }else{
+    navigation.navigate('PaymentScreen')
+  }
+};
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -90,10 +99,10 @@ export default function CheckoutScreen({navigation}) {
           <Text style={styles.totalPrice}>Total: {totalPrice} €</Text>
         </View>
       </View>
-      <ButtonNoIcon textButton="Commander" onPress={() => navigation.navigate('UploadPrescription')} />
+      <ButtonNoIcon textButton="Commander" onPress={() => handleOrder()} />
     </KeyboardAvoidingView>
   );
-}
+};
   
   const styles = StyleSheet.create({
     container: {
