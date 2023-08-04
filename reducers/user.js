@@ -16,7 +16,8 @@ const initialState={
             treatment: [],
 
         },
-        order:[]
+        order:[],
+        photoOrdonnance:[],
     }
 }
 
@@ -86,11 +87,19 @@ export const userSlice = createSlice({
               state.value.order[index].quantity -= 1;
             }
           },
+        addPhotoOrdonnance: (state, action) => {
+            console.log('add',action.payload)
+            state.value.photoOrdonnance.push(action.payload);
+          },
+        removePhotoOrdonnance: (state, action) => {
+            console.log('remove',action.payload)
+            state.value.photoOrdonnance = state.value.photoOrdonnance.filter((data) => data !== action.payload);
+          },
 
     }
 })
 
 
-export const {login, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle} = userSlice.actions;
+export const {login, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
 export default userSlice.reducer;
 

@@ -24,7 +24,7 @@ export default function ParapharmacieSelectionScreen({navigation}) {
     const [errorMessage,setErrorMessage] = useState(false);
     const [isClicked, setIsClicked ] = useState(false);
     const [reset, setReset] = useState(0);
-    const [ data, setData] = useState ([]);
+    const [data, setData] = useState ([]);
 
     useEffect (() => {
 

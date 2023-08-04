@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Camera, CameraType, FlashMode } from 'expo-camera';
-// import { useDispatch } from 'react-redux';
-// import { addPhoto } from '../reducers/user';
+import { useDispatch } from 'react-redux';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useIsFocused } from '@react-navigation/native';
+import {addPhotoOrdonnance} from '../reducers/user';
+
 
 export default function SnapScreen({navigation}) {
-//   const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
   const [hasPermission, setHasPermission] = useState(false);
@@ -27,32 +28,14 @@ export default function SnapScreen({navigation}) {
   const takePicture = async () => {
     const photo = await cameraRef.takePictureAsync({ quality: 0.3 });
     const formData = new FormData();
+    console.log(photoData)
+    setPhotoData([...photoData,photo.uri])
+    dispatch(addPhotoOrdonnance(photo.uri))
 
-    formData.append('photoFromFront', {
-      uri: photo.uri,
-      name: 'photo.jpg',
-      type: 'image/jpeg',
-    });
-    
-    // console.log('formdata',formData)
-    // setPhotoData(photo => [...photo, photo.uri ])
-    setPhotoData(photo.uri)
-};
-
-console.log(photoData)
-
-//     fetch(`routebackedn`, {
-//       method: 'POST',
-//       body: formData,
-//     }).then((response) => response.json())
-//       .then((data) => {
-//         data.result && dispatch(addPhoto(data.url));
-//       });
-//   }
-
+ }
   if (!hasPermission || !isFocused) {
     return <View />;
-  }
+  };
 
   return (
     <Camera type={type} flashMode={flashMode} ref={(ref) => cameraRef = ref} style={styles.camera}>
@@ -109,3 +92,21 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
   },
 });
+
+
+
+//   formData.append('photoFromFront', {
+//     uri: photo.uri,
+//     name: 'photo.jpg',
+//     type: 'image/jpeg',
+//   });
+
+//   fetch('http://192.168.1.103:3000/upload', {
+//     method: 'POST',
+//     body: formData,
+//   }).then((response) => response.json())
+//     .then((data) => {
+//       console.log('data photo',data)
+//       data.result && console.log(data.uri);
+//       dispatch(addPhoto(data.url));
+//   });

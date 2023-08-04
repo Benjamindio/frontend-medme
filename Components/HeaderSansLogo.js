@@ -38,40 +38,14 @@ export default function headerWithoutLogo(props) {
     )
 }
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-  container: {
-    flex: 1,
-    backgroundColor: '#154C79',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    width:'100%',
-    paddingTop:20,
-    paddingBottom:20,
-  borderRadius:30,
-
-  },
-  icon:{
-      color:'white',
-      paddingLeft: 30,
-  },
-  title :{
-      paddingRight:'10%',
-      paddingBottom:5,
-      color:'white',
-      fontSize: 25,
-
-  },
-  })
-=======
     container: {
-      height: '20%',
+      height: 155,
       backgroundColor: '#154C79',
       width:'100%',
-      padding:20,
       marginBottom: 30,
       borderBottomRightRadius:30,
       borderBottomLeftRadius:30,
+      paddingBottom:20,
       justifyContent: 'flex-end',
       alignItems:'center',
     },
@@ -80,15 +54,13 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-between',
-
     },
     icon:{
         color:'white',
     },
     title: {
       color: 'white',
-      fontSize: 20,
+      fontSize: 25,
     }
 
   });
->>>>>>> orders

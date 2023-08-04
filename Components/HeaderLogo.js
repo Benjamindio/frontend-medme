@@ -18,38 +18,47 @@ export default function headerWithLogo(props) {
 
     return (
         <View style={styles.container}>
-            <Pressable onPress={props.onPress}>
-                <FontAwesome name='chevron-left' style={styles.icon} size={20} />
-            </Pressable>
-            <Image source={require('../assets/Medme-whiteV1.png')} style={styles.logo} /> 
-            <TouchableOpacity
-                style={styles.hamburgerButton}
-                onPress={toggleMenu} >
-            <FontAwesome name='bars' style={styles.icon} size={30}/>
-            </TouchableOpacity>
-            <MenuHamburger
-                isVisible={isMenuVisible}
-                onMenuItemPress={handleMenuItemPress}
-                onClose={() => setMenuVisible(false)} />
-        </View>
+            <View style = {styles.content}>
+                <Pressable onPress={props.onPress}>
+                    <FontAwesome name='chevron-left' style={styles.icon} size={20} />
+                </Pressable>
+                <Image source={require('../assets/Medme-whiteV2.png')} style={styles.logo} /> 
+                <TouchableOpacity
+                    style={styles.hamburgerButton}
+                    onPress={toggleMenu} >
+                <FontAwesome name='bars' style={styles.icon} size={30}/>
+                </TouchableOpacity>
+                <MenuHamburger
+                    isVisible={isMenuVisible}
+                    onMenuItemPress={handleMenuItemPress}
+                    onClose={() => setMenuVisible(false)} />
+            </View>
+         </View>
     )
 }
 
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#154C79',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      width:'100%',
-      paddingTop:20,
-      borderRadius:30,
-      marginBottom: 30,
-    },
+        height: 155,
+        backgroundColor: '#154C79',
+        width:'100%',
+        marginBottom: 30,
+        borderBottomRightRadius:30,
+        borderBottomLeftRadius:30,
+        paddingBottom:20,
+        justifyContent: 'flex-end',
+        alignItems:'center',
+      },
+    content:{
+        width:'90%',
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
     logo:{
         width: '50%',
+        height:40.7,
         resizeMode: 'contain',
     },
     icon:{
