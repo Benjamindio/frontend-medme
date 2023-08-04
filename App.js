@@ -7,6 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPills,faBookMedical, faHome, faUser, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import user from './reducers/user';
+import modal from './reducers/modal';
 
 import HomeScreen from './screens/HomeScreen';
 import OrderScreen from './screens/OrderScreen';
@@ -36,7 +37,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const store = configureStore({
-  reducer: {user},
+  reducer: {user,modal}
 })
 
 const TabNavigator = () => {

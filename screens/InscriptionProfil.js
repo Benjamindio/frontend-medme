@@ -33,7 +33,7 @@ handleClickRegister = () => {
     .then(data => {
         console.log(data)
         if(data.result){
-            navigation.navigate('TabNavigator', {sreen: 'Home'})
+            navigation.navigate('TabNavigator', {screen: 'Home'})
         } else {
             console.log('error')
         }

@@ -2,7 +2,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity} from 'react-native';
 import { useState, useEffect, useRef } from 'react';
 import { ScrollView } from 'react-native';
-import { faBullseye } from '@fortawesome/free-solid-svg-icons';
 import { useNavigation } from '@react-navigation/native'
 
 
@@ -54,10 +53,6 @@ import { useNavigation } from '@react-navigation/native'
       setSearchText(value)
     };
 
-    handleClick = ()=> {
-      console.log('click')
-      navigation.navigate('HomeScreen')
-    }
 
     const handlePress = (product_id,medName,medCategorie,medPrice,medImage) => {
       navigation.navigate('FicheProduit', {
@@ -68,7 +63,7 @@ import { useNavigation } from '@react-navigation/native'
           medImage
       })
   }
-    
+
 
     const renderItem = ({ item }) => (
       <TouchableOpacity onPress={() => handlePress(item.product_id,item.medName,item.medCategorie,item.medPrice,item.medImage)}>

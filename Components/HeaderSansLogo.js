@@ -1,23 +1,17 @@
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native'
 import MenuHamburger from '../Components/MenuHamburger';
-import { useState } from 'react'; 
+import { useDispatch } from 'react-redux'; 
+import {setModalVisible} from '../reducers/modal';
+
 
 export default function headerWithoutLogo(props) {
 
-    const [isMenuVisible, setMenuVisible] = useState(false);
+    const dispatch = useDispatch()
 
-    const handleMenuItemPress = () => {
-  
-        setMenuVisible(false);
-      };
-    
-      const toggleMenu = () => {
-        setMenuVisible(!isMenuVisible);
-      };
-
-
-
+    const toggleMenu = () => {
+      dispatch(setModalVisible(true));
+    };
 
     return (
         <View style={styles.container}>
@@ -29,10 +23,7 @@ export default function headerWithoutLogo(props) {
                 onPress={toggleMenu} >
             <FontAwesome name='bars' style={styles.icon} size={30}/>
             </TouchableOpacity>
-            <MenuHamburger
-                isVisible={isMenuVisible}
-                onMenuItemPress={handleMenuItemPress}
-                onClose={() => setMenuVisible(false)} />
+            <MenuHamburger/>
           </View>
         </View>
     )
