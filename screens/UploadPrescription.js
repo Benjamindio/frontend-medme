@@ -89,6 +89,9 @@ export default function UploadPrescription() {
         }
     });
 
+    handleRegister = () => {
+        navigation.navigate('ChoosePharmacie')
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

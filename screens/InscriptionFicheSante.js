@@ -53,7 +53,7 @@ export default function InscriptionFicheSante({navigation}) {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ phoneNumber: user.phoneNumber,firstname:user.firstName,lastname:user.lastname, email:user.email, hasHealthCard:user.healthCard.hasHealthCard,dateOfBirth: user.healthCard.dateOfBirth, size: user.healthCard.size,
-         weight: user.healthCard.weight, allergies: user.healthCard.allergies, treatment: user.healthCard.treatment  }),
+         weight: user.healthCard.weight,adress:user.adresse, allergies: user.healthCard.allergies, treatment: user.healthCard.treatment  }),
   }).then(response => response.json())
       .then(data => {
           if(data.result){

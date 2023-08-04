@@ -8,6 +8,7 @@ const initialState={
         firstName:null,
         email:null,
         hasHealthCard:null,
+        adresse:null,
         healthCard: {
             dateOfBirth:null,
             size:null,
@@ -33,11 +34,12 @@ export const userSlice = createSlice({
         },
         signUp:(state,action) => {
             const { firstName, lastname, email,
-                hasHealthCard} = action.payload
+                hasHealthCard,adresse} = action.payload
             state.value.lastname = lastname
             state.value.firstName= firstName
             state.value.email = email
             state.value.hasHealthCard = hasHealthCard
+            state.value.adresse = adresse
             console.log(state.value)
         },
         healthCardCreation:(state,action) => {

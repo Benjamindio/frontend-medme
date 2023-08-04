@@ -61,9 +61,9 @@ console.log(order)
 
 // navigation:
 
-  const handlePress = () => {
-    navigation.goBack()
-  };
+  const handleGoToNextScreen = () => {
+    navigation.navigate('ChoosePharmacie')
+  }
 
 const handleOrder = () => {
   const isPrescriptionNeeded = order.some((e) => e.needOrdonnance === true);
@@ -76,7 +76,7 @@ const handleOrder = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <HeaderSansLogo name="Votre panier" onPress={() => handlePress()} />
+        <HeaderSansLogo name="Votre panier" onPress={() => navigation.goBack()} />
       <View style={styles.titleContainer}><Title title="Votre choix" style={styles.title} /></View>
       <ScrollView style={styles.scrollView}>
         {order.map((item) => (

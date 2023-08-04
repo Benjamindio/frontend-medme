@@ -19,6 +19,7 @@ const user = useSelector(state => state.user.value)
 const [name, setName] = useState('');
 const [firstName, setFirstName] = useState('');
 const [email, setEmail] = useState('');
+const [adresse,setAdresse] = useState('')
 const dispatch = useDispatch()
 
 
@@ -28,12 +29,12 @@ handleClickRegister = () => {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({phoneNumber:user.phoneNumber, lastname: name, firstname: firstName, email: email, 
-      healthCard: false }),
+      healthCard: false , adress:adresse}),
 }).then(response => response.json())
     .then(data => {
         console.log(data)
         if(data.result){
-            navigation.navigate('TabNavigator', {sreen: 'Home'})
+            navigation.navigate('TabNavigator', {screen: 'Home'})
         } else {
             console.log('error')
         }
@@ -43,13 +44,13 @@ handleClickRegister = () => {
 
 handleClickYes = () => {
      console.log('click bouton yes')
-    dispatch(signUp({lastname:name, firstName, email, hasHealthCard:true}))
+    dispatch(signUp({lastname:name, firstName,adresse, email, hasHealthCard:true}))
      navigation.navigate('InscriptionFicheSante');
 }
 
 handleClickNo = () => {
     console.log('click bouton no')
-    dispatch(signUp({lastname:name, firstName, email, hasHealthCard:false}))
+    dispatch(signUp({lastname:name, firstName, email, hasHealthCard:false, adresse}))
 }
 
 
@@ -79,6 +80,12 @@ handleClickNo = () => {
                                                                 keyboardType = 'email-address'
                                                                 onChangeText={(value) => setEmail(value)}
                                                                 value = {email}/></View>
+                <View style={styles.largeInputContainer}><Input title="Adresse" 
+                                                                underlineWidth={"20%"}
+                                                                cursorColor = '#154C79'
+                                                                keyboardType = 'default'
+                                                                onChangeText={(value) => setAdresse(value)}
+                                                                value = {adresse}/></View>
                 <Text style={styles.centerText}>Êtes-vous sous traitement?</Text>
                 <View style={styles.smallButtonSection}>
                     <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickYes()}>

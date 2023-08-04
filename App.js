@@ -39,6 +39,21 @@ const store = configureStore({
   reducer: {user},
 })
 
+const OrderStack = () => {
+  return (<Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name = 'OrderScreen' component={OrderScreen}/>
+    <Stack.Screen name = 'MedicamentsSelectionScreen' component ={MedicamentsSelectionScreen} />
+    <Stack.Screen name = 'ParapharmacieSelectionScreen'component ={ParapharmacieSelectionScreen} />
+    <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
+    <Stack.Screen name = 'CheckoutScreen'component ={CheckoutScreen} />
+    <Stack.Screen name = 'UploadPrescription'component ={UploadPrescription} />
+    <Stack.Screen name = 'ChoosePharmacie'component ={ChoosePharmacie} />
+    <Stack.Screen name = 'SnapScreen'component = {SnapScreen} />
+    <Stack.Screen name = 'PaymentScreen'component = {PaymentScreen} />
+    <Stack.Screen name = 'ConfirmationCommande'component = {ConfirmationCommande} />
+    <Stack.Screen name = 'SuiviCommande' component ={SuiviCommande}/>
+  </Stack.Navigator>)
+}
 const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
@@ -67,9 +82,9 @@ const TabNavigator = () => {
       headerShown: false,
     })}>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Order" component={OrderScreen} />
+      <Tab.Screen name="Order" component={OrderStack} />
       <Tab.Screen name="Checkout" component={CheckoutScreen} />
-      <Tab.Screen name="Profile" component={OrderScreen} />
+      <Tab.Screen name="Profile" component={OrderStack} />
       <Tab.Screen name="Myorders" component={MyordersScreen} />
     </Tab.Navigator>
   );
@@ -85,18 +100,7 @@ export default function App() {
         <Stack.Screen name = 'InscriptionFicheSante' component ={InscriptionFicheSante} />
         <Stack.Screen name = 'InscriptionAllergie' component ={InscriptionAllergie} />
         <Stack.Screen name = 'InscriptionTraitement' component ={InscriptionTraitement} />
-        <Stack.Screen name = 'MedicamentsSelectionScreen' component ={MedicamentsSelectionScreen} />
-        <Stack.Screen name = 'OrderScreen' component={OrderScreen}/>
-        <Stack.Screen name = 'ParapharmacieSelectionScreen'component ={ParapharmacieSelectionScreen} />
-        <Stack.Screen name = 'FicheProduit'component ={FicheProduit} />
-        <Stack.Screen name = 'CheckoutScreen'component ={CheckoutScreen} />
-        <Stack.Screen name = 'ChoosePharmacie'component ={ChoosePharmacie} />
-        <Stack.Screen name = 'UploadPrescription'component ={UploadPrescription} />
-        <Stack.Screen name = 'SnapScreen'component = {SnapScreen} />
-        <Stack.Screen name = 'PaymentScreen'component = {PaymentScreen} />
-        <Stack.Screen name = 'ConfirmationCommande'component = {ConfirmationCommande} />
-        <Stack.Screen name = 'SuiviCommande' component ={SuiviCommande}/>
-        <Stack.Screen name= 'TabNavigator' component={TabNavigator} />
+        <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
