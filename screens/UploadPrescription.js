@@ -75,7 +75,7 @@ export default function UploadPrescription({navigation}) {
     });
 
     handleRegister = () => {
-
+        navigation.navigate('ChoosePharmacie')
     }
 
     return (

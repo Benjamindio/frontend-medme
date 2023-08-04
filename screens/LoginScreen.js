@@ -128,7 +128,7 @@ export default function LoginScreen({navigation}) {
                         dispatch(login({phoneNumber:phone,token:data.token}))
                         if(userExist) {
                             console.log('userExist')
-                            navigation.navigate('TabNavigator', {sreen: 'Home'})
+                            navigation.navigate('TabNavigator', {screen: 'Home'})
                         } else {
                             navigation.navigate('InscriptionProfil')
                         }

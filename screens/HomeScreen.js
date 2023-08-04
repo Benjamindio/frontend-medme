@@ -25,7 +25,7 @@ const title = `Bonjour`
            <Text style={styles.text}>Que souhaitez-vous faire ?</Text>
         </View>
         <View style={styles.primaryButton}>
-          <ButtonHome iconName='pills' iconSize={50} iconColor='#F5F5F5' textButton='Je commande' height='60%' width={200} backgroundColor='#154C79'  color="#F5F5F5" onPress={() => navigation.navigate('Order')} />
+          <ButtonHome iconName='pills' iconSize={50} iconColor='#F5F5F5' textButton='Je commande' height='60%' width={200} backgroundColor='#154C79'  color="#F5F5F5" onPress={() => navigation.navigate('TabNavigator', {screen: 'Order'})} />
           </View>
         <View style={styles.lowerButton}> 
             <ButtonHome iconName='user' iconSize={50} iconColor='#5FA59D' textButton='Mon profil' height='70%' width={120} backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profile')}/>

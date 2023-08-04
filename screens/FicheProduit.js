@@ -57,7 +57,7 @@ export default function FicheProduit({route,navigation}) {
   }
 
   handleReturn = () => {
-    navigation.navigate('MedicamentsSelectionScreen')
+    navigation.goBack()
   }
   let ordonnance = <Text style={styles.textOrdonnance}>Sans {"\n"} ordonnance</Text>
   
