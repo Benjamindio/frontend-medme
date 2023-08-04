@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import HeaderSansLogo from './components/HeaderSansLogo';
-import Title from './components/Title';
-import ButtonNoIcon from './components/ButtonNoIcon';
+import HeaderSansLogo from '../Components/HeaderSansLogo';
+import Title from '../Components/Title';
+import ButtonNoIcon from '../Components/ButtonNoIcon';
 import { View, StyleSheet,Image, KeyboardAvoidingView, Platform, Text, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps'
 import {Dimensions} from 'react-native'
@@ -11,20 +11,24 @@ import { Marker } from 'react-native-maps';
  
   export default function SelectPharmacie({navigation}) {
 
-  const [region, setRegion] = useState({latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,})
-  const [currentLocation ,setCurrentLocation] = useState({latitude:0,longitude:0})
- useEffect(() => {
-   (async () => {
-     const { status } = await Location.requestForegroundPermissionsAsync();
-  if (status !== 'granted') {
-      console.error('Permission to access location was denied.');
+    const [region, setRegion] = useState({latitude: 37.78825,
+      longitude: -122.4324,
+      latitudeDelta: 0.05,
+      longitudeDelta: 0.05,})
+    const [currentLocation ,setCurrentLocation] = useState({latitude:0,longitude:0})
+
+    const [city, setCity] = useState('')
+
+    useEffect(() => {
+      let test
+      (async () => {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+        console.error('Permission to access location was denied.');
       return;
-    }
-  
-       let location = await Location.getCurrentPositionAsync({});
+      }
+
+    let location = await Location.getCurrentPositionAsync({});
     setRegion({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
@@ -32,10 +36,37 @@ import { Marker } from 'react-native-maps';
       longitudeDelta: 0.005,
     });
     setCurrentLocation({latitude:location.coords.latitude, longitude:location.coords.longitude})
-   console.log(location);
-     
-   })();
- }, [])
+    const geocode = await Location.reverseGeocodeAsync(location.coords)
+      console.log('mycoordinates',currentLocation.latitude)
+      test = await geocode[0].city
+
+  }
+  )()
+  setCity(test)
+    (async () => {
+      
+      console.log(city)
+    fetch('http://192.168.1.155:3000/pharmacies/inArea',{
+    method:'POST', 
+    headers:{'Content-Type': 'application/json'}, 
+    body: JSON.stringify({city:city, latitude:currentLocation.latitude, longitude:currentLocation.longitude})
+    }).then(response => response.json())
+    .then(data => {
+    if(data.result) {
+      const pharmacie = data.listOfPhamarcie
+      console.log(data)
+      
+
+    }
+    });
+    })
+    console.log('launch')
+
+
+
+}, [])
+
+  
 
 
 

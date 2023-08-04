@@ -59,7 +59,9 @@ export default function CheckoutScreen({navigation}) {
   const handlePress = () => {
     navigation.goBack()
   }
-  
+  const handleGoToNextScreen = () => {
+    navigation.navigate('ChoosePharmacie')
+  }
 
   
 

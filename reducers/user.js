@@ -62,12 +62,12 @@ export const userSlice = createSlice({
         addToCart:(state, action) => {
             if(!state.value.order.find(e => e.product_id === action.payload.product_id)){
             state.value.order.push(action.payload)}
-            else{
-                const i = state.value.order.findIndex(action.payload.product_id)
-                state.value.order[i].quantity = state.value.order[i].quantity + action.payload.quantity
+            //else{
+                //const i = state.value.order.findIndex(action.payload.product_id)
+               // state.value.order[i].quantity = state.value.order[i].quantity + action.payload.quantity
                 //if(state.value.order.includes(action.payload.))
                 
-            }
+           // }
         
             console.log(state.value.order)
         },
