@@ -4,12 +4,12 @@ import {Image, View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 export default function ProductDisplay(props) {
 
     return (
-        <TouchableOpacity style={styles.container} onPress={props.onPress} id ={props.shadowRadius}>
+        <View style={styles.container} id ={props.shadowRadius}>
             <Image source={props.src} style ={props.image}/>
-            <Text style={props.styleTextDisplayButton}>{props.text}</Text>
+            <Text style={props.styleTextDisplayButton} onPress={props.onPress}>{props.text}</Text>
             <Text style={props.stylePrice}>{props.price} €</Text>
-            <FontAwesome name={props.nameIconRight} style ={props.styleIconRight} size={20}/>
-        </TouchableOpacity>
+            <FontAwesome name={props.nameIconRight} style ={props.styleIconRight} size={20} onPress={props.onPressIcon}/>
+        </View>
     )
 };
 

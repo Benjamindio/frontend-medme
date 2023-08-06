@@ -61,72 +61,76 @@ console.log(order)
 
 // navigation:
 
-  const handleGoToNextScreen = () => {
-    navigation.navigate('ChoosePharmacie')
-  }
-
 const handleOrder = () => {
   const isPrescriptionNeeded = order.some((e) => e.needOrdonnance === true);
   if (isPrescriptionNeeded){
     navigation.navigate('UploadPrescription')
   }else{
-    navigation.navigate('PaymentScreen')
+    navigation.navigate('ChoosePharmacie')
   }
 };
 
+const products = order.map((item) => {
+  return (
+    <CartItem
+    key={item.product_id}
+    product_id={item.product_id}
+    medName={item.medName}
+    quantity={item.quantity}
+    medPrice={item.medPrice}
+    medImage={item.medImage}
+  />
+  )
+})
+
+let textProduit;
+if (totalSelectedProducts<= 1){
+  textProduit = `${totalSelectedProducts} produit`
+}else{
+  textProduit = `${totalSelectedProducts} produits`
+
+}
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <HeaderSansLogo name="Votre panier" onPress={() => navigation.goBack()} />
-      <View style={styles.titleContainer}><Title title="Votre choix" style={styles.title} /></View>
-      <ScrollView style={styles.scrollView}>
-        {order.map((item) => (
-          <CartItem
-            key={item.product_id}
-            product_id={item.product_id}
-            medName={item.medName}
-            quantity={item.quantity}
-            medPrice={item.medPrice}
-            medImage={item.medImage}
-          />
-        ))}
-      </ScrollView>
-
+        <View style={styles.content}>
+          <Title title="Votre choix" />
+                {products}
       <View style={styles.totalContainer}>
-        <View style={styles.totalProductsContainer}>
-          <Text style={styles.totalProducts}>{totalSelectedProducts} produits</Text>
-        </View>
+          <Text style={styles.totalProducts}>{textProduit}</Text>
         <View style={styles.totalPriceContainer}>
           <Text style={styles.totalPrice}>Total: {totalPrice} €</Text>
         </View>
       </View>
       <ButtonNoIcon textButton="Commander" onPress={() => handleOrder()} />
+      </View>
     </KeyboardAvoidingView>
   );
 };
   
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      flex:1,
       backgroundColor: '#F5F5F5',
-      width: "100%"
-    },
-    titleContainer: {
-      width: "80%",
-      marginTop: 15
-    },
-    scrollView: {
-      width: '80%',
-    },
+      alignItems: 'center',
+      width:'100%',
+
+  },
+  content: {
+    flex:4,
+    width:'90%',
+    alignItems:'center',
+    justifyContent: 'flex-start',
+},
     cartItem: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: 20,
+      width:'100%',
       height: 80,
       borderColor: 'white',
-      padding: 1,
+      padding: 10,
       borderRadius: 8,
     },
     imageContainer: {
@@ -160,30 +164,27 @@ const handleOrder = () => {
       marginHorizontal: 1,
     },
     totalContainer: {
+      width:'100%',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginTop: 20,
-      marginBottom: 50,
-      padding: 20,
-    },
-    totalProductsContainer: {
-      flex: 1, 
-      justifyContent: 'flex-start',
+      alignItems: 'center',
+      marginTop:30,
+      marginBottom:30,
     },
     totalProducts: {
       fontSize: 20,
       color: '#AFB1B6',
     },
     totalPriceContainer: {
-      flex: 1,
-      borderWidth: 2,
-      borderColor: '#5FA59D',
       backgroundColor: '#5FA59D',
-      borderRadius: 50,
+      height:50,
+      borderRadius: 8,
+      justifyContent:'center',
       alignItems: 'center', 
+      padding:10,
     },
     totalPrice: {
-      fontSize: 25,
+      fontSize: 15,
       color: 'white',
     },
       

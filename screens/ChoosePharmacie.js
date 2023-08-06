@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import HeaderSansLogo from '../Components/HeaderSansLogo';
 import Title from '../Components/Title';
-import { View, StyleSheet,Image, KeyboardAvoidingView, Platform, Text, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet,Image, KeyboardAvoidingView, Platform, Text, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import {Dimensions} from 'react-native';
 import * as Location from 'expo-location';
@@ -92,11 +92,11 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
   
     return (
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <View style={styles.header}>
           <HeaderSansLogo name="Ma pharmacie" onPress={() => navigation.goBack()} />
-        </View>
+          <ScrollView style = {styles.scrollview}>
+        <View style={styles.content}>
         <View style={styles.introductionContainer}>
-          <View style={styles.titleContainer}><Title title="Votre choix" style={styles.title} /></View>
+          <Title title="Votre choix" style={styles.title} />
           <Text style={styles.paragraphe}>Choisissez une pharmacie près de chez vous pour que notre coursier aille chercher votre commande</Text>
         </View>
         <MapView
@@ -111,42 +111,44 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
       </MapView>
           
         <View style={styles.buttonContainer}><ButtonNoIcon textButton="Commander" /*onPress={() => { }*/  /></View>
+        </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     )
   }
   
   const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      flex:1,
       backgroundColor: '#F5F5F5',
-      width: "100%"
-    },
-    header: {
-      width: '100%',
-      flex: 0.1
-    },
-    titleContainer: {
-      width: "90%",
-    },
-    introductionContainer:{
-      flex: 0.1,
-      width:'90%',
+      alignItems: 'center',
+      width:'100%',
+  },
+    content: {
+      flex:4,
+      width:'100%',
       alignItems:'center',
+      justifyContent: 'center',
+      padding:20,
+  },
+  scrollview: {
+    width:'100%',
+},
+    introductionContainer:{
+      width:'100%',
+      alignItems:'center',
+      marginBottom:30,
     },
     paragraphe:{
-      width:'90%',
+      width:'100%',
       color:'#AFB1B6'
     },
     mapContainer: {
-        flex: 0.5,
-        width: "90%",
+        width: "100%",
         height: Dimensions.get('window').height,
 
       },
     buttonContainer:{
-      flex:0.2,
       justifyContent:'center'
     },
      bubble:{

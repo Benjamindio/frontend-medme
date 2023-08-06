@@ -1,5 +1,5 @@
 import HeaderSansLogo from '../Components/HeaderSansLogo';
-import Title from '../Components/Title';
+import SmallTitle from '../Components/SmallTitle';
 import {useState,useEffect} from 'react';
 import {
     View, 
@@ -71,20 +71,20 @@ export default function FicheProduit({route,navigation}) {
   }
   return (
     <View style={styles.container}>
-        {/* <View style={styles.header}> */}
-          <HeaderSansLogo name={medName} onPress={() => handleReturn()} />
-        {/* </View> */}
-        <View style={styles.titleContainer}>
-          <View style={styles.iconContainer} >
-            {icon}
-          </View>
-          <View style={styles.titleContent}>
-            <View style={styles.title}> 
-              <Title title={medUsualName} />
-              <Text style={styles.subtitle} >{medInfo}</Text>
+          <HeaderSansLogo name='Votre sélection' onPress={() => handleReturn()} />
+          <ScrollView style = {styles.scrollview}>
+          <View style={styles.content}>
+            <View style={styles.titleContainer}>
+              <View style={styles.iconContainer} >
+              {icon}
+              </View>
+              <View style={styles.titleContent}>
+                <View style = {styles.titleBox}>
+                  <Text style={styles.smallTitle}>{medUsualName}</Text>
+                </View>
+                <Text style={styles.subtitle} >{medInfo}</Text>
             </View>
-          </View>
-        </View>
+         </View>
         <View style={styles.contentContainer}>
               <View style={styles.leftContainer}>
                   <Image source={{uri:medImage}} style={styles.image} />
@@ -95,7 +95,7 @@ export default function FicheProduit({route,navigation}) {
                   </View>
                   <View style={styles.priceAndQuantity}>
                      <View style={styles.price}>
-                        <Text style={styles.textPrice}>{medPrice}€</Text>
+                        <Text style={styles.textPrice}>{medPrice} €</Text>
                         </View>
                       <View style={styles.quantity}>
                            <FontAwesome name='minus' color='#5FA59D' size={15}  onPress={() => handleMinus()}  />
@@ -108,7 +108,7 @@ export default function FicheProduit({route,navigation}) {
                   <View style={styles.addToCart}>
                     <TouchableOpacity style={styles.button} activeOpacity={0.8} onPress={()=> handleAddToCart()}>
                       <Text style={styles.textButton}>Ajouter{"\n"} au panier</Text>
-                      <FontAwesome name='shopping-cart' size={25} color='#5FA59D'/>
+                      <FontAwesome name='shopping-cart' size={25} color='white'/>
                     </TouchableOpacity>
                   </View>
               </View>
@@ -116,90 +116,101 @@ export default function FicheProduit({route,navigation}) {
         <View style={styles.descriptionContainer}> 
               <View style={styles.descriptionTitleContainer}>
                   <Text style={styles.descriptionTitle}>Description</Text>
-                </View>
-              <ScrollView style={styles.description}> 
+              </View>
+              <View style={styles.description}> 
                   <Text style={styles.descriptionText}>{description}</Text>
-              </ScrollView> 
+              </View> 
         </View>    
-              
-    
-          
+        </View>
+        </ScrollView> 
     </View>
   )
   }
   
   const styles = StyleSheet.create({
     container: {
-      flex:2,
+      flex:1,
+      backgroundColor: '#F5F5F5',
+      justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor:'#F5F5F5',
     },
-    // header:{
-    //   flex:0.3,
-    //   width:'100%'
-    // },
+    content:{
+      flex:4,
+      padding: 20,
+      alignItems:'center',
+      width: '100%',
+    },
+    //Titre
      titleContainer:{
-      flex: 0.3,
-      width:"90%",
+      width:"100%",
       flexDirection:"row",
-  
+      justifyContent:'space-evenly',
       alignItems:"center",
-      marginTop:'5%',
-      marginBottom:'10%',
       backgroundColor:'#FFFFFF',
       borderRadius:15,
-  
+      padding:15,
     },
     titleContent:{
-     width:'70%',
-    
+      width:'70%',
+      alignContent: 'center',
     },
+    titleBox: {
+      width: '100%',
+      borderBottomColor: '#154C79',
+      borderBottomWidth: 1,
+      justifyContent: 'center',
+      paddingBottom: 10,
+      marginBottom:10,
+  },
+  smallTitle: {
+      color: '#154C79',
+      fontSize: 20,
+      fontWeight: 'light',
+  },
     subtitle:{
       justifyContent:'center',
       fontSize:14,
       color:'#AFB1B6',
       fontWeight:'bold'
     },
-    title:{
-      width:'90%'
-    },
     iconContainer:{
-      width:'30%',
       alignItems:'center'
     },
+    //bloc Infos
     contentContainer:{
-  
-      flex: 0.4,
-      width:'90%',
+      width:'100%',
+      height:'10%',
       flexDirection:'row',
       justifyContent:'space-between',
-      alignItems:'start',
-      marginBottom:'10%'
+      alignItems:'center',
+      marginBottom:30,
+      marginTop:30,
   
     },
     leftContainer:{
-      width:'49%',
+      width:'50%',
       height:'100%',
       justifyContent:'center',
       alignItems:'center',
       backgroundColor:'white',
-      borderRadius:15
+      borderRadius:8,
+      padding:20,
     },
     image:{
       resizeMode:'contain',
-      width:'90%',
-      height:'90%'
+      width:'100%',
+      height:'100%'
     },
     rigthContainer:{
-      width:'49%',
+      width:'45%',
       height:'100%',
-      justifyContent:'flex-start',
+      justifyContent:'space-between',
       alignItems:'center',
       
     },
     ordonnance:{
       backgroundColor:'white',
-      borderRadius:15,
+      borderRadius:8,
       height:'25%',
       width:'100%',
       justifyContent:'center',
@@ -208,17 +219,16 @@ export default function FicheProduit({route,navigation}) {
     textOrdonnance:{
       color:'#154C79',
       fontWeight:'bold',
-      textAlign:'center'
+      textAlign:'center',
     },
     priceAndQuantity:{
-      marginTop:'7%',
       width:'100%',
       height:'25%',
       flexDirection:'row',
       justifyContent:'center',
       alignItems:'center',
       backgroundColor:'white',
-      borderRadius:15,
+      borderRadius:8,
     }, 
     textPrice:{
       fontSize:15,
@@ -235,42 +245,39 @@ export default function FicheProduit({route,navigation}) {
   
     },
     addToCart:{
-      marginTop:'7%',
       width:'100%',
       height:'35%',
-     backgroundColor: '#ffffff',
-     borderRadius: 20,
-      shadowColor: '#afb1b6',
-          shadowOpacity: 0.8,
-          elevation: 6,
-          shadowRadius: 8,
-          shadowOffset: {width:0.8, height:10},
-          marginBottom: 50,
+     backgroundColor: '#5FA59D',
+     borderRadius:8,
+     shadowColor: '#afb1b6',
+     shadowOpacity: 0.5,
+     elevation: 6,
+     shadowRadius: 8,
+     shadowOffset: {width:0.8, height:10},
     justifyContent:'center'
     },
     descriptionContainer:{
-      flex:1,
-      width:'90%',
+      width:'100%',
       backgroundColor:'white',
       borderRadius:15,
-      alignItems:'center'
-      
+      alignItems:'center',
+      padding:20,      
     },
     descriptionTitleContainer:{
-      width:"90%",
-      backgroundColor:'#5FA59D',
-      marginTop:10,
-      borderRadius:20,
+      width:"80%",
+      height:40,
+      borderBottomColor:'#5FA59D',
+      borderBottomWidth:0.5,
     },
     descriptionTitle: {
-      fontSize:14,
-      color:"white",
+      fontSize:20,
+      color:'#5FA59D',
       textAlign:'center',
       
     },
     description: {
-      width:"90%",
-      marginTop:10,
+      width:"100%",
+      marginTop:20,
   
     },
     descriptionText:{
@@ -280,18 +287,19 @@ export default function FicheProduit({route,navigation}) {
     button: {
           flexDirection: 'row',
           alignItems:'center',
-          justifyContent:'center',
-          
+          justifyContent:'space-evenly',
           width:'100%',
-          fontSize: 30,
       },
   
       textButton: {
-          color: '#5FA59D',
+          color: 'white',
           fontSize: 20,
-          fontWeight: 'bold',
+          fontWeight: 'light',
           textAlign:'center'
   
       },
+      scrollview:{
+        width:'100%',      }
+
   
   })

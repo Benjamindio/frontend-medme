@@ -93,6 +93,16 @@ export default function MedicamentsSelectionScreen({navigation}) {
           medPrice,
           medImage
         })
+    };
+
+    const handlePressCart = (product_id,medName,medCategorie,medPrice,medImage) => {
+      navigation.navigate('CheckoutScreen', {
+        product_id:product_id,
+        medName,
+        medCategorie,
+        medPrice,
+        medImage
+      })
     }
       
 
@@ -101,6 +111,7 @@ export default function MedicamentsSelectionScreen({navigation}) {
         return(
             <View style ={styles.resultContainer}>
                 <ProductDisplay onPress={()=> handlePress(data.product_id,data.medName,data.medCategorie,data.medPrice,data.medImage)}
+                                onPressIcon={()=>handlePressCart(data.product_id,data.medName,data.medCategorie,data.medPrice,data.medImage)}
                                 src = {{uri:(data.medImage)}} 
                                 text = {data.medName}
                                 price = {data.medPrice}
@@ -146,9 +157,9 @@ export default function MedicamentsSelectionScreen({navigation}) {
         },
         content:{
             flex:4,
-            padding: 10,
+            padding: 20,
             alignItems:'center',
-            width: '90%',
+            width: '100%',
         },
 
         resultContainer: {

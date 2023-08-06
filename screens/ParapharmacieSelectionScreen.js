@@ -119,7 +119,7 @@ export default function ParapharmacieSelectionScreen({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <HeaderSansLogo name = 'Parapharmacie'
-                            onPress={() => navigation.navigate('TabNavigator', {sreen: 'Orders'})}
+                            onPress={() => navigation.goBack()}
             />
             <View style={styles.content}>
                 <SearchBar  styleSearchBar = {[styles.searchBarUnclicked, searchBarStyle]}        
