@@ -25,7 +25,7 @@ const dispatch = useDispatch()
 
 
 handleClickRegister = () => {
-    console.log(adresse)
+    console.log(typeof adresse)
     fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
