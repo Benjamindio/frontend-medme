@@ -9,17 +9,21 @@ import {
      KeyboardAvoidingView,
      Platform,
      ScrollView,
+     Text,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState, useEffect} from 'react'
 import {healthCardCreation} from '../reducers/user'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import DateTimePicker from '@react-native-community/datetimepicker'
+import DatePicker from 'react-native-datepicker'
+
 
 export default function InscriptionFicheSante({navigation}) {
   const user = useSelector(state => state.user.value)
 
 
-    const [dateOfBirth,setDateOfBirth] = useState('')
+    const [dateOfBirth,setDateOfBirth] = useState(new Date())
     const [size, setSize] = useState(0); 
     const [weight, setWeight]= useState(0);
     const [allergies, setAllergies] = useState(0);
@@ -30,7 +34,8 @@ export default function InscriptionFicheSante({navigation}) {
 
 
     useEffect(() => {
-      setDateOfBirth(user.healthCard.dateOfBirth)
+
+      setDateOfBirth( new Date(user.healthCard.dateOfBirth))
       setSize(user.healthCard.size)
       setWeight(user.healthCard.weight)
       setAllergies(user.healthCard.allergies.length)
@@ -76,13 +81,15 @@ if(weightText ===0) {
   weightText = 'kg'
 }
 const handleAddAllergie = () => {
-
-  dispatch(healthCardCreation({dateOfBirth, size,weight}))
+  const isoStringDate = dateOfBirth.toISOString()
+  console.log(isoStringDate)
+  dispatch(healthCardCreation({isoStringDate, size,weight}))
 
   navigation.navigate('InscriptionAllergie')
 }
 const handleAddTreatment = () => {
-  dispatch(healthCardCreation({dateOfBirth, size,weight}))
+  const isoStringDate = dateOfBirth.toISOString()
+  dispatch(healthCardCreation({isoStringDate, size,weight}))
   navigation.navigate('InscriptionTraitement')
 }
 //
@@ -91,26 +98,41 @@ return (
   <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.header}><HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} /></View>
       <View style={styles.titleContainer}>
-        <Title title="Ma fiche santé" style={styles.title}/>
+        <Title title="Ma fiche santé" />
         </View>
-      <ScrollView > 
+      
       <View style={styles.field}>
           <View style={styles.inputAndLogoContainer}>
-          <View style={styles.largeInputContainer}>
-            < InputDate placeholder="" 
+          <View style={styles.dateContainer}>
+            <DateTimePicker
+              value={dateOfBirth}
+              mode="date"
+              display="spinner"
+              onChange={(event, selectedDate) => {
+              const currentDate = selectedDate || dateOfBirth;
+                setDateOfBirth(currentDate);
+              }}
+              style={styles.dateInputContainer}
+            />
+            <View style={styles.underline} width={100}></View>
+              <View style={styles.dateTitleContainer}>
+                <Text style={[styles.title,]}>Date de naissance</Text>
+              </View>
+            {/*< InputDate placeholder="" 
               cursorColor = '#154C79'
               title="Date de naissance" 
               text={dateOfBirthText}
               underlineWidth={'40%'} onChangeText={(value) => {setDateOfBirth(value)}} value={dateOfBirth} />
               </View>
-              <FontAwesome name='calendar' size={25} style={styles.iconColor}/>
+              <FontAwesome name='calendar' size={25} style={styles.iconColor}/>*/}
+              </View>
             </View>
             <View style={styles.inputTailleEtPoids}> 
               <View style={styles.inputSize}>
-                <Input placeholder="" text={sizeText} title='Taille' underlineWidth={40} onChangeText={(value) => {setSize(value)}} value={size} />
+                <Input placeholder="" text={sizeText} title='Taille' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setSize(value)}} value={size} />
                 </View>
               <View style={styles.inputSize}>
-                <Input placeholder=""  text={weightText} title='Poids' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
+                <Input placeholder=""  text={weightText} title='Poids' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
               </View>
             </View>
             <View style={styles.inputAndLogoContainer}>
@@ -127,64 +149,101 @@ return (
             </View>
             <ButtonNoIcon textButton="Enregistrer" onPress={() => handleRegister()} /> 
         </View>
-      </ScrollView> 
+      
   </KeyboardAvoidingView>
 )
 }
 
 const styles = StyleSheet.create({
-container: {
-flex:1,
-justifyContent: 'center',
-alignItems: 'center',
-backgroundColor:'D9D9D9',
-width: "100%"
-},
-field:{
-width:'95%',
-alignItems:'center',
-marginTop:15
+  container: {
+    flex:1,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor:'D9D9D9',
+    width: "100%"
+    },
+  field:{
+    width:'95%',
+    alignItems:'center',
 
-},
-header:{
-width:'100%',
-height:"15%",
+    flex:0.7
+
+  },
+    header:{
+    width:'100%',
+    flex:0.15
+
+  },
+  iconColor:{
+    color: '#5FA59D',
+    position:'absolute',
+    left:'80%',
+    top: '15%',
+    marginLeft: 20,
+  },
+  inputSize:{
+    width: '40%'
+  },
+  titleContainer:{
+    width:"80%",
+    flex:0.15,
+    marginTop:15
+
+  },
+
+  inputTailleEtPoids:{
+    width:"80%",
+    flexDirection: 'row',
+    justifyContent:'space-between',
+  },
+  inputAndLogoContainer:{
+    width:'80%',
+    height:'20%',
+    flexDirection:'row',
+    alignContent:'center',
+    justifyContent:'center'
+
+  },
+  dateContainer:{
+    width:'100%',
+    height:'80%'
 
 
-},
-iconColor:{
-color: '#5FA59D',
-position:'absolute',
-left:'80%',
-top: '15%',
-marginLeft: 20,
-},
-inputSize:{
-width: '40%'
-},
-titleContainer:{
-width:"80%",
-marginTop:15
+  },
+  dateInputContainer:{
+    
+  height:'100%',
+    backgroundColor: '#F5F5F5',
+    marginBottom: 20,
+    borderRadius: 8,
+    padding: 20,
+    borderColor: '#afb1b6',
+    borderWidth: 1,
+    opacity: 0.8,
 
-},
+  },
+  dateTitleContainer: {
+    flexDirection:'column',
+    position: 'absolute',
+    left: 15,
+    top: -6, 
+   backgroundColor: '#F5F5F5',
+    alignSelf: 'flex-start',
+  },
+  title:{
+    paddingHorizontal: 5,
+  },
+  underline:{
+    borderBottomWidth:3,
 
-inputTailleEtPoids:{
-width:"80%",
-flexDirection: 'row',
-justifyContent:'space-between',
-},
-inputAndLogoContainer:{
-width:'80%',
-flexDirection:'row',
-alignContent:'center',
-justifyContent:'center'
+    borderColor:'#F5F5F5',
+    position: 'absolute',
+    marginLeft: 13,
+    
+  },
+  largeInputContainer:{
+    width:"100%"
+  },
+  
 
-},
-largeInputContainer:{
-width:"100%"
-},
-title:{
-
-}
-
-})
+  })

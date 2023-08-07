@@ -10,7 +10,7 @@ const initialState={
         hasHealthCard:null,
         adresse:null,
         healthCard: {
-            dateOfBirth:null,
+            dateOfBirth:new Date().toISOString(),
             size:null,
             weight:null,
             allergies:[],
@@ -43,9 +43,10 @@ export const userSlice = createSlice({
             console.log(state.value)
         },
         healthCardCreation:(state,action) => {
-            const { adress, dateOfBirth,
+            const { adresse, isoStringDate,
                 bloodGroup, size, weight} = action.payload
-            state.value.healthCard.dateOfBirth = dateOfBirth
+            state.value.adresse = adresse
+            state.value.healthCard.dateOfBirth = isoStringDate
             state.value.healthCard.size = size
             state.value.healthCard.weight = weight
             console.log(state.value)// ajouter adresse et bloodgroup 
