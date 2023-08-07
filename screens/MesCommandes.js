@@ -1,4 +1,3 @@
-    import FontAwesome from 'react-native-vector-icons/FontAwesome'
     import {
         StyleSheet,
         KeyboardAvoidingView,
@@ -8,9 +7,8 @@
         View,
         TouchableOpacity,
     } from 'react-native';
-    
+    import FontAwesome from 'react-native-vector-icons/FontAwesome5';
     import HeaderLogo from '../Components/HeaderLogo';
-    import SmallTitle from '../Components/SmallTitle';
     import DisplayButton from '../Components/DisplayButton';
     import { useState } from 'react';
     
@@ -26,6 +24,11 @@
                         <View style = {styles.titleBox}>
                             <Text style={styles.title}>Mes Commandes</Text>
                         </View>
+                        <TouchableOpacity style = {styles.orderContainer} onPress={() => navigation.navigate('DetailCommande')}>
+                            <FontAwesome name='truck' color='#5FA59D' size={20}/>
+                            <Text style={styles.smallText}>Ma Commande du DATE</Text>
+                            <Text style={styles.total}>Total €</Text>
+                        </TouchableOpacity>
                     </View>
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
@@ -87,12 +90,30 @@
                 fontSize: 20,
                 fontWeight: 'light',
             },
+            orderContainer:{
+                width:'100%',
+                height:85,
+                backgroundColor:'#F5F5F5',
+                borderRadius:15,
+                flexDirection: 'row',
+                justifyContent:'space-evenly',
+                alignItems:'center',
+            },
+            smallText:{
+                color:'#afb1b6',
+                fontSize:15,
+                fontWeight: 'light',
+            },
+            total:{
+                color:'#afb1b6',
+                fontSize:15,
+                fontWeight: 'bold',
+            },
             text:{
                 color: '#154C79',
                 fontSize: 20,
                 fontWeight: 'light',
             },
-       
             iconLeft: {
                 color:'#5FA59D',
             },

@@ -46,6 +46,9 @@ const PaymentScreen = ({ navigation }) => {
       }
     };
 
+    console.log('user',user)
+
+
     const handlePayPress = async () => {
 
         // Gather the customer's billing information (for example, email)
@@ -100,6 +103,7 @@ const PaymentScreen = ({ navigation }) => {
             .then((saveOrderData) => {
             if (saveOrderData.ok) {
                 console.log('Order saved:', saveOrderData);
+                console.log(user)
                 navigation.navigate('ConfirmationCommande'); 
             } else {
                 console.error('Error saving order:', saveOrderData.error);

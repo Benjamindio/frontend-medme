@@ -28,6 +28,7 @@ import PaymentScreen from './screens/PaymentScreen';
 import ConfirmationCommande from './screens/ConfirmationCommande';
 import ChoosePharmacie from './screens/ChoosePharmacie';
 import SuiviCommande from './screens/SuiviCommande';
+import DetailCommande from './screens/DetailCommande';
 
 
 import {Provider} from 'react-redux'
@@ -54,6 +55,7 @@ const OrderStack = () => {
     <Stack.Screen name = 'PaymentScreen'component = {PaymentScreen} />
     <Stack.Screen name = 'ConfirmationCommande'component = {ConfirmationCommande} />
     <Stack.Screen name = 'SuiviCommande' component ={SuiviCommande}/>
+    <Stack.Screen name = 'DetailCommande' component={DetailCommande} />
   </Stack.Navigator>)
 }
 const TabNavigator = () => {
