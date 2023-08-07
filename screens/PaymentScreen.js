@@ -19,7 +19,11 @@ const PaymentScreen = ({ navigation }) => {
         return total.toFixed(2);
       }
 
+<<<<<<< HEAD
     const API_URL = '192.168.1.101:3000'; // Replace this with your backend API URL
+=======
+    const API_URL = 'https://backend-medme.vercel.app/'; // Replace this with your backend API URL
+>>>>>>> 19cb0df3caaacc02fd1e29da9be99feb4b84abdf
 
   
     const fetchPaymentIntentClientSecret = async () => {
@@ -89,10 +93,10 @@ const PaymentScreen = ({ navigation }) => {
             status: 'paid',
             isPaid: true,
             productId: order.map((item) => item.product_id), 
-            token: user.token, 
+            token: user.isConnected, 
         };
         
-        fetch(`${API_URL}/add`, {
+        fetch(`${API_URL}/orders/add`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -101,7 +105,7 @@ const PaymentScreen = ({ navigation }) => {
         })
             .then((response) => response.json())
             .then((saveOrderData) => {
-            if (saveOrderData.ok) {
+            if (saveOrderData.result) {
                 console.log('Order saved:', saveOrderData);
                 console.log(user)
                 navigation.navigate('ConfirmationCommande'); 

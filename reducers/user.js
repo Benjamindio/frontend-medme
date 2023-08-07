@@ -2,7 +2,8 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState={
     value: {
-        isConnected: '', 
+        isConnected: '',
+        userStatus:null, 
         phoneNumber:null,
         lastname:null,
         firstName:null,
@@ -31,6 +32,11 @@ export const userSlice = createSlice({
             state.value.isConnected = action.payload.token;
             state.value.phoneNumber = action.payload.phoneNumber
             console.log(state.value)
+            
+        },
+        updateUserStatus: (state,action) => {
+            state.value.userStatus = action.payload.userStatus
+            console.log(state.value)
         },
         signUp:(state,action) => {
             const { firstName, lastname, email,
@@ -43,20 +49,22 @@ export const userSlice = createSlice({
             console.log(state.value)
         },
         healthCardCreation:(state,action) => {
-            const { adresse, isoStringDate,
+            const { isoStringDate,
                 bloodGroup, size, weight} = action.payload
-            state.value.adresse = adresse
+                
             state.value.healthCard.dateOfBirth = isoStringDate
             state.value.healthCard.size = size
             state.value.healthCard.weight = weight
             console.log(state.value)// ajouter adresse et bloodgroup 
         },
         addTreatment:(state,action) => {
+            if(!state.value.healthCard.treatment.find(e => e.pathologie === action.payload.pathologie)){
             state.value.healthCard.treatment.push(action.payload)
-            console.log(state.value.healthCard.treatment)
+            console.log(state.value.healthCard.treatment)}
         },
         addAllergies:(state,action) => {
-            state.value.healthCard.allergies.push(action.payload)
+            if(!state.value.healthCard.allergies.find(e => e === action.payload)){
+            state.value.healthCard.allergies.push(action.payload)}
         },
         logout:(state) => {
             state.value.isConnected = false;
@@ -103,6 +111,6 @@ export const userSlice = createSlice({
 })
 
 
-export const {login, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
+export const {login,updateUserStatus, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
 export default userSlice.reducer;
 
