@@ -130,8 +130,9 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
     content: {
       flex:4,
       width:'100%',
+      height:'100%',
       alignItems:'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       padding:20,
   },
   scrollview: {
@@ -148,7 +149,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
     },
     mapContainer: {
         width: "100%",
-        height: Dimensions.get('window').height,
+        height: 400,
 
       },
     buttonContainer:{

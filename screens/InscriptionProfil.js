@@ -20,6 +20,7 @@ const [name, setName] = useState('');
 const [firstName, setFirstName] = useState('');
 const [email, setEmail] = useState('');
 const [adresse,setAdresse] = useState('')
+const [isSelected, setIsSelected] = useState(false)
 const dispatch = useDispatch()
 
 
@@ -43,15 +44,20 @@ handleClickRegister = () => {
 }
 
 handleClickYes = () => {
-     console.log('click bouton yes')
+    console.log('click bouton yes')
+    setIsSelected(true)
     dispatch(signUp({lastname:name, firstName,adresse, email, hasHealthCard:true}))
-     navigation.navigate('InscriptionFicheSante');
+    navigation.navigate('InscriptionFicheSante');
 }
 
 handleClickNo = () => {
     console.log('click bouton no')
     dispatch(signUp({lastname:name, firstName, email, hasHealthCard:false, adresse}))
 }
+
+const butnSelectedStyle = {
+    backgroundColor: isSelected ? 'white' : '#F5F5F5',
+  }; 
 
 
     return (
@@ -61,7 +67,7 @@ handleClickNo = () => {
                     style = {styles.logo}
                     source = {require('../assets/LogoV1.png')}
                 />
-                <Title name = 'Je crée mon profil'/>
+                <Title title = 'Je crée mon profil'/>
                 <View style={styles.largeInputContainer}><Input title="Nom" 
                                                                 underlineWidth={"20%"}
                                                                 cursorColor = '#154C79'
@@ -88,11 +94,11 @@ handleClickNo = () => {
                                                                 value = {adresse}/></View>
                 <Text style={styles.centerText}>Êtes-vous sous traitement?</Text>
                 <View style={styles.smallButtonSection}>
-                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickYes()}>
+                    <TouchableOpacity style={[styles.smallButton,butnSelectedStyle]} activeOpacity={0.8} onPress={()=> handleClickYes()}>
                         <Text style={styles.textSmallButton}>OUI</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickNo()}>
-                        <Text style={styles.textSmallButton}>NON</Text>
+                        <Text style={[styles.textSmallButton,butnSelectedStyle]}>NON</Text>
                     </TouchableOpacity>
                 </View>
                 <ButtonNoIcon textButton= 'Enregistrer'
@@ -141,7 +147,6 @@ handleClickNo = () => {
             elevation: 6,
             shadowRadius: 8,
             shadowOffset: {width:0.8, height:10},
-            marginBottom: 50,
         },
         textSmallButton: {
             color: '#afb1b6',
