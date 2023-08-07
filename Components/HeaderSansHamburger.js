@@ -6,33 +6,40 @@ export default function headerWithoutLogo(props) {
 
     return (
         <View style={styles.container}>
+          <View style = {styles.content}>
             <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
             <Text style={styles.title}>{props.name}</Text>
+            <FontAwesome name='bars' style={styles.icon} size={30}/>
+          </View>
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
+      height: 155,
       backgroundColor: '#154C79',
-      flexDirection: 'row',
-      alignItems: 'flex-end',
-      justifyContent: 'flex-start',
       width:'100%',
-      paddingTop:20,
+      marginBottom: 30,
+      borderBottomRightRadius:30,
+      borderBottomLeftRadius:30,
       paddingBottom:20,
-      borderRadius:30,
-
+      justifyContent: 'flex-end',
+      alignItems:'center',
+    },
+    content:{
+      width:'90%',
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     icon:{
         color:'white',
-        paddingLeft: 30,
     },
-
-    title :{
-        paddingLeft:'30%',
-        paddingBottom:5,
-        color:'white',
-        fontSize: 25,
+    iconHidden:{
+        color:'#154C79',
     },
-  })
+    title: {
+      color: 'white',
+      fontSize: 25,
+    }
+  });

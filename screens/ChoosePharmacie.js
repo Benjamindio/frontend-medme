@@ -73,7 +73,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
                 
                   {isAvailable}
                
-                <TouchableOpacity style={styles.buttonSelectContainer} activeOpacity={0.8} onPress={() => {}}>
+                <TouchableOpacity style={styles.buttonSelectContainer} activeOpacity={0.8} onPress={()=>navigation.navigate('PaymentScreeen')}>
                   <Text style={styles.textButtonSelect}>Sélectionner</Text>
                 </TouchableOpacity>
             </View>
@@ -99,18 +99,16 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
           <Title title="Votre choix" style={styles.title} />
           <Text style={styles.paragraphe}>Choisissez une pharmacie près de chez vous pour que notre coursier aille chercher votre commande</Text>
         </View>
-        <MapView
-            region={region}
-            style={styles.mapContainer}
-            provider='google'
-            >
-            <Marker title='Votre position'
-        image={require('../assets/position.png')}
-        coordinate={{ latitude: currentLocation.latitude, longitude: currentLocation.longitude }} />
-            {markers}
-      </MapView>
-          
-        <View style={styles.buttonContainer}><ButtonNoIcon textButton="Commander" /*onPress={() => { }*/  /></View>
+          <MapView
+              region={region}
+              style={styles.mapContainer}
+              provider='google'
+              >
+              <Marker title='Votre position'
+          image={require('../assets/position.png')}
+          coordinate={{ latitude: currentLocation.latitude, longitude: currentLocation.longitude }} />
+              {markers}
+          </MapView>
         </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -127,8 +125,9 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
     content: {
       flex:4,
       width:'100%',
+      height:'100%',
       alignItems:'center',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       padding:20,
   },
   scrollview: {
@@ -145,7 +144,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
     },
     mapContainer: {
         width: "100%",
-        height: Dimensions.get('window').height,
+        height: 400,
 
       },
     buttonContainer:{
