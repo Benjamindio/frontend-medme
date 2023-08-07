@@ -18,19 +18,35 @@
 
         const user = useSelector((state) => state.user.value);
 
+        const [ orderList, setOrderList] = useState([])
         const [ orders, setOrders] = useState([]);
 
         const token = user.isConnected
-        console.log(token)
     
-        useEffect =(() => {
-            fetch(`http://192.168.1.101:3000/users/getUserOrders/:${token}`)
+
+        useEffect (() => {
+            fetch(`http://192.168.1.101:3000/users/getUserOrders/${token}`)
             .then(response => response.json())
             .then(data => {
-                console.log('orderdata', data)
-
+                if (data){
+                    console.log('orderdata', data)
+                    // setOrderList([...orderList,data])
+                }else{
+                    console.log('error')
+                }
             })
         },[]);
+
+        console.log('list',orderList)
+
+        // const commandes = orderList.map((data,i) => {
+        //     return (   <TouchableOpacity key={i} style = {styles.orderContainer} onPress={() => navigation.navigate('DetailCommande')}>
+        //                     <FontAwesome name='truck' color='#5FA59D' size={20}/>
+        //                     <Text style={styles.smallText}>Ma Commande du {data.date}</Text>
+        //                     <Text style={styles.total}>{data.total} €</Text>
+        //                 </TouchableOpacity>
+        //     )
+        // });
                 
         return (
             <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -41,18 +57,14 @@
                         <View style = {styles.titleBox}>
                             <Text style={styles.title}>Mes Commandes</Text>
                         </View>
-                        <TouchableOpacity style = {styles.orderContainer} onPress={() => navigation.navigate('DetailCommande')}>
-                            <FontAwesome name='truck' color='#5FA59D' size={20}/>
-                            <Text style={styles.smallText}>Ma Commande du DATE</Text>
-                            <Text style={styles.total}>Total €</Text>
-                        </TouchableOpacity>
+                        {/* {commandes} */}
                     </View>
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
                                     styleIconRight = {styles.iconRight} 
                                     nameIconLeft = 'file-medical-alt'
                                     nameIconRight = 'chevron-right' 
-                                    text = 'Ma fiche Santé'
+                                    text = 'Ma fiche santé'
                                     // onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}
                                     />
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
@@ -60,7 +72,7 @@
                                     styleIconRight = {styles.iconRight} 
                                     nameIconLeft = 'address-book' 
                                     nameIconRight = 'chevron-right' 
-                                    text = 'Mes Coordonnées'
+                                    text = 'Mes coordonnées'
                                     // onPress={() => navigation.navigate('MedicamentsSelectionScreen')}
                                     />  
                 </View>
