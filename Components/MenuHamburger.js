@@ -25,13 +25,13 @@ const MenuHamburger = () => {
 
   onCartIconPress = () => {
     dispatch(setModalVisible(false))
-    navigation.navigate('Order')
+    navigation.navigate('TabNavigator', {screen: 'Commander'})
   }
 
-  // onBookIconPress = () => {
-  //   dispatch(setModalVisible(false))
-  //   navigation.navigate('MyOrders')
-  // }
+  onBookIconPress = () => {
+    dispatch(setModalVisible(false))
+    navigation.navigate('TabNavigator', {screen: 'Commandes'})
+  }
 
   // onHealthIconPress = () => {
   //   dispatch(setModalVisible(false))

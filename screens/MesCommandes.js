@@ -10,7 +10,6 @@
     } from 'react-native';
     
     import HeaderLogo from '../Components/HeaderLogo';
-    import SearchBarList from '../Components/SearchBarList';
     import SmallTitle from '../Components/SmallTitle';
     import DisplayButton from '../Components/DisplayButton';
     import { useState } from 'react';
@@ -23,21 +22,27 @@
                 <HeaderLogo name = 'Commande'
                             onPress={() => navigation.goBack()}/>
                 <View style={styles.content}>
-                    <SmallTitle smallTitle = 'Catégories'/>
+                    <View style = {styles.detailContent}>
+                        <View style = {styles.titleBox}>
+                            <Text style={styles.title}>Mes Commandes</Text>
+                        </View>
+                    </View>
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
                                     styleIconRight = {styles.iconRight} 
-                                    nameIconLeft = 'pills' 
+                                    nameIconLeft = 'file-medical-alt'
                                     nameIconRight = 'chevron-right' 
-                                    text = 'Médicaments'
-                                    onPress={() => navigation.navigate('MedicamentsSelectionScreen')}/>
+                                    text = 'Ma fiche Santé'
+                                    // onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}
+                                    />
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
                                     styleIconRight = {styles.iconRight} 
-                                    nameIconLeft = 'band-aid'
+                                    nameIconLeft = 'address-book' 
                                     nameIconRight = 'chevron-right' 
-                                    text = 'Parapharmacie'
-                                    onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}/>
+                                    text = 'Mes Coordonnées'
+                                    // onPress={() => navigation.navigate('MedicamentsSelectionScreen')}
+                                    />  
                 </View>
             </KeyboardAvoidingView>
         )};
@@ -54,8 +59,33 @@
             content:{
                 flex:4,
                 padding: 20,
+                justifyContent: 'flex-start',
                 alignItems:'center',
-                width: '90%',
+                width: '100%',
+            },
+            detailContent: {
+                width: '100%',
+                height:'55%',
+                backgroundColor: 'white',
+                borderRadius:15,
+                marginBottom: 30,
+                padding:20,
+                justifyContent:'flex-start',
+                alignItems:'center'
+            },
+            titleBox: {
+                width: '50%',
+                height: 30,
+                borderBottomColor: '#154C79',
+                borderBottomWidth: 1,
+                justifyContent: 'center',
+                paddingBottom: 10,
+                marginBottom: 20,     
+            },
+            title: {
+                color: '#154C79',
+                fontSize: 20,
+                fontWeight: 'light',
             },
             text:{
                 color: '#154C79',
