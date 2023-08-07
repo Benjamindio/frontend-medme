@@ -13,6 +13,7 @@ import HomeScreen from './screens/HomeScreen';
 import OrderScreen from './screens/OrderScreen';
 import LoginScreen from './screens/LoginScreen';
 import CheckoutScreen from './screens/CheckoutScreen';
+import MonProfil from './screens/MonProfil';
 import MesCommandes from './screens/MesCommandes';
 import InscriptionProfil from './screens/InscriptionProfil';
 import InscriptionFicheSante from './screens/InscriptionFicheSante';
@@ -61,7 +62,7 @@ const TabNavigator = () => {
       tabBarIcon: ({ color, size }) => {
         let iconName = '';
 
-        if (route.name === 'Home') {
+        if (route.name === 'Accueil') {
           iconName = 'home';
         } 
         else if ( route.name === 'Commander') {
@@ -82,10 +83,10 @@ const TabNavigator = () => {
       tabBarInactiveTintColor: '#afb1b6',
       headerShown: false,
     })}>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Commander" component={OrderStack} />
       <Tab.Screen name="Panier" component={CheckoutScreen} />
-      <Tab.Screen name="Profil" component={OrderStack} />
+      <Tab.Screen name="Profil" component={MonProfil} />
       <Tab.Screen name="Commandes" component={MesCommandes} />
     </Tab.Navigator>
   );
