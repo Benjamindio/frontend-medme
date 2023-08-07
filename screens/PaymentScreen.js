@@ -19,7 +19,7 @@ const PaymentScreen = ({ navigation }) => {
         return total.toFixed(2);
       }
 
-    const API_URL = 'http://192.168.1.155:3000'; // Replace this with your backend API URL
+    const API_URL = 'https://backend-medme.vercel.app/'; // Replace this with your backend API URL
 
   
     const fetchPaymentIntentClientSecret = async () => {
@@ -86,7 +86,7 @@ const PaymentScreen = ({ navigation }) => {
             status: 'paid',
             isPaid: true,
             productId: order.map((item) => item.product_id), 
-            token: user.token, 
+            token: user.isConnected, 
         };
         
         fetch(`${API_URL}/orders/add`, {

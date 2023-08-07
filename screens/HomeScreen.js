@@ -6,7 +6,9 @@ import {
     Text,
     StyleSheet,
 } from 'react-native'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {useEffect} from 'react'
+import { healthCardCreation,signUp,addTreatment,addAllergies } from '../reducers/user';
 
 
 
@@ -15,13 +17,37 @@ import { useSelector } from 'react-redux';
 export default function HomeScreen({navigation}) {
 
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if(user.userStatus === 'existing') {
+      
+      fetch(`https://backend-medme.vercel.app/users/getUserInfo/${user.isConnected}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log('fetch data', data)
+        const userInfo = data.userInfo
+        dispatch(signUp({lastname:userInfo.lastname,firstName:userInfo.firstName, email:userInfo.email,hasHealthCard:userInfo.healthCard.hasHealthCard,adresse:userInfo.adresse}))
+          if(userInfo.healthCard.hasHealthCard) {
+            const healthCard = data.userInfo.healthCard
+            
+            dispatch(healthCardCreation({isoStringDate:healthCard.dateOfBirth, size:healthCard.size,weight:healthCard.weight}))
+            for (let treatment of healthCard.treatment) {
+              dispatch(addTreatment(treatment))
+            }
+            for (let i =0; i < healthCard.allergies.length; i++){
+              dispatch(addAllergies(healthCard.allergies[i]))}
+            
+          }
+      })
+    }
+  },[])
 
 
     return (
         <View style={styles.container}>
             <HeaderSansReturn onPress={()=> navigation.navigate('Profile')} />
           <View style={styles.content}>
-              <Title title={'Bonjour,'} />
+              <Title title={`Bonjour,${user.firstName}`} />
               <Text style={styles.text}>Que souhaitez-vous faire ?</Text>
               <ButtonHome iconName='pills' iconSize={50} 
                           iconColor='#F5F5F5' 
@@ -34,8 +60,8 @@ export default function HomeScreen({navigation}) {
                           color="#F5F5F5" 
                           onPress={() => navigation.navigate('TabNavigator', {screen: 'Commander'})} />
               <View style={styles.lowerButton}> 
-                <ButtonHome iconName='user-alt' iconSize={30} iconStyle={styles.iconStyle} iconColor='#5FA59D' textButton='Mon profil' textStyle={styles.textStyle} height={110} width={110} backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profile')}/>
-                <ButtonHome iconName='file-medical-alt' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Ma fiche santé' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profile')}/>
+                <ButtonHome iconName='user-alt' iconSize={30} iconStyle={styles.iconStyle} iconColor='#5FA59D' textButton='Mon profil' textStyle={styles.textStyle} height={110} width={110} backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profil')}/>
+                <ButtonHome iconName='file-medical-alt' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Ma fiche santé' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profil')}/>
                 <ButtonHome iconName='book-medical' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Mes commandes' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Myorders')} />
               </View>
           </View>
