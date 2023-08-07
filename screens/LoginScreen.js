@@ -14,7 +14,7 @@ import Input from '../Components/Input';
 import Title from '../Components/Title';
 import Bouton from '../Components/Button';
 import { useDispatch } from 'react-redux';
-import {login} from '../reducers/user'
+import {login,updateUserStatus} from '../reducers/user'
 
 export default function LoginScreen({navigation}) {
 
@@ -102,11 +102,14 @@ export default function LoginScreen({navigation}) {
                             setTextContent(`Veuillez renseigner le code envoyé au numéro terminant par ********${num}.`)
                             setCode(data.generatedCode);
                             setIsContent(!isContent);
+                            dispatch(updateUserStatus({userStatus:data.userStatus}))
+                            
                         } else if(data.result && data.userStatus === 'existing') {
                             setUserExist(!userExist)
                             setIsContent(!isContent)
                             setCode(data.generatedCode)
                             console.log('userExist')
+                            dispatch(updateUserStatus({userStatus:data.userStatus}))
                         } 
                         else {
                             console.log('error')
@@ -125,6 +128,7 @@ export default function LoginScreen({navigation}) {
                 .then(data => {
                     if(data.result){
                         //ouvrir écran profil
+                        
                         dispatch(login({phoneNumber:phone,token:data.token}))
                         if(userExist) {
                             console.log('userExist')
