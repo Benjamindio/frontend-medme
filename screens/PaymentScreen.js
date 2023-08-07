@@ -19,7 +19,7 @@ const PaymentScreen = ({ navigation }) => {
         return total.toFixed(2);
       }
 
-    const API_URL = 'http://192.168.1.24:3000'; // Replace this with your backend API URL
+    const API_URL = 'http://192.168.1.155:3000'; // Replace this with your backend API URL
 
   
     const fetchPaymentIntentClientSecret = async () => {
@@ -89,7 +89,7 @@ const PaymentScreen = ({ navigation }) => {
             token: user.token, 
         };
         
-        fetch(`${API_URL}/add`, {
+        fetch(`${API_URL}/orders/add`, {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const PaymentScreen = ({ navigation }) => {
         })
             .then((response) => response.json())
             .then((saveOrderData) => {
-            if (saveOrderData.ok) {
+            if (saveOrderData.result) {
                 console.log('Order saved:', saveOrderData);
                 navigation.navigate('ConfirmationCommande'); 
             } else {

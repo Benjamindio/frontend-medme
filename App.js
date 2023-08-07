@@ -27,6 +27,7 @@ import PaymentScreen from './screens/PaymentScreen';
 import ConfirmationCommande from './screens/ConfirmationCommande';
 import ChoosePharmacie from './screens/ChoosePharmacie';
 import SuiviCommande from './screens/SuiviCommande';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 
 import {Provider} from 'react-redux'
@@ -104,6 +105,12 @@ export default function App() {
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
+    <StripeProvider
+      publishableKey="pk_test_oKhSR5nslBRnBZpjO6KuzZeX"
+      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+      merchantIdentifier="merchant.com.{{YOUR_APP_NAME}}" // required for Apple Pay
+    >
+    </StripeProvider> 
     </Provider>
   );
 };
