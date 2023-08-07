@@ -77,7 +77,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
                   <Text style={styles.textButtonSelect}>Sélectionner</Text>
                 </TouchableOpacity>
             </View>
-        </Callout>
+          </Callout>
         </Marker>
       )
     })
