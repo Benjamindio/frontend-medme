@@ -11,10 +11,27 @@
     import HeaderLogo from '../Components/HeaderLogo';
     import DisplayButton from '../Components/DisplayButton';
     import { useState } from 'react';
-    
+    import { useEffect } from 'react';
+    import { useSelector } from 'react-redux';    
+
     export default function MesCommandes({navigation}) {
+
+        const user = useSelector((state) => state.user.value);
+
+        const [ orders, setOrders] = useState([]);
+
+        const token = user.isConnected
+        console.log(token)
     
-        
+        useEffect =(() => {
+            fetch(`http://192.168.1.101:3000/users/getUserOrders/:${token}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('orderdata', data)
+
+            })
+        },[]);
+                
         return (
             <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <HeaderLogo name = 'Commande'

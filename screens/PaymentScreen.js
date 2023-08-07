@@ -19,7 +19,7 @@ const PaymentScreen = ({ navigation }) => {
         return total.toFixed(2);
       }
 
-    const API_URL = 'http://192.168.1.24:3000'; // Replace this with your backend API URL
+    const API_URL = '192.168.1.101:3000'; // Replace this with your backend API URL
 
   
     const fetchPaymentIntentClientSecret = async () => {
