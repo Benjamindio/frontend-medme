@@ -6,7 +6,6 @@ import { View, StyleSheet, Image, KeyboardAvoidingView, Platform, ScrollView, Te
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import { useState } from 'react';
 import { removeFromCart, addOneArticle, removeOneArticle } from '../reducers/user';
-import OrderScreen from './MyordersScreen';
 
 const CartItem = ({ product_id, medName, quantity, medPrice, medImage }) => {
   const dispatch = useDispatch();

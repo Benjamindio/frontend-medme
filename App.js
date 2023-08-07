@@ -13,7 +13,7 @@ import HomeScreen from './screens/HomeScreen';
 import OrderScreen from './screens/OrderScreen';
 import LoginScreen from './screens/LoginScreen';
 import CheckoutScreen from './screens/CheckoutScreen';
-import MyordersScreen from './screens/MyordersScreen';
+import MesCommandes from './screens/MesCommandes';
 import InscriptionProfil from './screens/InscriptionProfil';
 import InscriptionFicheSante from './screens/InscriptionFicheSante';
 import MedicamentsSelectionScreen from './screens/MedicamentsSelectionScreen';
@@ -64,15 +64,15 @@ const TabNavigator = () => {
         if (route.name === 'Home') {
           iconName = 'home';
         } 
-        else if ( route.name === 'Order') {
+        else if ( route.name === 'Commander') {
           iconName = 'pills';
         }
-         else if ( route.name === 'Profile') {
+         else if ( route.name === 'Profil') {
           iconName = 'user-alt';
-        } else if ( route.name === 'Checkout') {
+        } else if ( route.name === 'Panier') {
           iconName = 'shopping-cart';
         }
-        else if ( route.name === 'Myorders') {
+        else if ( route.name === 'Commandes') {
           iconName = 'book-medical';
         }
           return <FontAwesome name={iconName} size={size} color={color} />
@@ -83,10 +83,10 @@ const TabNavigator = () => {
       headerShown: false,
     })}>
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Order" component={OrderStack} />
-      <Tab.Screen name="Checkout" component={CheckoutScreen} />
-      <Tab.Screen name="Profile" component={OrderStack} />
-      <Tab.Screen name="Myorders" component={MyordersScreen} />
+      <Tab.Screen name="Commander" component={OrderStack} />
+      <Tab.Screen name="Panier" component={CheckoutScreen} />
+      <Tab.Screen name="Profil" component={OrderStack} />
+      <Tab.Screen name="Commandes" component={MesCommandes} />
     </Tab.Navigator>
   );
 };
