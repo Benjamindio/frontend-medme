@@ -50,7 +50,10 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
     )()
     }, [])
 
- 
+ const handleSelect = () => {
+
+  navigation.navigate('PaymentScreen')
+ }
   const markers = pharmacie.map((data,i) => {
     let isAvailable= <Text style={styles.available}>Disponible</Text>
     if(!data.isAvailable){
@@ -63,7 +66,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
         image={pharmacieLogo}
         anchor={{ x: 0.5, y: 0.5 }}
         >
-          <Callout
+          <Callout onPress={handleSelect}
           tooltip={true} >
             <View style={styles.bubble}>
               <View style={styles.textContainer}>
@@ -73,7 +76,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
                 
                   {isAvailable}
                
-                <TouchableOpacity style={styles.buttonSelectContainer} activeOpacity={0.8} onPress={() => {}}>
+                <TouchableOpacity style={styles.buttonSelectContainer} disabled={false} activeOpacity={0.8} onPress={handleSelect}>
                   <Text style={styles.textButtonSelect}>Sélectionner</Text>
                 </TouchableOpacity>
             </View>
@@ -110,7 +113,7 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
             {markers}
       </MapView>
           
-        <View style={styles.buttonContainer}><ButtonNoIcon textButton="Commander" /*onPress={() => { }*/  /></View>
+        <View style={styles.buttonContainer}></View>
         </View>
         </ScrollView>
       </KeyboardAvoidingView>
