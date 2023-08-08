@@ -1,8 +1,7 @@
     import {
         StyleSheet,
         KeyboardAvoidingView,
-        TextInput,
-        Image,
+        ScrollView,
         Text,
         View,
         TouchableOpacity,
@@ -10,27 +9,55 @@
     import FontAwesome from 'react-native-vector-icons/FontAwesome5';
     import HeaderLogo from '../Components/HeaderLogo';
     import DisplayButton from '../Components/DisplayButton';
+    import { useNavigation } from '@react-navigation/native'
     import { useState } from 'react';
     import { useEffect } from 'react';
-    import { useSelector } from 'react-redux';    
+    import { useSelector } from 'react-redux'; 
+    import { useIsFocused } from '@react-navigation/native';
 
-    export default function MesCommandes({navigation}) {
+    const moment = require('moment');
+    import 'moment/locale/fr';
 
+    export default function MesCommandes() {
+        const navigation = useNavigation()
+        const isFocused = useIsFocused();
         const user = useSelector((state) => state.user.value);
-
-        const [ orders, setOrders] = useState([]);
-
+        const [ orderList, setOrderList] = useState([])
         const token = user.isConnected
-        console.log(token)
     
-        useEffect =(() => {
-            fetch(`http://192.168.1.101:3000/users/getUserOrders/:${token}`)
+        console.log(isFocused)
+
+        useEffect (() => {
+            if (isFocused){
+
+            fetch(`http://192.168.1.101:3000/users/getUserOrders/${token}`)
             .then(response => response.json())
             .then(data => {
-                console.log('orderdata', data)
+                if (data){
+                    console.log('orderdata', data.orders)
+                    setOrderList(data.orders)
+                }else{
+                    console.log('error')
+                }
+            })}
+        },[isFocused]);
 
-            })
-        },[]);
+        console.log('list',orderList)
+
+        const handlePress = (orderId) => {
+            console.log(orderId)
+            navigation.navigate('DetailCommande',{id: orderId})
+        };
+
+        const commandes = orderList.map((data,i) => {
+            let date = moment(data.date).format('L')
+            return (   <TouchableOpacity key={i} style = {styles.orderContainer} onPress={() => handlePress(data._id)}>
+                            <FontAwesome name='truck' color='#5FA59D' size={20}/>
+                            <Text style={styles.smallText}>Commande du {date}</Text>
+                            <Text style={styles.total}>{data.total} €</Text>
+                        </TouchableOpacity>
+            )
+        });
                 
         return (
             <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -41,18 +68,16 @@
                         <View style = {styles.titleBox}>
                             <Text style={styles.title}>Mes Commandes</Text>
                         </View>
-                        <TouchableOpacity style = {styles.orderContainer} onPress={() => navigation.navigate('DetailCommande')}>
-                            <FontAwesome name='truck' color='#5FA59D' size={20}/>
-                            <Text style={styles.smallText}>Ma Commande du DATE</Text>
-                            <Text style={styles.total}>Total €</Text>
-                        </TouchableOpacity>
+                        <ScrollView style={styles.scrollview}>
+                            {commandes}
+                        </ScrollView>
                     </View>
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
                                     styleIconRight = {styles.iconRight} 
                                     nameIconLeft = 'file-medical-alt'
                                     nameIconRight = 'chevron-right' 
-                                    text = 'Ma fiche Santé'
+                                    text = 'Ma fiche santé'
                                     // onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}
                                     />
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
@@ -60,7 +85,7 @@
                                     styleIconRight = {styles.iconRight} 
                                     nameIconLeft = 'address-book' 
                                     nameIconRight = 'chevron-right' 
-                                    text = 'Mes Coordonnées'
+                                    text = 'Mes coordonnées'
                                     // onPress={() => navigation.navigate('MedicamentsSelectionScreen')}
                                     />  
                 </View>
@@ -83,9 +108,12 @@
                 alignItems:'center',
                 width: '100%',
             },
+            scrollview: {
+                width:'100%',
+            },
             detailContent: {
                 width: '100%',
-                height:'55%',
+                height:'60%',
                 backgroundColor: 'white',
                 borderRadius:15,
                 marginBottom: 30,
@@ -115,6 +143,7 @@
                 flexDirection: 'row',
                 justifyContent:'space-evenly',
                 alignItems:'center',
+                marginBottom:20,
             },
             smallText:{
                 color:'#afb1b6',

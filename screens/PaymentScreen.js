@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Button, Text } from 'react-native';
 import HeaderSansLogo from '../Components/HeaderSansLogo';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useConfirmPayment, CardForm, BillingDetails } from '@stripe/stripe-react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
@@ -19,7 +20,7 @@ const PaymentScreen = ({ navigation }) => {
         return total.toFixed(2);
       }
 
-    const API_URL = 'https://backend-medme.vercel.app/'; // Replace this with your backend API URL
+    const API_URL = 'https://backend-medme.vercel.app'; // Replace this with your backend API URL
 
   
     const fetchPaymentIntentClientSecret = async () => {
@@ -45,8 +46,6 @@ const PaymentScreen = ({ navigation }) => {
         throw error;
       }
     };
-
-    console.log('user',user)
 
 
     const handlePayPress = async () => {
@@ -103,7 +102,7 @@ const PaymentScreen = ({ navigation }) => {
             .then((saveOrderData) => {
             if (saveOrderData.result) {
                 console.log('Order saved:', saveOrderData);
-                console.log(user)
+                // console.log(user)
                 navigation.navigate('ConfirmationCommande'); 
             } else {
                 console.error('Error saving order:', saveOrderData.error);
