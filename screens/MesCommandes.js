@@ -30,7 +30,7 @@
         useEffect (() => {
             if (isFocused){
 
-            fetch(`http://192.168.1.101:3000/users/getUserOrders/${token}`)
+            fetch(`https://backend-medme.vercel.app/users/getUserOrders/${token}`)
             .then(response => response.json())
             .then(data => {
                 if (data){

@@ -31,7 +31,7 @@ export default function DetailCommande({route, navigation}) {
 
     useEffect (() => {
         if (isFocused){
-        fetch(`http://192.168.1.101:3000/orders/byId/${id}`)
+        fetch(`https://backend-medme.vercel.app/orders/byId/${id}`)
         .then(response => response.json())
         .then(data => {
             if (data){

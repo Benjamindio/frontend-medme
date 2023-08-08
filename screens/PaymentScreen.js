@@ -22,7 +22,29 @@ const PaymentScreen = ({ navigation }) => {
 
     const API_URL = 'https://backend-medme.vercel.app'; // Replace this with your backend API URL
 
-  
+    const productId = () => {
+      const numberOfProduct = []
+      for (let oneOrder of order) {
+        const orderObject = {}
+        orderObject[oneOrder.product_id] = oneOrder.quantity
+        numberOfProduct.push(orderObject)
+        
+      }
+      console.log(numberOfProduct)
+      return numberOfProduct
+      }
+     
+    /*const orderQuantity = () => {
+      const quantityOfProduct = []
+      for (let oneOrder of order) {
+        quantityOfProduct.push(oneOrder.quantity)
+        console.log(numberOfProduct)
+      
+    } 
+    return quantityOfProduct
+  }*/
+  //console.log(orderQuantity())
+  console.log(productId())
     const fetchPaymentIntentClientSecret = async () => {
       try {
         const response = await fetch(`${API_URL}/create-payment-intent`, {
@@ -87,7 +109,7 @@ const PaymentScreen = ({ navigation }) => {
             total: calculateTotal(order), 
             status: 'paid',
             isPaid: true,
-            productId: order.map((item) => item.product_id), 
+            cart:productId(),
             token: user.isConnected, 
         };
         
