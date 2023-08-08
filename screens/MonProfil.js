@@ -104,7 +104,7 @@ export default function MonProfil({navigation}) {
         setAge(calculateAge(user.healthCard.dateOfBirth))
         setTreatment(medName(user.healthCard.treatment))
         setAllergies(allergieFormat(user.healthCard.allergies))
-        //setBloodGroup(user.healthCard.bloodGroup)
+        setBloodGroup(user.healthCard.bloodGroup)
     },[isFocused])
     
 

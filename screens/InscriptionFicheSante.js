@@ -8,12 +8,13 @@ import {
     StyleSheet,
      KeyboardAvoidingView,
      Platform,
+     ScrollView,
      Text,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState, useEffect} from 'react'
 import {healthCardCreation} from '../reducers/user'
-import FontAwesome from 'react-native-vector-icons/FontAwesome5'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 
@@ -27,18 +28,19 @@ export default function InscriptionFicheSante({navigation}) {
     const [weight, setWeight]= useState(0);
     const [allergies, setAllergies] = useState(0);
     const [treatment, setTreatment ] =useState(0);
+    const [bloodGroup, setBloodGroup] = useState('');
     const dispatch = useDispatch()
     const allergieCount = `${allergies} allergies déclarées`
     const treatmentCount = `${treatment}  traitements déclarées`
 
 
     useEffect(() => {
-
       setDateOfBirth( new Date(user.healthCard.dateOfBirth))
       setSize(user.healthCard.size)
       setWeight(user.healthCard.weight)
       setAllergies(user.healthCard.allergies.length)
       setTreatment(user.healthCard.treatment.length)
+      setBloodGroup(user.healthCard.bloodGroup)
       console.log(treatment)
       console.log('test')
     }, [])
@@ -47,17 +49,21 @@ export default function InscriptionFicheSante({navigation}) {
     
     const handleReturn = () => {
   
-      navigation.navigate('InscriptionProfil')
+      navigation.goBack()
       }
 
 
   const handleRegister = () => {
+
+    dispatch(healthCardCreation({size, weight, bloodGroup, allergies: user.healthCard.allergies, treatment : user.healthCard.treatment}))
+
+     
        
   fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ phoneNumber: user.phoneNumber,firstname:user.firstName,lastname:user.lastname, email:user.email, hasHealthCard:user.hasHealthCard,dateOfBirth: user.healthCard.dateOfBirth, size: user.healthCard.size,
-         weight: user.healthCard.weight,adress:user.adresse, allergies: user.healthCard.allergies, treatment: user.healthCard.treatment  }),
+         weight: user.healthCard.weight,adress:user.adresse, allergies: user.healthCard.allergies, treatment: user.healthCard.treatment, bloodGroup: user.healthCard.bloodGroup  }),
   }).then(response => response.json())
       .then(data => {
           if(data.result){
@@ -79,24 +85,24 @@ let weightText = weight
 if(weightText ===0) {
   weightText = 'kg'
 }
+
+
 const handleAddAllergie = () => {
   const isoStringDate = dateOfBirth.toISOString()
   console.log(isoStringDate)
-  dispatch(healthCardCreation({isoStringDate, size,weight}))
+  dispatch(healthCardCreation({isoStringDate, size,weight, bloodGroup}))
   navigation.push('InscriptionAllergie')
 }
 const handleAddTreatment = () => {
   const isoStringDate = dateOfBirth.toISOString()
-  dispatch(healthCardCreation({isoStringDate, size,weight}))
+  dispatch(healthCardCreation({isoStringDate, size,weight, bloodGroup}))
   navigation.push('InscriptionTraitement')
 }
 //
 
 return (
   <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.header}>
-        <HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} />
-        </View>
+      <View style={styles.header}><HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} /></View>
       <View style={styles.titleContainer}>
         <Title title="Ma fiche santé" />
         </View>
@@ -134,6 +140,9 @@ return (
               <View style={styles.inputSize}>
                 <Input placeholder=""  text={weightText} title='Poids' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
               </View>
+            </View>
+            <View style={styles.inputSize}>
+                <Input placeholder=""  text={bloodGroup} title='Groupe sanguin' underlineWidth={40} onChangeText={(value) => {setBloodGroup(value)}} value={bloodGroup}/>
             </View>
             <View style={styles.inputAndLogoContainer}>
               <View style={styles.largeInputContainer}>
@@ -187,7 +196,7 @@ const styles = StyleSheet.create({
   titleContainer:{
     width:"80%",
     flex:0.15,
-    marginTop:15
+    marginTop:30/// ici
 
   },
 
@@ -198,7 +207,7 @@ const styles = StyleSheet.create({
   },
   inputAndLogoContainer:{
     width:'80%',
-    height:'20%',
+    height:'15%', ////ici
     flexDirection:'row',
     alignContent:'center',
     justifyContent:'center'
