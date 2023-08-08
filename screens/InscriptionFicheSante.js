@@ -8,13 +8,12 @@ import {
     StyleSheet,
      KeyboardAvoidingView,
      Platform,
-     ScrollView,
      Text,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState, useEffect} from 'react'
 import {healthCardCreation} from '../reducers/user'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 
@@ -84,19 +83,20 @@ const handleAddAllergie = () => {
   const isoStringDate = dateOfBirth.toISOString()
   console.log(isoStringDate)
   dispatch(healthCardCreation({isoStringDate, size,weight}))
-
-  navigation.navigate('InscriptionAllergie')
+  navigation.push('InscriptionAllergie')
 }
 const handleAddTreatment = () => {
   const isoStringDate = dateOfBirth.toISOString()
   dispatch(healthCardCreation({isoStringDate, size,weight}))
-  navigation.navigate('InscriptionTraitement')
+  navigation.push('InscriptionTraitement')
 }
 //
 
 return (
   <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.header}><HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} /></View>
+      <View style={styles.header}>
+        <HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} />
+        </View>
       <View style={styles.titleContainer}>
         <Title title="Ma fiche santé" />
         </View>
@@ -137,13 +137,13 @@ return (
             </View>
             <View style={styles.inputAndLogoContainer}>
               <View style={styles.largeInputContainer}>
-                <Input placeholder={allergieCount} title="Allergies" underlineWidth={"20%"}/>
+                <Input editable={false} placeholder={allergieCount} title="Allergies" underlineWidth={"20%"}/>
                 </View>
                 <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() => handleAddAllergie()}/>
               </View>
             <View style={styles.inputAndLogoContainer}>
             <View style={styles.largeInputContainer}>
-              <Input placeholder={treatmentCount} title="Traitement en cours" underlineWidth={"40%"} />
+              <Input editable={false} placeholder={treatmentCount} title="Traitement en cours" underlineWidth={"40%"} />
             </View>
               <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() =>handleAddTreatment() }/>
             </View>

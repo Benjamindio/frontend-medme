@@ -16,7 +16,7 @@ const initialState={
             weight:null,
             allergies:[],
             treatment: [],
-
+            bloodGroup:null,
         },
         order:[],
         photoOrdonnance:[],
@@ -55,6 +55,7 @@ export const userSlice = createSlice({
             state.value.healthCard.dateOfBirth = isoStringDate
             state.value.healthCard.size = size
             state.value.healthCard.weight = weight
+            state.value.healthCard.bloodGroup = bloodGroup
             console.log(state.value)// ajouter adresse et bloodgroup 
         },
         addTreatment:(state,action) => {
