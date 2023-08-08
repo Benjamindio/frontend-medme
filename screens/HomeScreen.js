@@ -58,7 +58,7 @@ export default function HomeScreen({navigation}) {
                           width={200} 
                           backgroundColor='#154C79'  
                           color="#F5F5F5" 
-                          onPress={() => navigation.navigate('TabNavigator', {screen: 'Commander'})} />
+                          onPress={() => navigation.push('TabNavigator', {screen: 'Commander'})} />
               <View style={styles.lowerButton}> 
                 <ButtonHome iconName='user-alt' iconSize={30} iconStyle={styles.iconStyle} iconColor='#5FA59D' textButton='Mon profil' textStyle={styles.textStyle} height={110} width={110} backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profil')}/>
                 <ButtonHome iconName='file-medical-alt' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Ma fiche santé' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profil')}/>

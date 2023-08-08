@@ -23,7 +23,7 @@
         const token = user.isConnected
         console.log(token)
     
-        useEffect =(() => {
+        useEffect(() => {
             fetch(`http://192.168.1.101:3000/users/getUserOrders/:${token}`)
             .then(response => response.json())
             .then(data => {

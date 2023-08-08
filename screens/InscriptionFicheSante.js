@@ -8,13 +8,12 @@ import {
     StyleSheet,
      KeyboardAvoidingView,
      Platform,
-     ScrollView,
      Text,
 } from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {useState, useEffect} from 'react'
 import {healthCardCreation} from '../reducers/user'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 
@@ -95,7 +94,9 @@ const handleAddTreatment = () => {
 
 return (
   <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.header}><HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} /></View>
+      <View style={styles.header}>
+        <HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} />
+        </View>
       <View style={styles.titleContainer}>
         <Title title="Ma fiche santé" />
         </View>

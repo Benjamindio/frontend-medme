@@ -20,7 +20,7 @@ const MenuHamburger = () => {
 
   onHomeIconPress = () => {
     dispatch(setModalVisible(false))
-    navigation.navigate('Home')
+    navigation.navigate('Accueil')
   }
 
   onCartIconPress = () => {
@@ -33,14 +33,14 @@ const MenuHamburger = () => {
     navigation.navigate('TabNavigator', {screen: 'Commandes'})
   }
 
-  // onHealthIconPress = () => {
-  //   dispatch(setModalVisible(false))
-  //   navigation.navigate('MyHealthCard')
-  // }
-  // onUserIconPress = () => {
-  //   dispatch(setModalVisible(false))
-  //   navigation.navigate('Profil')
-  // }
+  onHealthIconPress = () => {
+     dispatch(setModalVisible(false))
+     navigation.navigate('Profil')
+   }
+  onUserIconPress = () => {
+     dispatch(setModalVisible(false))
+     navigation.navigate('Profil')
+   }
 
 
   return (
@@ -84,7 +84,7 @@ const MenuHamburger = () => {
          
           <TouchableOpacity
             style={styles.menuItem}
-            // onPress={() => onMenuItemPress()}
+            onPress={() => onBookIconPress()}
           >
             <Icon name="book-medical" size={20} color="#154C79" />
             <Text style={styles.menuItemText}>Mes commandes</Text>
@@ -93,7 +93,7 @@ const MenuHamburger = () => {
           
           <TouchableOpacity
             style={styles.menuItem}
-            // onPress={() => onMenuItemPress()}
+             onPress={() => onHealthIconPress()}
           >
             <Icon name="file-medical-alt" size={20} color="#154C79" />
             <Text style={styles.menuItemText}>Ma fiche Santé</Text>
@@ -101,7 +101,8 @@ const MenuHamburger = () => {
 
           <TouchableOpacity
             style={styles.menuItem}
-            // onPress={() => onMenuItemPress("Profil")}
+            onPress={() => onUserIconPress()}
+
           >
             <Icon name="user-alt" size={20} color="#154C79" />
             <Text style={styles.menuItemText}>Profil</Text>

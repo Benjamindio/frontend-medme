@@ -15,6 +15,7 @@ import Title from '../Components/Title';
 import ButtonNoIcon from '../Components/ButtonNoIcon';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 
 
@@ -38,7 +39,7 @@ export default function MonProfil({navigation}) {
     const [hasHealthCard, setHasHealthCard] = useState(false)
     const user = useSelector(state => state.user.value)
     let contentSection;
-
+    const isFocused = useIsFocused()
 
     const InfoCard = ({ iconName, text, value }) => {
         return (
@@ -104,7 +105,7 @@ export default function MonProfil({navigation}) {
         setTreatment(medName(user.healthCard.treatment))
         setAllergies(allergieFormat(user.healthCard.allergies))
         //setBloodGroup(user.healthCard.bloodGroup)
-    },[isContent])
+    },[isFocused])
     
 
 
