@@ -24,6 +24,7 @@ export default function InscriptionAllergie({navigation}) {
       const handleAddAllergie = () => {
         dispatch(addAllergies(allergie))
         navigation.push('InscriptionFicheSante')
+        setAllergie('')
       }
 
 

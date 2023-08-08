@@ -19,7 +19,7 @@ const PaymentScreen = ({ navigation }) => {
         return total.toFixed(2);
       }
 
-    const API_URL = 'https://backend-medme.vercel.app/'; // Replace this with your backend API URL
+    const API_URL = 'https://backend-medme.vercel.app'; // Replace this with your backend API URL
 
   
     const fetchPaymentIntentClientSecret = async () => {

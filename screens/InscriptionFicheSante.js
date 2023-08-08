@@ -84,13 +84,12 @@ const handleAddAllergie = () => {
   const isoStringDate = dateOfBirth.toISOString()
   console.log(isoStringDate)
   dispatch(healthCardCreation({isoStringDate, size,weight}))
-
-  navigation.navigate('InscriptionAllergie')
+  navigation.push('InscriptionAllergie')
 }
 const handleAddTreatment = () => {
   const isoStringDate = dateOfBirth.toISOString()
   dispatch(healthCardCreation({isoStringDate, size,weight}))
-  navigation.navigate('InscriptionTraitement')
+  navigation.push('InscriptionTraitement')
 }
 //
 
@@ -137,13 +136,13 @@ return (
             </View>
             <View style={styles.inputAndLogoContainer}>
               <View style={styles.largeInputContainer}>
-                <Input placeholder={allergieCount} title="Allergies" underlineWidth={"20%"}/>
+                <Input editable={false} placeholder={allergieCount} title="Allergies" underlineWidth={"20%"}/>
                 </View>
                 <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() => handleAddAllergie()}/>
               </View>
             <View style={styles.inputAndLogoContainer}>
             <View style={styles.largeInputContainer}>
-              <Input placeholder={treatmentCount} title="Traitement en cours" underlineWidth={"40%"} />
+              <Input editable={false} placeholder={treatmentCount} title="Traitement en cours" underlineWidth={"40%"} />
             </View>
               <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() =>handleAddTreatment() }/>
             </View>

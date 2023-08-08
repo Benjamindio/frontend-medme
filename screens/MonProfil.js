@@ -2,15 +2,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5'
 import {
     StyleSheet,
     KeyboardAvoidingView,
-    TextInput,
-    Image,
     Text,
     View,
     TouchableOpacity,
 } from 'react-native';
-
+import moment from 'moment';
 import HeaderLogo from '../Components/HeaderLogo';
-import SmallTitle from '../Components/SmallTitle';
 import DisplayButton from '../Components/DisplayButton';
 import { useState } from 'react';
 import InputSansTitle from '../Components/InputSansTitle';
@@ -18,6 +15,7 @@ import Title from '../Components/Title';
 import ButtonNoIcon from '../Components/ButtonNoIcon';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+
 
 
 export default function MonProfil({navigation}) {
@@ -29,10 +27,19 @@ export default function MonProfil({navigation}) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName]= useState('');
     const [email, setEmail] = useState('');
-    const [adresse,setAdresse] = useState('')
-    const [telephone,setTelephone]= useState('')
+    const [adresse,setAdresse] = useState('');
+    const [telephone,setTelephone]= useState('');
+    const [age, setAge]= useState('');
+    const [size,setSize]= useState('');
+    const [weight,setWeight]= useState('');
+    const [bloodGroup,setBloodGroup]= useState('');
+    const [treatment,setTreatment]= useState('');
+    const [allergies,setAllergies]= useState('');
+    const [hasHealthCard, setHasHealthCard] = useState(false)
     const user = useSelector(state => state.user.value)
     let contentSection;
+
+
     const InfoCard = ({ iconName, text, value }) => {
         return (
           <View style={styles.infoCard}>
@@ -45,15 +52,17 @@ export default function MonProfil({navigation}) {
           </View>
         );
       };
+
+
     handleClickRegister = () => {
-        console.log(typeof adresse)
+        
         fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({phoneNumber:telephone, lastname:lastName, firstname: firstName, email , adress:adresse}),
     }).then(response => response.json())
         .then(data => {
-            console.log(data)
+            
             if(data.result){
                 setIsContent(!isContent)
 
@@ -63,15 +72,43 @@ export default function MonProfil({navigation}) {
         })
     
     }
+
+    const calculateAge = (dateOfBirth) => {
+        const yearsFromNow = moment(dateOfBirth,'YYYYMMDD').fromNow()
+        const age = `${yearsFromNow[0]}${yearsFromNow[1]}`
+        return age
+    }
+    const medName = (treatments) => {
+        const allMed = []
+        for (let treatment of treatments) {
+            allMed.push(treatment.medicament)
+        }
+        return allMed.join(', ')
+    }
+    const allergieFormat =(allergies) => {
+        return allergies.join(', ')
+    }
+
+    
+
     useEffect(() => {
+        setHasHealthCard(user.hasHealthCard)
         setFirstName(user.firstName)
         setLastName(user.lastname)
         setEmail(user.email)
         setTelephone(user.phoneNumber)
         setAdresse(user.adresse)
+        setSize(user.healthCard.size)
+        setWeight(user.healthCard.weight)
+        setAge(calculateAge(user.healthCard.dateOfBirth))
+        setTreatment(medName(user.healthCard.treatment))
+        setAllergies(allergieFormat(user.healthCard.allergies))
+        //setBloodGroup(user.healthCard.bloodGroup)
     },[isContent])
     
-    if (!isContent) {
+
+
+    if (!isContent && hasHealthCard) {
         contentSection = (
             <View style={styles.contentContainer}>
                 <HeaderLogo 
@@ -82,17 +119,17 @@ export default function MonProfil({navigation}) {
                             <Text style={styles.title}>Ma fiche santé</Text>
                         </View>
                             <View style={styles.infoContainer}>
-                                <InfoCard styleTextDisplayButton={styles.text} iconName="calendar-alt" text="Âge" value="25 ans" />
-                                <InfoCard styleTextDisplayButton={styles.text} iconName="ruler" text="Taille" value="170 cm" />
+                                <InfoCard styleTextDisplayButton={styles.text} iconName="calendar-alt" text="Âge" value={`${age} ans`} />
+                                <InfoCard styleTextDisplayButton={styles.text} iconName="ruler" text="Taille" value={`${size} cm`} />
                             </View>
                             <View style={styles.infoContainer}>
-                                <InfoCard styleTextDisplayButton={styles.text} iconName="weight" text="Poids" value="70 kg" />
-                                <InfoCard styleTextDisplayButton={styles.text} iconName="tint" text="Groupe sanguin" value="A+" />
+                                <InfoCard styleTextDisplayButton={styles.text} iconName="weight" text="Poids" value={`${weight} kg`} />
+                                <InfoCard styleTextDisplayButton={styles.text} iconName="tint" text="Groupe sanguin" value={bloodGroup} />
                             </View>
                             {showMore && (
                                 <>
-                                    <InfoCard styleTextDisplayButton={styles.text} iconName="pills" text="Traitement" value="Aucun" />
-                                    <InfoCard styleTextDisplayButton={styles.text} iconName="allergies" text="Allergie" value="Aucune" />
+                                    <InfoCard styleTextDisplayButton={styles.text} iconName="pills" text="Traitement" value={treatment} />
+                                    <InfoCard styleTextDisplayButton={styles.text} iconName="allergies" text="Allergie" value={allergies} />
                                 </>
                             )}
                              {!showMore && (
@@ -102,10 +139,16 @@ export default function MonProfil({navigation}) {
                                 </TouchableOpacity>
                             )}
                             {showMore && (
+                                <View style={styles.showLessSection}> 
+                                    <TouchableOpacity style={styles.editerButton} onPress={() => navigation.navigate('InscriptionFicheSante')}>
+                                        <Text style={styles.editerButtonText}>Editer
+                                            </Text>
+                                    </TouchableOpacity>
                                 <TouchableOpacity style={styles.showMoreButton} onPress={handleToggleShowMore}>
                                     <Text style={styles.showMoreButtonText}>Voir moins</Text>
                                     <FontAwesome name="chevron-up" size={20} color='#154C79' />
                                 </TouchableOpacity>
+                                </View>
                             )}
                         </View>
                     
@@ -128,7 +171,50 @@ export default function MonProfil({navigation}) {
                 </View>
             </View>
         )
-    } else {
+    } else if (!isContent && !hasHealthCard) {
+        contentSection = (
+            <View style={styles.contentContainer}>
+                <HeaderLogo 
+                            onPress={() => navigation.goBack()}/>
+                <View style={styles.content}>
+                    <View style = {styles.detailContent}>
+                        <View style = {styles.titleBox}>
+                            <Text style={styles.title}>Ma fiche santé</Text>
+                        </View>
+                            <View style={styles.infoContainer}>
+                                <DisplayButton 
+                                    styleTextDisplayButton = {styles.text} 
+                                    styleIconLeft = {styles.iconLeft} 
+                                    styleIconRight = {styles.iconRight}
+                                    nameIconLeft='plus-square' 
+                                    nameIconRight = 'chevron-right'
+                                    text = 'Créer une fiche santé'
+                                    onPress={() => navigation.navigate('InscriptionFicheSante')} />
+                            </View>
+                            
+                        </View>
+                    
+                    <DisplayButton  styleTextDisplayButton = {styles.text} 
+                                    styleIconLeft = {styles.iconLeft} 
+                                    styleIconRight = {styles.iconRight} 
+                                    nameIconLeft = 'truck'
+                                    nameIconRight = 'chevron-right' 
+                                    text = 'Mes Commandes'
+                                    // onPress={}
+                                    />
+                    <DisplayButton  styleTextDisplayButton = {styles.text} 
+                                    styleIconLeft = {styles.iconLeft} 
+                                    styleIconRight = {styles.iconRight} 
+                                    nameIconLeft = 'address-book' 
+                                    nameIconRight = 'chevron-right' 
+                                    text = 'Mes Coordonnées'
+                                     onPress={() =>setIsContent(!isContent) }
+                                    />
+                </View>
+            </View>
+        )
+    }
+    else {
         
         contentSection = (
             <View style={styles.containerMesCoordonnees}>
@@ -172,7 +258,7 @@ export default function MonProfil({navigation}) {
                 <View style={styles.largeInputContainer}><InputSansTitle title="Téléponne :" 
                                                                 underlineWidth={"20%"}
                                                                 cursorColor = '#154C79'
-                                                                keyboardType = 'numer'
+                                                                keyboardType = 'numeric'
                                                                 onChangeText={(value) => setTelephone(value)}
                                                                 value = {telephone}
                                                                 text ={telephone}/></View>
@@ -185,6 +271,9 @@ export default function MonProfil({navigation}) {
         </View>
         )
     }
+
+
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             {contentSection}
@@ -278,6 +367,24 @@ export default function MonProfil({navigation}) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
+          },
+          showLessSection:{
+            height:'10%',
+            width:'30%',
+            
+            alignItems:'center'
+          },
+          editerButton:{
+            width:'100%',
+            height:'50%',
+            borderRadius: 5,
+            backgroundColor:'#154C79',
+            marginBottom:10
+          },
+          editerButtonText:{
+            color:'white',
+            textAlign:'center',
+
           },
           showMoreButtonText: {
             color: '#5FA59D',
