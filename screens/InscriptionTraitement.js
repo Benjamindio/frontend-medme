@@ -9,7 +9,7 @@ import {
      Platform,
      ScrollView,
 } from 'react-native'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { addTreatment } from '../reducers/user'
 
@@ -24,7 +24,12 @@ const handlePress = () => {
 
 const handleNewPathologie = () => {
     dispatch(addTreatment({pathologie:pathologie, medicament:medicament, dosage:dosage}))
+    
+    setPathologie('')
+    setMedicament('')
+    setDosage('')
     navigation.push('InscriptionFicheSante') 
+    
 }
 
 
