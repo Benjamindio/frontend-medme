@@ -78,16 +78,14 @@
                                     nameIconLeft = 'file-medical-alt'
                                     nameIconRight = 'chevron-right' 
                                     text = 'Ma fiche santé'
-                                    // onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}
-                                    />
+                                    onPress={() => navigation.navigate('Profil')}                                    />
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
                                     styleIconRight = {styles.iconRight} 
                                     nameIconLeft = 'address-book' 
                                     nameIconRight = 'chevron-right' 
                                     text = 'Mes coordonnées'
-                                    // onPress={() => navigation.navigate('MedicamentsSelectionScreen')}
-                                    />  
+                                    onPress={() => navigation.navigate('Profil')}                                    />  
                 </View>
             </KeyboardAvoidingView>
         )};

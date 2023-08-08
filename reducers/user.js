@@ -72,6 +72,7 @@ export const userSlice = createSlice({
             state.value.lastname=null;
         },
         addToCart:(state, action) => {
+            console.log('item aded', action.payload)
             if(!state.value.order.find(e => e.product_id === action.payload.product_id)){
             state.value.order.push(action.payload)}
             //else{

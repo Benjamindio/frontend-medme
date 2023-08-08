@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
+import { addToCart } from '../reducers/user';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 const moment = require('moment');
@@ -59,9 +60,17 @@ export default function DetailCommande({route, navigation}) {
         )
     });
 
-    // let date = moment(order[0].date).format('L')
-    // console.log(date)
-    // let totalPrice = order[0].total;
+    const handlePress = () => {
+        const data = order[0]
+        console.log('ordertosend', order[0])
+        dispatch(addToCart({product_id: data.product_id, 
+                            medName: data.name,
+                            quantity:1,
+                            medPrice: data.price,
+                            medImage: data.image,
+                        }))
+        navigation.navigate('Commander',{screen:'CheckoutScreen'})
+    }
 
 
     return (
@@ -76,7 +85,7 @@ export default function DetailCommande({route, navigation}) {
                     <Text style = {styles.total}>Total payé: {totalPrice}  €</Text>
                 </View>
                 <View style = {styles.bottomContent}>
-                    <ButtonNoIcon textButton='Commander'onPress={()=>navigation.navigate('Commander',{screen:'CheckoutScreen'})}/>
+                    <ButtonNoIcon textButton='Commander'onPress={()=>handlePress()}/>
                 </View>
             </View>
         </KeyboardAvoidingView>

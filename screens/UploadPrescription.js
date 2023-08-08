@@ -104,24 +104,26 @@ export default function UploadPrescription() {
                 <Text style = {styles.textUn}>Le produit que vous avez sélectionné necessite une ordonnance.
                 Veuillez importer votre ordonnance pour pouvoir procéder à la commande.</Text>
                 </View>
-                <DisplayButton  onPress={()=> handleOnPress()}
-                                nameIconLeft='file'
-                                nameIconRight='chevron-right'
-                                text='Importer votre fichier'
-                                styleIconLeft={styles.iconLeft}
-                                styleIconRight={styles.iconRight}
-                                styleTextDisplayButton = {styles.textButton}
+                <View style={styles.displayButn}>
+                    <DisplayButton  onPress={()=> handleOnPress()}
+                                    nameIconLeft='file'
+                                    nameIconRight='chevron-right'
+                                    text='Importer votre fichier'
+                                    styleIconLeft={styles.iconLeft}
+                                    styleIconRight={styles.iconRight}
+                                    styleTextDisplayButton = {styles.textButton}
 
-                />
-                <DisplayButton  onPress={()=> handleOpenCamera()}
-                                nameIconLeft='camera'
-                                nameIconRight='chevron-right'
-                                text='Prendre une Photo'
-                                styleIconLeft={styles.iconLeft}
-                                styleIconRight={styles.iconRight}
-                                styleTextDisplayButton = {styles.textButton}
+                    />
+                    <DisplayButton  onPress={()=> handleOpenCamera()}
+                                    nameIconLeft='camera'
+                                    nameIconRight='chevron-right'
+                                    text='Prendre une Photo'
+                                    styleIconLeft={styles.iconLeft}
+                                    styleIconRight={styles.iconRight}
+                                    styleTextDisplayButton = {styles.textButton}
 
-                />
+                    />
+                </View>
             <SmallTitle smallTitle = 'Mes ordonnances enregistrées'/>
             {ordonnanceCounter}
                 <View style={styles.galleryContainer}>
@@ -155,7 +157,9 @@ const styles = StyleSheet.create({
     scrollview: {
         width:'100%',
     },
-
+    displayButn:{
+        alignItems:'center',
+    },
     textBox:{
         marginBottom: 30,
 
