@@ -12,6 +12,7 @@ import Title from '../Components/Title';
 import ButtonNoIcon from '../Components/ButtonNoIcon';
 import { useDispatch,useSelector } from 'react-redux';
 import {signUp} from '../reducers/user'
+import { faBullseye, faLaptopHouse } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function InscriptionProfilScreen({navigation}) {
@@ -35,6 +36,7 @@ handleClickRegister = () => {
     .then(data => {
         console.log(data)
         if(data.result){
+            setIsSelected(false)
             navigation.navigate('TabNavigator', {screen: 'Home'})
         } else {
             console.log('error')
@@ -45,18 +47,19 @@ handleClickRegister = () => {
 
 handleClickYes = () => {
     console.log('click bouton yes')
-    setIsSelected(true)
     dispatch(signUp({lastname:name, firstName,adresse, email, hasHealthCard:true}))
     navigation.navigate('InscriptionFicheSante');
 }
 
 handleClickNo = () => {
     console.log('click bouton no')
+    setIsSelected(true)
     dispatch(signUp({lastname:name, firstName, email, hasHealthCard:false, adresse}))
 }
 
 const butnSelectedStyle = {
-    backgroundColor: isSelected ? 'white' : '#F5F5F5',
+    backgroundColor: isSelected ? '#5FA59D' : '#ffffff',
+    color: isSelected ? 'white' : '#F5F5F5',
   }; 
 
 
@@ -94,10 +97,10 @@ const butnSelectedStyle = {
                                                                 value = {adresse}/></View>
                 <Text style={styles.centerText}>Êtes-vous sous traitement?</Text>
                 <View style={styles.smallButtonSection}>
-                    <TouchableOpacity style={[styles.smallButton,butnSelectedStyle]} activeOpacity={0.8} onPress={()=> handleClickYes()}>
+                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickYes()}>
                         <Text style={styles.textSmallButton}>OUI</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.smallButton} activeOpacity={0.8} onPress={()=> handleClickNo()}>
+                    <TouchableOpacity style={[styles.smallButton,butnSelectedStyle]} activeOpacity={0.8} onPress={()=> handleClickNo()}>
                         <Text style={[styles.textSmallButton,butnSelectedStyle]}>NON</Text>
                     </TouchableOpacity>
                 </View>
