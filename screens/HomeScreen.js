@@ -47,7 +47,7 @@ export default function HomeScreen({navigation}) {
         <View style={styles.container}>
             <HeaderSansReturn onPress={()=> navigation.navigate('Profile')} />
           <View style={styles.content}>
-              <Title title={`Bonjour,${user.firstName}`} />
+              <Title title={`Bonjour, ${user.firstName}`} />
               <Text style={styles.text}>Que souhaitez-vous faire ?</Text>
               <ButtonHome iconName='pills' iconSize={50} 
                           iconColor='#F5F5F5' 
@@ -62,7 +62,7 @@ export default function HomeScreen({navigation}) {
               <View style={styles.lowerButton}> 
                 <ButtonHome iconName='user-alt' iconSize={30} iconStyle={styles.iconStyle} iconColor='#5FA59D' textButton='Mon profil' textStyle={styles.textStyle} height={110} width={110} backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profil')}/>
                 <ButtonHome iconName='file-medical-alt' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Ma fiche santé' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Profil')}/>
-                <ButtonHome iconName='book-medical' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Mes commandes' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('Myorders')} />
+                <ButtonHome iconName='book-medical' iconStyle={styles.iconStyle} iconSize={30} iconColor='#5FA59D' textButton='Mes commandes' textStyle={styles.textStyle} height={110} width={110}  backgroundColor='#FFFFFF'  color="#5FA59D" onPress={() => navigation.navigate('OrderStack',{screen:'MesCommandes'})} />
               </View>
           </View>
         </View>

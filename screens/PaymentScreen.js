@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Button, Text } from 'react-native';
 import HeaderSansLogo from '../Components/HeaderSansLogo';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useConfirmPayment, CardForm, BillingDetails } from '@stripe/stripe-react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
@@ -101,7 +102,7 @@ const PaymentScreen = ({ navigation }) => {
             .then((saveOrderData) => {
             if (saveOrderData.result) {
                 console.log('Order saved:', saveOrderData);
-                console.log(user)
+                // console.log(user)
                 navigation.navigate('ConfirmationCommande'); 
             } else {
                 console.error('Error saving order:', saveOrderData.error);

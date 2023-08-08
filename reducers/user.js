@@ -98,6 +98,10 @@ export const userSlice = createSlice({
               state.value.order[index].quantity -= 1;
             }
           },
+        emptyCart: (state) => {
+            state.value.order = [];
+        },
+
         addPhotoOrdonnance: (state, action) => {
             console.log('add',action.payload)
             state.value.photoOrdonnance.push(action.payload);
@@ -111,6 +115,6 @@ export const userSlice = createSlice({
 })
 
 
-export const {login,updateUserStatus, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
+export const {login,updateUserStatus, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,emptyCart, addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
 export default userSlice.reducer;
 

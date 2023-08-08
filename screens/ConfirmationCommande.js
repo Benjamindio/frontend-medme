@@ -14,6 +14,7 @@ import SmallTitle from '../Components/SmallTitle';
 import ButtonNoIcon from '../Components/ButtonNoIcon'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native'
+import { emptyCart } from '../reducers/user';
 
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
@@ -21,8 +22,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 
 export default function ConfirmationCommande() {
 
+    const dispatch = useDispatch();
     const navigation = useNavigation();
-
     const order = useSelector((state) => state.user.value.order);
     const totalPrice = order.reduce((total, item) => total + item.quantity * item.medPrice, 0).toFixed(2);
 
@@ -35,6 +36,12 @@ export default function ConfirmationCommande() {
             </View>
         )
     });
+
+    const handlePress = () => {
+        dispatch(emptyCart(order))
+        console.log(order)
+        navigation.navigate('SuiviCommande')
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -51,7 +58,7 @@ export default function ConfirmationCommande() {
                     <FontAwesome name='road' size={40} style = {styles.icon} />
                     <Text style = {styles.textSuivi}>Cliquer sur continuer pour voir le suivi de votre commande.</Text>
                 </View>
-                <ButtonNoIcon textButton = 'Continuer' onPress={()=> navigation.navigate('SuiviCommande')}/>    
+                <ButtonNoIcon textButton = 'Continuer' onPress={()=> handlePress()}/>    
             </View>
         </KeyboardAvoidingView>
     )

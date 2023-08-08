@@ -56,7 +56,6 @@ const OrderStack = () => {
     <Stack.Screen name = 'PaymentScreen'component = {PaymentScreen} />
     <Stack.Screen name = 'ConfirmationCommande'component = {ConfirmationCommande} />
     <Stack.Screen name = 'SuiviCommande' component ={SuiviCommande}/>
-    <Stack.Screen name = 'DetailCommande' component={DetailCommande} />
   </Stack.Navigator>)
 }
 const TabNavigator = () => {
@@ -105,6 +104,7 @@ export default function App() {
         <Stack.Screen name = 'InscriptionFicheSante' component ={InscriptionFicheSante} />
         <Stack.Screen name = 'InscriptionAllergie' component ={InscriptionAllergie} />
         <Stack.Screen name = 'InscriptionTraitement' component ={InscriptionTraitement} />
+        <Stack.Screen name = 'DetailCommande' component={DetailCommande} />
         <Stack.Screen name="TabNavigator" component={TabNavigator} />
       </Stack.Navigator>
     </NavigationContainer>

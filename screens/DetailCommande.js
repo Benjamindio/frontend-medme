@@ -12,28 +12,57 @@ import HeaderSansLogo from '../Components/HeaderSansLogo';
 import SmallTitle from '../Components/SmallTitle';
 import ButtonNoIcon from '../Components/ButtonNoIcon'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native'
-
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+const moment = require('moment');
+import 'moment/locale/fr';
 
 
-export default function DetailCommande() {
+export default function DetailCommande({route, navigation}) {
+    const {id} = route.params
+    const dispatch = useDispatch();
+    const [ order, setOrder] = useState([]);
+    const [ date, setDate ] = useState('');
+    const [ totalPrice, setTotalPrice ] = useState(0);
+    const isFocused = useIsFocused();
 
-    const navigation = useNavigation();
+    useEffect (() => {
+        if (isFocused){
+        fetch(`http://192.168.1.101:3000/orders/byId/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data){
+                console.log('ok')
+                setDate(moment(data.order.date).format('L'))
+                setTotalPrice(data.order.total)
+                setOrder(data.order.product)
+            }else{
+                console.log('error no order found ')
+            }
+        })}
+    },[]);
 
-    const order = useSelector((state) => state.user.value.order);
-    const totalPrice = order.reduce((total, item) => total + item.quantity * item.medPrice, 0).toFixed(2);
+    console.log('result',id)
+    // console.log('orderuseeffect',order[0].product_id)
 
     const orderItems = order.map((data,i)=> {
+
         return (
             <View key ={i} style = {styles.itemContainer}>
-                <Text style = {styles.qty}>x {data.quantity}</Text>
-                <Text style = {styles.medName}>{data.medName}</Text>
-                <Text style = {styles.medPrice}>{data.medPrice} €</Text>
+                <Text style = {styles.qty}>x qty</Text>
+                <Text style = {styles.medName}>{data.name}</Text>
+                <Text style = {styles.medPrice}>{data.price} €</Text>
             </View>
         )
     });
+
+    // let date = moment(order[0].date).format('L')
+    // console.log(date)
+    // let totalPrice = order[0].total;
+
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -41,14 +70,13 @@ export default function DetailCommande() {
                             onPress={() => navigation.goBack()}
             />
             <View style = {styles.content}>
-                <SmallTitle smallTitle = 'Ma commande du DATE'/>
+                <SmallTitle smallTitle = {`Ma commande du ${date}`}/>
                 <View style ={styles.contentOrder}>
                     {orderItems}
-                    <Text style = {styles.total}>Total payé: {totalPrice} €</Text>
+                    <Text style = {styles.total}>Total payé: {totalPrice}  €</Text>
                 </View>
                 <View style = {styles.bottomContent}>
-                    <Text style ={styles.textUn}>Reçue le DATE</Text>
-                    <ButtonNoIcon textButton='Commander'onPress={()=>navigation.navigate('CheckoutScreen')}/>
+                    <ButtonNoIcon textButton='Commander'onPress={()=>navigation.navigate('Commander',{screen:'CheckoutScreen'})}/>
                 </View>
             </View>
         </KeyboardAvoidingView>

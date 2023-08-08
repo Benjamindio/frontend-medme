@@ -99,7 +99,7 @@ export default function ParapharmacieSelectionScreen({navigation}) {
     const searchResult = data.map((data,i) => {
         if (showList) {
         return(
-            <View style ={styles.resultContainer}>
+            <View key={i} style ={styles.resultContainer}>
                 <ProductDisplay onPress={()=> handlePress(data.product_id,data.medName,data.medCategorie,data.medPrice,data.medImage)}
                                 src = {{uri:(data.medImage)}} 
                                 text = {data.medName}
