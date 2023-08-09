@@ -108,12 +108,10 @@ const handleAddTreatment = () => {
 
 return (
   <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.header}><HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} /></View>
-      <View style={styles.titleContainer}>
+        <HeaderSansHamburger name="Je crée mon profil" onPress={() => handleReturn()} />
+        <View style = {styles.content}>
         <Title title="Ma fiche santé" />
-        </View>
-      
-      <View style={styles.field}>
+        <View style={styles.field}>
           <View style={styles.inputAndLogoContainer}>
           <View style={styles.dateContainer}>
             <DateTimePicker
@@ -164,7 +162,7 @@ return (
             </View>
             <ButtonNoIcon textButton="Enregistrer" onPress={() => handleRegister()} /> 
         </View>
-      
+        </View>
   </KeyboardAvoidingView>
 )
 }
@@ -172,15 +170,21 @@ return (
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    justifyContent: 'space-between',
+    backgroundColor: '#F5F5F5',
     alignItems: 'center',
-    backgroundColor:'D9D9D9',
-    width: "100%"
-    },
+    width:'100%',
+},
+content: {
+    flex:4,
+    width:'100%',
+    justifyContent: 'flex-start',
+    alignItems:'center',
+    padding:20,
+    
+},
   field:{
     width:'95%',
     alignItems:'center',
-
     flex:0.7
 
   },

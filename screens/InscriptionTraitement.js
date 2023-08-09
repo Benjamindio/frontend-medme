@@ -55,10 +55,9 @@ const handleNewPathologie = () => {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={styles.header}>
                 <HeaderSansHamburger name="Ma fiche santé" onPress={() => handlePress()} />
-                </View>
-            <View style={styles.titleContainer}><Title title="Ajout d'un traitement" style={styles.title}/></View>
+                <View style = {styles.content}>
+            <Title title="Ajout d'un traitement" style={styles.title}/>
             <ScrollView style={styles.scrollView}> 
             <View style={styles.field}>
                 <View style={styles.largeInputContainer}><Input placeholder="Pathologie" title="Pathologie" underlineWidth={"35%"} value={pathologie} onChangeText={(value) => setPathologie(value)}/></View>
@@ -68,18 +67,26 @@ const handleNewPathologie = () => {
                 <ButtonNoIcon textButton="Enregistrer" onPress={() => {handleNewPathologie()}} /> 
                 </View>
             </ScrollView> 
+            </View>
         </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor:'D9D9D9',
-      width: "100%"
-    },
+  container: {
+    flex:1,
+    backgroundColor: '#F5F5F5',
+    alignItems: 'center',
+    width:'100%',
+},
+content: {
+    flex:4,
+    width:'100%',
+    justifyContent: 'flex-start',
+    alignItems:'center',
+    padding:20,
+    
+},
     scrollView:{
       width:'70%'
     },
