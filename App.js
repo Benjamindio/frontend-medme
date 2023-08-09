@@ -31,7 +31,6 @@ import SuiviCommande from './screens/SuiviCommande';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import DetailCommande from './screens/DetailCommande';
 
-
 import {Provider} from 'react-redux'
 import {configureStore} from '@reduxjs/toolkit'
 
