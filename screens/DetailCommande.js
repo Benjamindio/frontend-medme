@@ -27,7 +27,7 @@ export default function DetailCommande({route, navigation}) {
     const dispatch = useDispatch();
     const [ order, setOrder] = useState([]);
     const [ date, setDate ] = useState('');
-    const [qty, setQty] = useState(0);
+    const [qty, setQty] = useState([]);
     const [ totalPrice, setTotalPrice ] = useState(0);
     const isFocused = useIsFocused();
 
@@ -47,30 +47,32 @@ export default function DetailCommande({route, navigation}) {
             }
         })}
     },[]);
-
+console.log(qty)
     console.log('result',id)
-    // console.log('orderuseeffect',order[0].product_id)
+    console.log('orderuseeffect',order)
 
     const orderItems = order.map((data,i)=> {
-
-        return (
-            <View key ={i} style = {styles.itemContainer}>
-                <Text style = {styles.qty}>x {qty}</Text>
-                <Text style = {styles.medName}>{data.name}</Text>
-                <Text style = {styles.medPrice}>{data.price} €</Text>
-            </View>
-        )
-    });
+    
+            return (
+                <View key ={i} style = {styles.itemContainer}>
+                    <Text style = {styles.qty}>x {qty[i]} </Text>
+                    <Text style = {styles.medName}>{data.name}</Text>
+                    <Text style = {styles.medPrice}>{data.price} €</Text>
+                </View>
+            )
+        } 
+    );
 
     const handlePress = () => {
-        const data = order[0]
-        console.log('ordertosend', order[0])
-        dispatch(addToCart({product_id: data.product_id, 
-                            medName: data.name,
-                            quantity:qty,
-                            medPrice: data.price,
-                            medImage: data.image,
-                        }))
+        order.map((data,i) => {
+         dispatch(addToCart({
+                product_id: data.product_id, 
+                medName: data.name,
+                quantity:qty[i],
+                medPrice: data.price,
+                medImage: data.image,
+            }))
+        })
         navigation.navigate('Commander',{screen:'CheckoutScreen'})
     }
 
