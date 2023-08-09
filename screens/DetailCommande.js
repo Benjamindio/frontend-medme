@@ -27,6 +27,7 @@ export default function DetailCommande({route, navigation}) {
     const dispatch = useDispatch();
     const [ order, setOrder] = useState([]);
     const [ date, setDate ] = useState('');
+    const [qty, setQty] = useState(0);
     const [ totalPrice, setTotalPrice ] = useState(0);
     const isFocused = useIsFocused();
 
@@ -37,6 +38,7 @@ export default function DetailCommande({route, navigation}) {
         .then(data => {
             if (data){
                 console.log('ok')
+                setQty(data.order.quantity)
                 setDate(moment(data.order.date).format('L'))
                 setTotalPrice(data.order.total)
                 setOrder(data.order.product)
@@ -53,7 +55,7 @@ export default function DetailCommande({route, navigation}) {
 
         return (
             <View key ={i} style = {styles.itemContainer}>
-                <Text style = {styles.qty}>x qty</Text>
+                <Text style = {styles.qty}>x {qty}</Text>
                 <Text style = {styles.medName}>{data.name}</Text>
                 <Text style = {styles.medPrice}>{data.price} €</Text>
             </View>
@@ -65,7 +67,7 @@ export default function DetailCommande({route, navigation}) {
         console.log('ordertosend', order[0])
         dispatch(addToCart({product_id: data.product_id, 
                             medName: data.name,
-                            quantity:1,
+                            quantity:qty,
                             medPrice: data.price,
                             medImage: data.image,
                         }))

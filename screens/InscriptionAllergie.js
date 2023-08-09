@@ -30,10 +30,9 @@ export default function InscriptionAllergie({navigation}) {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={styles.header}>
               <HeaderSansHamburger name="Ma fiche santé" onPress={() => handlePress()} />
-              </View>
-            <View style={styles.titleContainer}><Title title="Ajout d'une allergie" style={styles.title}/></View>
+              <View style = {styles.content}>
+            <Title title="Ajout d'une allergie"/>
             <ScrollView style={styles.scrollView} > 
             <View style={styles.field}>
                 <View style={styles.largeInputContainer}>
@@ -42,33 +41,31 @@ export default function InscriptionAllergie({navigation}) {
                 <ButtonNoIcon textButton="Enregistrer" onPress={() => {handleAddAllergie()}} /> 
                 </View>
             </ScrollView> 
+            </View>
         </KeyboardAvoidingView>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex:1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor:'D9D9D9',
-      width: "100%"
-    },
+  container: {
+    flex:1,
+    backgroundColor: '#F5F5F5',
+    alignItems: 'center',
+    width:'100%',
+},
+content: {
+    flex:4,
+    width:'100%',
+    justifyContent: 'flex-start',
+    alignItems:'center',
+    padding:20,
+    
+},
     field:{
       width:'100%',
       alignItems:'center',
       marginTop:15
 
-    },
-    header:{
-      width:'100%',
-      height:"15%"
-      
-    },
- 
-    titleContainer:{
-      width:"80%",
-      marginTop:15 
     },
 
     largeInputContainer:{

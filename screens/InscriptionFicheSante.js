@@ -119,7 +119,7 @@ return (
         <Title title="Ma fiche santé" />
         <View style={styles.field}>
           <View style={styles.inputAndLogoContainer}>
-          <View style={styles.dateContainer}>
+          {/* <View style={styles.dateContainer}> */}
             <DateTimePicker
               value={dateOfBirth}
               mode="date"
@@ -141,14 +141,14 @@ return (
               underlineWidth={'40%'} onChangeText={(value) => {setDateOfBirth(value)}} value={dateOfBirth} />
               </View>
               <FontAwesome name='calendar' size={25} style={styles.iconColor}/>*/}
-              </View>
+              {/* </View> */}
             </View>
             <View style={styles.inputTailleEtPoids}> 
               <View style={styles.inputSize}>
-                <Input placeholder="" text={sizeText} title='Taille' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setSize(value)}} value={size} />
+                <Input placeholder="Taille en cm" text={sizeText} title='Taille' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setSize(value)}} value={size} />
                 </View>
               <View style={styles.inputSize}>
-                <Input placeholder=""  text={weightText} title='Poids' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
+                <Input placeholder="Poids en kg"  text={weightText} title='Poids' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
               </View>
             </View>
             <View style={styles.inputSize}>
@@ -157,14 +157,14 @@ return (
             <View style={styles.inputAndLogoContainer}>
               <View style={styles.largeInputContainer}>
                 <Input editable={false} placeholder={allergieCount} title="Allergies" underlineWidth={"20%"}/>
-                </View>
-                <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() => handleAddAllergie()}/>
+              </View>
+            <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() => handleAddAllergie()}/>
               </View>
             <View style={styles.inputAndLogoContainer}>
-            <View style={styles.largeInputContainer}>
-              <Input editable={false} placeholder={treatmentCount} title="Traitement en cours" underlineWidth={"40%"} />
-            </View>
-              <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() =>handleAddTreatment() }/>
+              <View style={styles.largeInputContainer}>
+                <Input editable={false} placeholder={treatmentCount} title="Traitement en cours" underlineWidth={"40%"}/>
+                </View>
+                <FontAwesome name='plus' size={25} style={styles.iconColor} onPress={() =>handleAddTreatment() }/>
             </View>
             <ButtonNoIcon textButton="Enregistrer" onPress={() => handleRegister()} /> 
         </View>
@@ -189,44 +189,41 @@ content: {
     
 },
   field:{
-    width:'95%',
+    width:'90%',
+    justifyContent:'center',
     alignItems:'center',
-    flex:0.7
-
-  },
-    header:{
-    width:'100%',
-    flex:0.15
 
   },
   iconColor:{
     color: '#5FA59D',
     position:'absolute',
     left:'80%',
-    top: '15%',
-    marginLeft: 20,
+    top: '30%',
+    // marginLeft: 20,
   },
   inputSize:{
-    width: '40%'
+    width: '45%',
+    
   },
   titleContainer:{
     width:"80%",
-    flex:0.15,
     marginTop:30/// ici
 
   },
 
   inputTailleEtPoids:{
-    width:"80%",
+    width:"100%",
     flexDirection: 'row',
     justifyContent:'space-between',
   },
   inputAndLogoContainer:{
-    width:'80%',
-    height:'15%', ////ici
+    width:'100%',
+    height:60,
+    ////ici
     flexDirection:'row',
     alignContent:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    marginBottom:20,
 
   },
   dateContainer:{
@@ -237,16 +234,18 @@ content: {
   },
   dateInputContainer:{
     
-  height:'100%',
+    // height:'100%',
     backgroundColor: '#F5F5F5',
-    marginBottom: 20,
+    // marginBottom: 20,
     borderRadius: 8,
-    padding: 20,
+    width:'100%',
+    // padding: 20,
     borderColor: '#afb1b6',
     borderWidth: 1,
     opacity: 0.8,
 
   },
+  
   dateTitleContainer: {
     flexDirection:'column',
     position: 'absolute',
@@ -260,14 +259,16 @@ content: {
   },
   underline:{
     borderBottomWidth:3,
-
     borderColor:'#F5F5F5',
     position: 'absolute',
     marginLeft: 13,
     
   },
   largeInputContainer:{
-    width:"100%"
+    width:'100%',
+    // flexDirection:'row',
+    // alignItems:'center',
+    // justifyContent:'space-between',
   },
   
 

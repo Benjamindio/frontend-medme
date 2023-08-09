@@ -9,7 +9,7 @@ export default function headerWithoutLogo(props) {
           <View style = {styles.content}>
             <FontAwesome name='chevron-left' style={styles.icon} size={20} onPress={props.onPress}/>
             <Text style={styles.title}>{props.name}</Text>
-            <FontAwesome name='bars' style={styles.icon} size={30}/>
+            <FontAwesome name='bars' style={styles.iconHidden} size={30}/>
           </View>
         </View>
     )
