@@ -24,7 +24,7 @@ export default function OrderScreen({navigation}) {
     const medName = (treatments) => {
         const allMed = []
         for (let treatment of treatments) {
-            allMed.push(treatment.medicament)
+            allMed.push(...treatment.medicament)
         }
         return allMed
     }
@@ -32,6 +32,7 @@ export default function OrderScreen({navigation}) {
         console.log(treatment)
         const medNameArray = medName(treatment)
         console.log(medNameArray)
+        const medSuggestionArray = []
         for (let meds of medNameArray) {
             console.log(meds)
             fetch(`https://backend-medme.vercel.app/medicaments/suggestion`, {
@@ -43,11 +44,14 @@ export default function OrderScreen({navigation}) {
                 if(data.result){
                     console.log(data.medicament)
                     if(!suggestionMed.find(e => e.name === data.medicament.name)){
-                    setSuggestionMed([...suggestionMed, data.medicament])
+                        medSuggestionArray.push(data.medicament)
+                    
                     console.log('suggestion',suggestionMed)}
                     
                 }
-            })
+            }).then(() => {
+                setSuggestionMed([...suggestionMed, ...medSuggestionArray])
+            } )
             
         }
         

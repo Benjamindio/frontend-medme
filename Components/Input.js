@@ -40,7 +40,8 @@ import {
         keyboardType={props.keyboardType}
         onChangeText={props.onChangeText}
         onFocus={() => handleFocusInput()}
-        editable={props.editable}>
+        editable={props.editable}
+        value ={props.value}>
         {props.text}
       </TextInput>
       <View style={styles.underline} width={props.underlineWidth}></View>

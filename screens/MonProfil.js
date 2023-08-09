@@ -76,7 +76,8 @@ export default function MonProfil({navigation}) {
 
     const calculateAge = (dateOfBirth) => {
         const yearsFromNow = moment(dateOfBirth,'YYYYMMDD').fromNow()
-        const age = `${yearsFromNow[0]}${yearsFromNow[1]}`
+        const age = yearsFromNow.match(/\d+/)
+
         return age
     }
     const medName = (treatments) => {

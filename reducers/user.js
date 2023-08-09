@@ -46,7 +46,7 @@ export const userSlice = createSlice({
             state.value.email = email
             state.value.hasHealthCard = hasHealthCard
             state.value.adresse = adresse
-            console.log(state.value)
+            console.log('mis à jour credentials',state.value)
         },
         healthCardCreation:(state,action) => {
             const { isoStringDate,
@@ -56,7 +56,7 @@ export const userSlice = createSlice({
             state.value.healthCard.size = size
             state.value.healthCard.weight = weight
             state.value.healthCard.bloodGroup = bloodGroup
-            console.log(state.value)// ajouter adresse et bloodgroup 
+            console.log('mise à jour healthcard',state.value.healthCard)// ajouter adresse et bloodgroup 
         },
         addTreatment:(state,action) => {
             if(!state.value.healthCard.treatment.find(e => e.pathologie === action.payload.pathologie)){

@@ -64,7 +64,7 @@ const butnSelectedStyle = {
 
 
     return (
-        <KeyboardAvoidingView>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.container}>
                 <Image
                     style = {styles.logo}
