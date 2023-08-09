@@ -30,8 +30,8 @@ import ButtonNoIcon from '../Components/ButtonNoIcon';
           setRegion({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
-            latitudeDelta: 0.0004,
-            longitudeDelta: 0.005,
+            latitudeDelta: 0.004,
+            longitudeDelta: 0.006,
           });
           setCurrentLocation(location.coords)
           fetch('https://backend-medme.vercel.app/pharmacies/inArea',{

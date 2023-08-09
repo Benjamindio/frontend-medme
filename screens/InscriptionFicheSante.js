@@ -30,19 +30,13 @@ export default function InscriptionFicheSante({navigation}) {
     const [treatment, setTreatment ] =useState(0);
     const [bloodGroup, setBloodGroup] = useState('');
     const dispatch = useDispatch()
-
-    let allergieCount;
-    if (allergieCount > 1){
-      allergieCount = `${allergies} allergies déclarées`
-    }else{
-      allergieCount = `${allergies} allergie déclarée`
+    let allergieCount = `${allergies} allergies déclarées`
+    let treatmentCount = `${treatment}  traitements déclarés`
+    if (treatment < 1) {
+      treatmentCount = `${treatment}  traitement déclaré`
     }
-
-    let treatmentCount;
-    if (treatment > 1 ){
-       treatmentCount = `${treatment}  traitements déclarés`
-    }else {
-       treatmentCount = `${treatment}  traitement déclaré`
+    if (allergies < 1) {
+      allergieCount = `${allergies} allergie déclarée`
     }
 
 
@@ -66,8 +60,8 @@ export default function InscriptionFicheSante({navigation}) {
 
 
   const handleRegister = () => {
-
-    dispatch(healthCardCreation({size, weight, bloodGroup, allergies: user.healthCard.allergies, treatment : user.healthCard.treatment}))
+    const isoStringDate = dateOfBirth.toISOString()
+    dispatch(healthCardCreation({isoStringDate,size, weight, bloodGroup}))
 
      
        
@@ -145,14 +139,14 @@ return (
             </View>
             <View style={styles.inputTailleEtPoids}> 
               <View style={styles.inputSize}>
-                <Input placeholder="Taille en cm" text={sizeText} title='Taille' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setSize(value)}} value={size} />
+                <Input placeholder=""  title='Taille' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setSize(value)}} value={size} />
                 </View>
               <View style={styles.inputSize}>
-                <Input placeholder="Poids en kg"  text={weightText} title='Poids' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
+                <Input placeholder=""   title='Poids' keyboardType='numeric' underlineWidth={40} onChangeText={(value) => {setWeight(value)}} value={weight}/>
               </View>
             </View>
             <View style={styles.inputSize}>
-                <Input placeholder=""  text={bloodGroup} title='Groupe sanguin' underlineWidth={40} onChangeText={(value) => {setBloodGroup(value)}} value={bloodGroup}/>
+                <Input placeholder=""   title='Groupe sanguin' underlineWidth={40} onChangeText={(value) => {setBloodGroup(value)}} value={bloodGroup}/>
             </View>
             <View style={styles.inputAndLogoContainer}>
               <View style={styles.largeInputContainer}>

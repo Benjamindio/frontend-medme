@@ -8,6 +8,7 @@ import {
      KeyboardAvoidingView,
      Platform,
      ScrollView,
+     Text
 } from 'react-native'
 import { useState,useEffect } from 'react'
 import { useDispatch } from 'react-redux'
@@ -16,6 +17,7 @@ import { addTreatment } from '../reducers/user'
 export default function InscriptionTraitement({navigation}) {
 const [pathologie,setPathologie] =useState('')
 const [medicament, setMedicament]= useState('')
+const [addedMeds, setAddedMeds] = useState([])
 const [dosage, setDosage] = useState('')
 const dispatch = useDispatch()
 const handlePress = () => {
@@ -23,7 +25,8 @@ const handlePress = () => {
 }
 
 const handleNewPathologie = () => {
-    dispatch(addTreatment({pathologie:pathologie, medicament:medicament, dosage:dosage}))
+   
+    dispatch(addTreatment({pathologie:pathologie, medicament:addedMeds, dosage:dosage}))
     
     setPathologie('')
     setMedicament('')
@@ -31,7 +34,24 @@ const handleNewPathologie = () => {
     navigation.push('InscriptionFicheSante') 
     
 }
-
+  const handleInputChange = (value) => {
+    setMedicament(value)
+    if(value.includes(' ')){
+      const newArray = [...addedMeds, value]
+      setMedicament('')
+      setAddedMeds(newArray)
+      
+    } else {
+      setMedicament(value)
+    }
+  }
+ 
+  let addedMedView = addedMeds.map((data, i )=> {
+    return (<View style={styles.vignette}key={i}>
+      <Text style={styles.vignetteText}>{data}</Text>
+    </View>)
+  })
+  
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -41,7 +61,8 @@ const handleNewPathologie = () => {
             <ScrollView style={styles.scrollView}> 
             <View style={styles.field}>
                 <View style={styles.largeInputContainer}><Input placeholder="Pathologie" title="Pathologie" underlineWidth={"35%"} value={pathologie} onChangeText={(value) => setPathologie(value)}/></View>
-                <View style={styles.largeInputContainer}><Input placeholder="Nom médicament" title="Traitement en cours" underlineWidth={"60%"} value={medicament} onChangeText={(value) => setMedicament(value)}/></View>
+                <View style={styles.largeInputContainer}><Input placeholder="Nom médicament" title="Traitement en cours" underlineWidth={"60%"} value={medicament} onChangeText={(value) => handleInputChange(value)}/></View>
+                <View style={styles.vignetteLayout}>{addedMedView}</View>
                 <View style={styles.largeInputContainer}><Input placeholder="unité" title="Dosage" underlineWidth={"30%"} value={dosage} onChangeText={(value) => setDosage(value)} /></View>
                 <ButtonNoIcon textButton="Enregistrer" onPress={() => {handleNewPathologie()}} /> 
                 </View>
@@ -84,10 +105,31 @@ content: {
     marginTop:15
     },
     largeInputContainer:{
+      marginTop:20,
       width:'100%',
       alignContent:'center',
       textAlign:'left'
     },
+    vignette:{
+    alignItems:'center',
+    justifyContent:'center',
+    backgroundColor:  '#5FA59D' ,
+    marginLeft:20,
+    borderRadius : 5,
+    height:25,
+    width: '20%'
+  },
+  vignetteText:{
+    color: 'white',
+    textAlign:'center'
+    
+  },
+  vignetteLayout:{
+    flexDirection:'row',
+    alignItems:'center',
+    width:'100%'
+  }
+
     
   
   
