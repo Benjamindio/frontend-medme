@@ -160,7 +160,7 @@ export default function MonProfil({navigation}) {
                                     nameIconLeft = 'truck'
                                     nameIconRight = 'chevron-right' 
                                     text = 'Mes Commandes'
-                                    // onPress={}
+                                    onPress={() => {navigation.navigate('Commandes')}}
                                     />
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 
@@ -202,7 +202,7 @@ export default function MonProfil({navigation}) {
                                     nameIconLeft = 'truck'
                                     nameIconRight = 'chevron-right' 
                                     text = 'Mes Commandes'
-                                    // onPress={}
+                                     onPress={() => {navigation.navigate('Commandes')}}
                                     />
                     <DisplayButton  styleTextDisplayButton = {styles.text} 
                                     styleIconLeft = {styles.iconLeft} 

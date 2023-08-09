@@ -10,7 +10,7 @@ const MenuHamburger = () => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
+  const user = useSelector((state) => state.user.value.firstName)
   const isVisible = useSelector(state => state.modal.value)
   const threeQuarterScreenWidth = Dimensions.get('window').width * 3 / 4;
 
@@ -66,7 +66,7 @@ const MenuHamburger = () => {
           
           <View style={styles.profileItemContainer}>
             <Icon name="user-alt" size={60} color='#154C79' />
-            <Text style={styles.menuItemTextProfile}>UserName</Text>
+            <Text style={styles.menuItemTextProfile}>{user}</Text>
           </View>
 
           
