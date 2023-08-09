@@ -15,6 +15,8 @@ import SmallTitle from '../Components/SmallTitle';
 import ProductDisplay from '../Components/ProductDisplay';
 import { useState, useEffect, useRef } from 'react';
 import { ScrollView } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../reducers/user';
 
 
 export default function MedicamentsSelectionScreen({navigation}) {
@@ -25,7 +27,7 @@ export default function MedicamentsSelectionScreen({navigation}) {
     const [isClicked, setIsClicked ] = useState(false);
     const [reset, setReset] = useState(0);
     const [ data, setData] = useState ([]);
-
+    const dispatch = useDispatch()
     useEffect (() => {
 
         if(searchText.length > 2){
@@ -96,6 +98,7 @@ export default function MedicamentsSelectionScreen({navigation}) {
     };
 
     const handlePressCart = (product_id,medName,medCategorie,medPrice,medImage) => {
+      dispatch(addToCart({product_id,medName,medCategorie,medPrice,medImage, quantity:1}))
       navigation.navigate('CheckoutScreen', {
         product_id:product_id,
         medName,

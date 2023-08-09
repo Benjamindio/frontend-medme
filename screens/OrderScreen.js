@@ -14,13 +14,15 @@ import SearchBarList from '../Components/SearchBarList';
 import SmallTitle from '../Components/SmallTitle';
 import DisplayButton from '../Components/DisplayButton';
 import { useState,useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
+import { addToCart } from '../reducers/user';
 
 
 export default function OrderScreen({navigation}) {
     const [suggestionMed, setSuggestionMed] = useState([])
     const treatment = useSelector(state => state.user.value.healthCard.treatment)
     const user = useSelector(state => state.user.value)
+    const dispatch = useDispatch()
     const medName = (treatments) => {
         const allMed = []
         for (let treatment of treatments) {
@@ -57,15 +59,21 @@ export default function OrderScreen({navigation}) {
         
         
     },[])
+
+    
     console.log(suggestionMed)
     const productSuggestion = suggestionMed.map((data,i) => {
+        const handleAddToCart = () => {
+            dispatch(addToCart({product_id:data.product_id,quantity:1,needOrdonnance:data.needOrdonnance,medPrice:data.price,medName:data.name, medImage: data.medImage}))
+            navigation.navigate('CheckoutScreen')
+        }
         const title = data.name.slice(0,20)
         return (<View key={i} style={styles.medSuggestion}>
                     <Image source={{uri:data.medImage}} style={styles.medImageSuggestion}/>
                     <View style={styles.productInfo}>
                         <Text style={styles.suggestionText}>{title}</Text>
                         <Text style={styles.suggestionText}>{data.price}€</Text>
-                        <TouchableOpacity style={styles.addToCartButton} onPress={() => navigation.navigate('InscriptionFicheSante')}>
+                        <TouchableOpacity style={styles.addToCartButton} onPress={() => handleAddToCart()}>
                             <Text style={styles.addToCartText}>Ajouter au panier</Text>
                         </TouchableOpacity>
                     </View>

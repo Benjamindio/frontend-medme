@@ -24,8 +24,8 @@ export default function InscriptionFicheSante({navigation}) {
 
 
     const [dateOfBirth,setDateOfBirth] = useState(new Date())
-    const [size, setSize] = useState(0); 
-    const [weight, setWeight]= useState(0);
+    const [size, setSize] = useState(''); 
+    const [weight, setWeight]= useState('');
     const [allergies, setAllergies] = useState(0);
     const [treatment, setTreatment ] =useState(0);
     const [bloodGroup, setBloodGroup] = useState('');
@@ -70,19 +70,19 @@ export default function InscriptionFicheSante({navigation}) {
 
      
        
-  fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ phoneNumber: user.phoneNumber,firstname:user.firstName,lastname:user.lastname, email:user.email, hasHealthCard:user.hasHealthCard,dateOfBirth: user.healthCard.dateOfBirth, size: user.healthCard.size,
-         weight: user.healthCard.weight,adress:user.adresse, allergies: user.healthCard.allergies, treatment: user.healthCard.treatment, bloodGroup: user.healthCard.bloodGroup  }),
-  }).then(response => response.json())
-      .then(data => {
-          if(data.result){
-              navigation.navigate('TabNavigator', {screen: 'Home'})
-          } else {
-              console.log('error')
-          }
-      })
+    fetch('https://backend-medme.vercel.app/users/updateUserInfo', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phoneNumber: user.phoneNumber,firstname:user.firstName,lastname:user.lastname, email:user.email, hasHealthCard:user.hasHealthCard,dateOfBirth: user.healthCard.dateOfBirth, size: user.healthCard.size,
+          weight: user.healthCard.weight,adress:user.adresse, allergies: user.healthCard.allergies, treatment: user.healthCard.treatment, bloodGroup: user.healthCard.bloodGroup  }),
+    }).then(response => response.json())
+        .then(data => {
+            if(data.result){
+                navigation.navigate('TabNavigator', {screen: 'Home'})
+            } else {
+                console.log('error')
+            }
+        })
 };
 let dateOfBirthText = dateOfBirth
 if (dateOfBirthText === ''){
