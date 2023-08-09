@@ -134,10 +134,10 @@ import { useNavigation } from '@react-navigation/native'
   
   const styles = StyleSheet.create({
     container: {
-        margin: 15,
         justifyContent: "flex-start",
         alignItems: "center",
         width: "100%",
+        marginBottom:20,
     },
     searchBarUnclicked:{
       padding: 10,

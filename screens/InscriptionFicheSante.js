@@ -30,13 +30,18 @@ export default function InscriptionFicheSante({navigation}) {
     const [treatment, setTreatment ] =useState(0);
     const [bloodGroup, setBloodGroup] = useState('');
     const dispatch = useDispatch()
-    let allergieCount = `${allergies} allergies déclarées`
-    let treatmentCount = `${treatment}  traitements déclarés`
-    if (treatment < 1) {
-      treatmentCount = `${treatment}  traitement déclaré`
-    }
-    if (allergies < 1) {
+    let allergieCount; 
+    let treatmentCount; 
+    if (treatment > 1) {
+      treatmentCount = `${treatment} traitements déclarés`
+    }else{
+      treatmentCount = `${treatment} traitement déclaré`
+    };
+    if (allergies > 1) {
+      allergieCount = `${allergies} allergies déclarées`
+    }else{
       allergieCount = `${allergies} allergie déclarée`
+
     }
 
 

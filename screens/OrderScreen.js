@@ -61,16 +61,15 @@ export default function OrderScreen({navigation}) {
     const productSuggestion = suggestionMed.map((data,i) => {
         const title = data.name.slice(0,20)
         return (<View key={i} style={styles.medSuggestion}>
-            <Image source={{uri:data.medImage}} style={styles.medImageSuggestion}/>
-            <View style={styles.productInfo}>
-                <Text style={styles.suggestionText}>{title}</Text>
-                <Text style={styles.suggestionText}>{data.price}€</Text>
-                <TouchableOpacity style={styles.addToCartButton} onPress={() => navigation.navigate('InscriptionFicheSante')}>
-                                <Text style={styles.addToCartText}>Ajouter au panier
-                                    </Text>
-                </TouchableOpacity>
-            </View>
-        </View>)
+                    <Image source={{uri:data.medImage}} style={styles.medImageSuggestion}/>
+                    <View style={styles.productInfo}>
+                        <Text style={styles.suggestionText}>{title}</Text>
+                        <Text style={styles.suggestionText}>{data.price}€</Text>
+                        <TouchableOpacity style={styles.addToCartButton} onPress={() => navigation.navigate('InscriptionFicheSante')}>
+                            <Text style={styles.addToCartText}>Ajouter au panier</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>)
     })
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -94,10 +93,10 @@ export default function OrderScreen({navigation}) {
                                 nameIconRight = 'chevron-right' 
                                 text = 'Parapharmacie'
                                 onPress={() => navigation.navigate('ParapharmacieSelectionScreen')}/>
-                <View style={styles.suggestion}>
-                    <View style={styles.titleSuggestion}><SmallTitle smallTitle ="Vos médicaments" /></View>
-                    <View style={styles.productSuggestion}>{productSuggestion}</View>
-                </View>
+                    <SmallTitle smallTitle ="Vos médicaments" />
+                    <View style={styles.suggestion}>
+                        {productSuggestion}
+                    </View>
             </View>
         </KeyboardAvoidingView>
     )};
@@ -113,8 +112,8 @@ export default function OrderScreen({navigation}) {
         },
         content:{
             flex:4,
-            padding: 20,
             alignItems:'center',
+            justifyContent:'flex-start',
             width: '90%',
         },
         text:{
@@ -131,60 +130,49 @@ export default function OrderScreen({navigation}) {
         },
         suggestion:{
             width:'100%',
-            height:'50%'
-            
-        },
-        titleSuggestion:{
-            height:'15%'
-        },
-        productSuggestion:{
-            marginLeft:-30,
-            height:'85%',
-            alignItems:'center',
-            
-            flexDirection:'row',
-            
-            
-            
+            height:160,
+            flexDirection: 'row',
+            justifyContent:'space-evenly',            
         },
         suggestionText: {
             textAlign:'center',
-            fontWeight:'bold'
+            fontWeight:'light',
+            color:'#154C79',
+            fontSize:12,
+            marginTop:5,
         },
         medSuggestion:{
             justifyContent:'center',
             backgroundColor:'#FFFFFF',
-            height: '70%', 
-            width:'35%',
+            height: '100%', 
+            width:'45%',
             alignItems:'center',
-            marginLeft:5,
-            borderRadius:15
+            borderRadius:15,
+            marginRight:15,
         },
         medImageSuggestion:{
-            height:70,
+            height:60,
             width:70
         },
         addToCartButton:{
-            height:20,
-            width:100,
+            height:30,
+            width:'90%',
             justifyContent:'center',
-            backgroundColor:'#154C79',
+            backgroundColor:'#5FA59D',
             borderRadius:8,
-            shadowColor: '#afb1b6',
-      shadowOpacity: 0.8,
-      elevation: 6,
-      shadowRadius: 8,
-      shadowOffset: {width:0.8, height:10}
+            marginTop:5,
+  
         },
         addToCartText:{
             color:'white',
             textAlign:'center',
-            
-            fontSize:13
+            fontSize:14,
+            fontWeight:'light',
         },
         productInfo:{
             height:'40%',
             alignItems:'center',
-            justifyContent:'space-between'
+            justifyContent:'space-between',
+            width:'90%',
         }
     });

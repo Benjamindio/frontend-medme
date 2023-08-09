@@ -114,10 +114,10 @@ content: {
     alignItems:'center',
     justifyContent:'center',
     backgroundColor:  '#5FA59D' ,
-    marginLeft:20,
+    marginRight:20,
     borderRadius : 5,
     height:25,
-    width: '20%'
+    width: '30%'
   },
   vignetteText:{
     color: 'white',
@@ -126,7 +126,7 @@ content: {
   },
   vignetteLayout:{
     flexDirection:'row',
-    alignItems:'center',
+    alignItems:'flex-start',
     width:'100%'
   }
 
