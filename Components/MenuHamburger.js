@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { useState } from 'react';
 import {setModalVisible} from '../reducers/modal';
-
+import { logout} from '../reducers/user'
 
 const MenuHamburger = () => {
 
@@ -41,6 +41,12 @@ const MenuHamburger = () => {
      dispatch(setModalVisible(false))
      navigation.navigate('Profil')
    }
+
+   const onLogoutPress = () => {
+    dispatch(logout()); 
+    dispatch(setModalVisible(false));
+    navigation.navigate('Login'); 
+  }
 
 
   return (
@@ -111,7 +117,7 @@ const MenuHamburger = () => {
           
           <TouchableOpacity
             style={styles.menuItem}
-            // onPress={() => onMenuItemPress("Se deconnecter")}
+            onPress={() => onLogoutPress()}
           >
             <Icon name="sign-out-alt" size={20} color="#bc0000" />
             <Text style={styles.menuItemTextLogout}>Se deconnecter</Text>

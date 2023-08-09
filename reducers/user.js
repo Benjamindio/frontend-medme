@@ -70,6 +70,7 @@ export const userSlice = createSlice({
         logout:(state) => {
             state.value.isConnected = false;
             state.value.lastname=null;
+            console.log(state.value)
         },
         addToCart:(state, action) => {
             console.log('item aded', action.payload)
@@ -117,6 +118,6 @@ export const userSlice = createSlice({
 })
 
 
-export const {login,updateUserStatus, signUp, healthCardCreation, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,emptyCart, addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
+export const {login,updateUserStatus, signUp,healthCardCreation, logout, addTreatment,addAllergies, addOneArticle,addToCart,removeFromCart,removeOneArticle,emptyCart, addPhotoOrdonnance, removePhotoOrdonnance} = userSlice.actions;
 export default userSlice.reducer;
 

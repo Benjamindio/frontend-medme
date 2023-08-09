@@ -15,9 +15,12 @@ import Title from '../Components/Title';
 import Bouton from '../Components/Button';
 import { useDispatch } from 'react-redux';
 import {login,updateUserStatus} from '../reducers/user'
+import { useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function LoginScreen({navigation}) {
 
+    const isFocused = useIsFocused();
     const [ title, setTitle ] = useState ('');
     const [ textContent, setTextContent] = useState ('');
     const [ phone, setPhone ] = useState('');
@@ -27,12 +30,18 @@ export default function LoginScreen({navigation}) {
     let contentSection;
     let num = phone[8]+phone[9]
     const [userExist, setUserExist] = useState(false)
+    const user = useSelector((state)=> state.user.value.isConnected)
 
     useEffect (() => {
         setTitle('Identifiez-vous');
         setTextContent('Veuillez saisir votre numéro de téléphone, nous vous enverrons un code de confirmation.')
     },[]);
 
+    useEffect(()=> {
+        if(user === false) {
+            setIsContent(!isContent)
+        }
+    },[isFocused])
     
 
     if (!isContent) {
