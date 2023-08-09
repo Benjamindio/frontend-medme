@@ -59,7 +59,7 @@ handleClickNo = () => {
 
 const butnSelectedStyle = {
     backgroundColor: isSelected ? '#5FA59D' : '#ffffff',
-    color: isSelected ? 'white' : '#F5F5F5',
+    color: isSelected ? 'white' : '#afb1b6',
   }; 
 
 
