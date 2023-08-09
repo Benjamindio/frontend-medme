@@ -40,7 +40,7 @@ export default function ConfirmationCommande() {
     const handlePress = () => {
         dispatch(emptyCart(order))
         console.log(order)
-        navigation.navigate('Accueil')
+        navigation.navigate('SuiviCommande')
     }
 
     return (
